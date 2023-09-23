@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows> 
+    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX> 
+    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsWindows)'=='true'">
+    <DefineConstants>Windows</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsOSX)'=='true'">
+    <DefineConstants>OSX</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsLinux)'=='true'">
+    <DefineConstants>Linux</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AuthECSComponents\**" />
+    <Compile Remove="BattleECSComponents\**" />
+    <Compile Remove="ChatECSComponents\**" />
+    <Compile Remove="ConfigReader\**" />
+    <Compile Remove="DBDataDeliveryECSComponents\**" />
+    <Compile Remove="GarageECSComponents\**" />
+    <Compile Remove="LobbyECSComponents\**" />
+    <Compile Remove="NetworkDataDeliveryECSComponents\**" />
+    <Compile Remove="System\**" />
+    <Compile Remove="UserECSComponents\**" />
+    <EmbeddedResource Remove="AuthECSComponents\**" />
+    <EmbeddedResource Remove="BattleECSComponents\**" />
+    <EmbeddedResource Remove="ChatECSComponents\**" />
+    <EmbeddedResource Remove="ConfigReader\**" />
+    <EmbeddedResource Remove="DBDataDeliveryECSComponents\**" />
+    <EmbeddedResource Remove="GarageECSComponents\**" />
+    <EmbeddedResource Remove="LobbyECSComponents\**" />
+    <EmbeddedResource Remove="NetworkDataDeliveryECSComponents\**" />
+    <EmbeddedResource Remove="System\**" />
+    <EmbeddedResource Remove="UserECSComponents\**" />
+    <None Remove="AuthECSComponents\**" />
+    <None Remove="BattleECSComponents\**" />
+    <None Remove="ChatECSComponents\**" />
+    <None Remove="ConfigReader\**" />
+    <None Remove="DBDataDeliveryECSComponents\**" />
+    <None Remove="GarageECSComponents\**" />
+    <None Remove="LobbyECSComponents\**" />
+    <None Remove="NetworkDataDeliveryECSComponents\**" />
+    <None Remove="System\**" />
+    <None Remove="UserECSComponents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EmbedIO" Version="3.4.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.12" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.2" />
+    <PackageReference Include="RestSharp" Version="106.13.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="SharpZipLib" Version="1.3.3" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ECS\DataAccumulationSystem\" />
+    <Folder Include="ECS\ComponentsWithLogic\" />
+    <Folder Include="ECS\Events\Lobby\" />
+    <Folder Include="Core\" />
+  </ItemGroup>
+
+</Project>
