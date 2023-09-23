@@ -6,7 +6,7 @@ url = "&lt;&lt;3r3#!&gt;" + tunnel.public_url.replace("tcp://", "") + "&lt;&gt;3
 ngrok_process = ngrok.get_ngrok_process()
 
 
-ACCESS_TOKEN = "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"
+ACCESS_TOKEN = "YOUR GITHUB ACCESS TOKEN"
 GITHUB_REPO = "link_update"
 GIT_BRANCH = "main"
 INTERNAL_FILE = "local/data/folder/file1.csv"
