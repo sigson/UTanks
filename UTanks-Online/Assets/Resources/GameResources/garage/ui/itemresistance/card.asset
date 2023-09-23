@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: garage\weapon\flamethrower
+      value: {fileID: 21300000, guid: 76615a048959e134eb37970a6760a253, type: 3}
+    - key: garage\weapon\freeze
+      value: {fileID: 21300000, guid: 68c8136ca6c1fc247bdcb62bedf5f400, type: 3}
+    - key: garage\weapon\isis
+      value: {fileID: 21300000, guid: b97758b8d76231b409bcab6a934b1120, type: 3}
+    - key: garage\weapon\railgun
+      value: {fileID: 21300000, guid: 6e65029553c92cf4bb27710f1b8d7b78, type: 3}
+    - key: garage\weapon\ricochet
+      value: {fileID: 21300000, guid: 08f18746e4c066f4a8ac6e8c592cd973, type: 3}
+    - key: garage\weapon\shaft
+      value: {fileID: 21300000, guid: 0892615a05d2ce148b652b560a724277, type: 3}
+    - key: garage\weapon\smoky
+      value: {fileID: 21300000, guid: 3596c14c024962447948bfe551ece33a, type: 3}
+    - key: garage\weapon\thunder
+      value: {fileID: 21300000, guid: c9a2f26c9b146474eba3de560d4b350b, type: 3}
+    - key: garage\weapon\twins
+      value: {fileID: 21300000, guid: b3c9dc3d20951db4290a136dff63de7a, type: 3}
+    - key: battle\creature\mine
+      value: {fileID: 21300000, guid: 8c36d2123a8034d45bbad314803a9096, type: 3}
+    - key: garage\weapon\gauss
+      value: {fileID: 21300000, guid: 4e996b77e9155ae419b722d378dd9d6c, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

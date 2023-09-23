@@ -1,0 +1,52 @@
+﻿///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// lets you debug sample counts. All samples in Better Lit are instrumented with the COUNTSAMPLES macro,
+// which this lets you visualize. Macro is in the FunctionLibrary.
+
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableDebugView"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableDebugViewMaterialEditor"
+END_OPTIONS
+
+BEGIN_SUBSHADERS
+   "FunctionLibrary.surfshader"
+END_SUBSHADERS
+
+BEGIN_DEFINES
+   #pragma shader_feature_local _ _DEBUG_SAMPLECOUNT
+END_DEFINES
+
+BEGIN_PROPERTIES
+	_DebugSampleCountThreshold ("Debug Sample Threshold", Int) = 12
+END_PROPERTIES
+
+BEGIN_CBUFFER
+	int _DebugSampleCountThreshold;
+END_CBUFFER
+
+
+BEGIN_CODE
+
+	void SurfaceFunction(inout Surface o, ShaderData d)
+	{
+		#if _DEBUG_SAMPLECOUNT
+			if (_sampleCount > _DebugSampleCountThreshold)
+			{
+				o.Albedo.r = 1;
+				o.Albedo.gb *= 0.2;
+			}
+			else
+			{
+				o.Albedo.b = 1;
+			}
+
+        #endif
+	}
+
+END_CODE
+

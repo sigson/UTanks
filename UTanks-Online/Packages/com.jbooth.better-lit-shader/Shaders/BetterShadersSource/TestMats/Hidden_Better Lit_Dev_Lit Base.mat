@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden_Better Lit_Dev_Lit Base
+  m_Shader: {fileID: -6465566751694194690, guid: 6c11785ac17ca4e1794deb8a6f2e761a,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseColor:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerTextureMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecularMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlbedoBrightness: 0
+    - _AlbedoContrast: 1
+    - _AlphaThreshold: 0
+    - _DetailAlbedoStrength: 1
+    - _DetailNormalStrength: 1
+    - _DetailSmoothnessStrength: 1
+    - _DetailStochasticContrast: 0.7
+    - _DetailStochasticScale: 0.5
+    - _DetailTriplanarContrast: 4
+    - _DetailTriplanarSpace: 0
+    - _DetailUVSource: 0
+    - _EmissionStrength: 1
+    - _FlatShadingBlend: 1
+    - _FuzzyShadingOn: 0
+    - _IsConverted: 1
+    - _LayerTextureMaskUVMode: 0
+    - _Metallic: 0
+    - _MicroShadowStrength: 0
+    - _NormalStrength: 1
+    - _ParallaxHeight: 0
+    - _Smoothness: 0
+    - _StochasticContrast: 0.7
+    - _StochasticScale: 0.5
+    - _TriplanarContrast: 4
+    - _TriplanarSpace: 0
+    - _UVSource: 0
+    m_Colors:
+    - _AORemap: {r: 0, g: 1, b: 0, a: 0}
+    - _FuzzyShadingColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FuzzyShadingParams: {r: 0.3, g: 1, b: 1.5, a: 1}
+    - _HeightRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _MetallicRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _SmoothnessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}

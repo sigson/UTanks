@@ -1,0 +1,39 @@
+{
+  "Logger": {
+    "PrintDebugVerbose": true,
+    "DateTimeFormat": "",
+    "CaretStartPos": 1,
+    "ExportLogsToFile": true
+  },
+  "Authenticator": {
+    "EmitLoginErrorReason": "Invalid API key"
+  },
+  "HashUtilOptions": {
+    "Iterations": 1,
+    "SaltSize": 32,
+    "KeySize": 32
+  },
+  "NetworkModule": {
+    "Port": 6667,
+    "BufferSize": 950
+  },
+  "ServerAutoRestart": true,
+  "JTServer": {
+    "EnableModule": true,
+	"RegistrationOpen": true,
+    "Path": {},
+    "Excecutable": {},
+    "Arguments": [
+      "-run",
+      "127.0.0.1",
+      "1677",
+      "20",
+      "-disable-ping",
+      "-enable-stack-trace",
+      "-disable-map-bounds",
+      "-super-cool-container-active",
+      "-test-server",
+      "-help"
+    ]
+  }
+}

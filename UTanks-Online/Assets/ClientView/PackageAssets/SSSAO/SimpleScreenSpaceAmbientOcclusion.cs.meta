@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 856787d014c4446a7b99b9af3cf2b04d
+timeCreated: 1485879051
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - m_AxisPattern: {fileID: 2800000, guid: ef2abf928b3324453a512f9120f36b53, type: 2}
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: cf8e7fa7a98e8475f9bea182efe74b1a, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

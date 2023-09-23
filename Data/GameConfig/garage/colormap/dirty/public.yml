@@ -1,0 +1,29 @@
+priceItem:
+  price: 1000
+xPriceItem:
+  price: 0
+weaponResists:
+- weaponResist: garage\weapon\nullresist
+  resistPercents: 0
+- weaponResist: garage\weapon\shaft
+  resistPercents: 26
+- weaponResist: garage\weapon\railgun
+  resistPercents: 8
+maskinFactorPercentProperty:
+  maskPercents: 15
+shaderAnimation: false
+frameAnimation: false
+videoAnimation: false
+imageItem:
+  spriteUid: 6e7887e9-65a1-4179-b1b0-3067134bd9d6
+order:
+  index: 7
+unityAsset:
+ reference:
+  assetGuid: 4b32c00c04505b9489ec6cf81f9e2a02
+purchaseUpgradeLevelRestriction:
+  restrictionValue: 0
+crystalsPurchaseUserRankRestriction:
+  restrictionValue: 6
+itemRarity:
+  rarityType: EPIC

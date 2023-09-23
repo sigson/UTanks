@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 1
+  ItemData:
+    dictionary:
+    - key: card
+      value: {fileID: 11400000}
+    - key: image
+      value: {fileID: 2800000, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_0
+      value: {fileID: 1208040086343421634, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_1
+      value: {fileID: 3888885927669863452, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_2
+      value: {fileID: 7490263070313451839, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_3
+      value: {fileID: 4226173966848952685, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_4
+      value: {fileID: -1333989528306422963, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_5
+      value: {fileID: 2760427164684504735, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_6
+      value: {fileID: -6145872667730287161, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_7
+      value: {fileID: 3108315301061666720, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_8
+      value: {fileID: 5670843616968309514, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_9
+      value: {fileID: 4806998287635712323, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_10
+      value: {fileID: 6106151065240408750, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_11
+      value: {fileID: -2823696916193601315, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_12
+      value: {fileID: 1441677091247043913, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_13
+      value: {fileID: 5283379734637592717, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_14
+      value: {fileID: 7869698319530661429, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_15
+      value: {fileID: -7399442417252559517, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_16
+      value: {fileID: 6302069618056057629, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_17
+      value: {fileID: 2494193451368479091, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_18
+      value: {fileID: 4638043003672056620, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_19
+      value: {fileID: 5040738657099314932, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_20
+      value: {fileID: -6462207579800575135, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_21
+      value: {fileID: 961023205735478071, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_22
+      value: {fileID: 2711420340482264535, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_23
+      value: {fileID: 8135227897027692249, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_24
+      value: {fileID: -661377770043028509, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_25
+      value: {fileID: -1851605075089815019, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_26
+      value: {fileID: -7555021896149130748, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_27
+      value: {fileID: -2447172259965739627, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_28
+      value: {fileID: -3960658492448010452, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_29
+      value: {fileID: -5686861994817495733, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_30
+      value: {fileID: 1594607770383239194, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_31
+      value: {fileID: 6279945882669660027, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_32
+      value: {fileID: 8960977155743928563, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_33
+      value: {fileID: 3470390648669311334, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_34
+      value: {fileID: -7751154609379458535, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_35
+      value: {fileID: 1964492147885115163, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_36
+      value: {fileID: 6665656828693367960, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_37
+      value: {fileID: 3574058274527877114, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_38
+      value: {fileID: -6297737643658516776, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_39
+      value: {fileID: -2179530318581858940, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_40
+      value: {fileID: 6310848488480424613, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_41
+      value: {fileID: 4721580947609775324, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_42
+      value: {fileID: -2042347129948241619, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_43
+      value: {fileID: 3431141188209172792, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_44
+      value: {fileID: -5313114088513221331, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_45
+      value: {fileID: 8641317189020392324, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_46
+      value: {fileID: 8816912339793788845, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_47
+      value: {fileID: 7236433610640182957, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_48
+      value: {fileID: -7135434541446694416, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_49
+      value: {fileID: -7157926582777674794, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_50
+      value: {fileID: 1242669392638721511, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_51
+      value: {fileID: -4263832973758777539, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_52
+      value: {fileID: 5869972161856365014, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_53
+      value: {fileID: 7318973151217371242, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_54
+      value: {fileID: -1663918859184631621, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_55
+      value: {fileID: 7495968905265680340, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_56
+      value: {fileID: -7132301757376759697, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_57
+      value: {fileID: 4578282434443713653, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_58
+      value: {fileID: 8097882499978045398, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_59
+      value: {fileID: 4848839231350112648, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_60
+      value: {fileID: 8578236313565313629, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_61
+      value: {fileID: 700176120118439607, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_62
+      value: {fileID: 2492919394141808480, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: image_63
+      value: {fileID: -6893142136204823030, guid: 7de7d59ab2b0b3a468a6dffab99bd353, type: 3}
+    - key: preview
+      value: {fileID: 2800000, guid: 0d975641fa3cb38419a62917262dfe84, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

@@ -1,0 +1,31 @@
+priceItem:
+  price: 10000
+xPriceItem:
+  price: 199
+weaponResists:
+- weaponResist: garage\weapon\nullresist
+  resistPercents: 40
+- weaponResist: garage\weapon\gauss
+  resistPercents: 38
+- weaponResist: garage\weapon\railgun
+  resistPercents: 20
+- weaponResist: garage\weapon\flamethrower
+  resistPercents: 5
+maskinFactorPercentProperty:
+  maskPercents: 15
+shaderAnimation: false
+frameAnimation: false
+videoAnimation: false
+imageItem:
+  spriteUid: f97c9963-b158-4e0e-b977-434e357230c5
+order:
+  index: 317
+unityAsset:
+ reference:
+  assetGuid: 5804a3be41159234f9d5b610ea21b35e
+purchaseUpgradeLevelRestriction:
+  restrictionValue: 0
+crystalsPurchaseUserRankRestriction:
+  restrictionValue: 12
+itemRarity:
+  rarityType: COMMON

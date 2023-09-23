@@ -1,0 +1,61 @@
+﻿
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableDissolve"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableDissolveEditor"
+END_OPTIONS
+
+BEGIN_PROPERTIES
+    _DissolveAmount("Dissolve Amount", Range(0,1)) = 0
+	_DissolveTexture("Dissolve Texture", 2D) = "black" {}
+    _DissolveGradient("Dissolve Gradient", 2D) = "white" {}
+	_DissolveColoration("Dissolve Coloration", Range(0,1)) = 1
+	_DissolveEdgeContrast("Dissolve Edge Contrast", Range(2, 128)) = 10
+    _DissolveEmissiveStr("Dissolve Emissive Strength", Range(0,4)) = 0
+END_PROPERTIES
+
+BEGIN_DEFINES
+	#pragma shader_feature_local _ _DISSOLVE
+END_DEFINES
+
+BEGIN_CBUFFER
+	half _DissolveAmount;
+	half _DissolveEmissiveStr;
+	half _DissolveEdgeContrast;
+	half _DissolveColoration;
+	float4 _DissolveTexture_ST;
+
+END_CBUFFER
+
+
+BEGIN_CODE
+
+	SAMPLER(sampler_DissolveTexture);
+	TEXTURE2D(_DissolveTexture);
+	TEXTURE2D(_DissolveGradient);
+
+	void SurfaceFunction(inout Surface o, ShaderData d)
+	{
+		#if _DISSOLVE
+		float2 uv = d.texcoord0.xy * _DissolveTexture_ST.xy + _DissolveTexture_ST.zw;
+		float2 dx = ddx(uv);
+		float2 dy = ddy(uv);
+
+		UNITY_BRANCH
+		if (_DissolveAmount > 0)
+		{
+			half dissolve = SAMPLE_TEXTURE2D_GRAD(_DissolveTexture, sampler_DissolveTexture, uv, dx, dy).g;
+			half cp =  saturate(_DissolveAmount - (dissolve - _DissolveAmount) * _DissolveEdgeContrast) + _DissolveAmount;
+			half cp2 = saturate(1.0 - abs((dissolve - _DissolveAmount) * _DissolveEdgeContrast));
+			clip(1.0 - cp);
+			float2 fuv = float2(cp2, 0.5);
+			half3 col = SAMPLE_TEXTURE2D_LOD(_DissolveGradient, sampler_DissolveTexture, fuv, 0).rgb;
+				
+			o.Albedo = lerp(o.Albedo, col, _DissolveColoration * cp2);
+			o.Emission = lerp(o.Emission, col * _DissolveEmissiveStr, _DissolveColoration * cp2);
+		}
+		#endif
+	}
+
+END_CODE
+

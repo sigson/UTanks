@@ -1,0 +1,21 @@
+﻿///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// Lit alpha, just inherit lit and turn on the blend mode
+
+BEGIN_OPTIONS
+   ShaderName "Better Lit/Development/Lit Alpha"
+   Queue "Transparent"
+   Alpha "Blend"
+END_OPTIONS
+
+BEGIN_SUBSHADERS
+   "Lit-Dev.surfshader" 
+END_SUBSHADERS
+
+BEGIN_PROPERTIES
+   _IsAlpha("Not Used or set, just so the editor knows we are an alpha shader", Float) = 0
+END_PROPERTIES
+

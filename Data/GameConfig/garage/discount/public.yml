@@ -1,0 +1,5 @@
+globalDiscount:
+  - item:
+    id: 0
+    salePercent: 0
+...

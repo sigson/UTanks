@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5226841792913249849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5226841792913249850}
+  - component: {fileID: 5226841792913249851}
+  - component: {fileID: -2730507761621425503}
+  - component: {fileID: -4962730121909129516}
+  - component: {fileID: -9196796589939671538}
+  m_Layer: 0
+  m_Name: ReflectionProbeLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5226841792913249850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226841792913249849}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.78, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!215 &5226841792913249851
+ReflectionProbe:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226841792913249849}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Type: 0
+  m_Mode: 1
+  m_RefreshMode: 0
+  m_TimeSlicingMode: 1
+  m_Resolution: 16
+  m_UpdateFrequency: 0
+  m_BoxSize: {x: 0.13524449, y: 0.5, z: 0.0007209163}
+  m_BoxOffset: {x: -0.067622244, y: -0.092191696, z: -0.00036045816}
+  m_NearClip: 3
+  m_FarClip: 1000
+  m_ShadowDistance: 100
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0.99103713, b: 1, a: 0}
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_IntensityMultiplier: 4
+  m_BlendDistance: 2.53
+  m_HDR: 0
+  m_BoxProjection: 0
+  m_RenderDynamicObjects: 0
+  m_UseOcclusionCulling: 0
+  m_Importance: 2
+  m_CustomBakedTexture: {fileID: 0}
+--- !u!114 &-2730507761621425503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226841792913249849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3566948477043549b58606b52b9370c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightColor: {r: 0, g: 0.99215686, b: 1, a: 0}
+  lightSize: 2.53
+  lightImportance: 2
+  lightIntencity: 2.5
+  lightSwitchState: 0
+  checkGround: 1
+  cookie: {fileID: 0}
+--- !u!114 &-4962730121909129516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226841792913249849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef0c601ea228254f847d7275c0b16a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerManagerSpace: {fileID: 0}
+  instanceId: 1596352948210426978
+  ChildTemp: []
+  objectEnabled: 1
+  lights:
+  - {fileID: -2730507761621425503}
+  WeaponLight: 0
+  MapObjectLight: 0
+  GlobalMapLight: 0
+--- !u!114 &-9196796589939671538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226841792913249849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ac79ff8e3cef14085b6a66fcc0c4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ID: ReflectionProbeLight
+  cID: 0

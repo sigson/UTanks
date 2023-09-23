@@ -1,0 +1,11 @@
+{
+  "garage": {
+    "DonateItem": [
+      {
+        "PathName": "",
+        "Count": 1,
+        "TimeOfExpiration": 1233
+      }
+    ]
+  }
+}

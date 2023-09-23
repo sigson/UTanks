@@ -1,0 +1,307 @@
+grades:
+- grade: 0
+  priceItem:
+    price: 500
+  xPriceItem:
+    price: 160
+  userItemTemplate:
+    userItemTemplate: 1435910167704
+  itemIcon:
+    spriteUid: 766f4b6f-d66c-4b9f-856c-ae13211d4b74
+  order:
+    index: 4
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 6
+  damagePerSecondProperty:
+    initialValue: 22
+    finalValue: 22
+  healingProperty:
+    initialValue: 27
+    finalValue: 27
+  energyChargeSpeedProperty:
+    initialValue: 0.125
+    finalValue: 0.125
+  energyRechargeSpeedProperty:
+    initialValue: 0.143
+    finalValue: 0.143
+  selfHealingProperty:
+    initialValue: 28.609
+    finalValue: 28.609
+  increaseFriendTemperatureProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  decreaseFriendTemperatureProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  maxShotDistanceProperty:
+    initialValue: 17.3
+    finalValue: 17.3
+  turretSpeedRotationProperty:
+    initialValue: 15.000
+    finalValue: 15.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 0.5
+    - name: Range
+      normalizedValue: 0.1
+    - name: FireRate
+      normalizedValue: 1.00
+    properties:
+    - name: DPM
+      initialValue: 14766
+      finalValue: 14766
+    - name: Damage per Second
+      initialValue: 461
+      finalValue: 461
+    - name: Healing per Second
+      initialValue: 415
+      finalValue: 415
+    - name: Charge Time
+      initialValue: 8
+      finalValue: 8
+      format: 0.0
+      unit: sec
+    - name: Reload Time
+      initialValue: 7
+      finalValue: 7
+      format: 0
+      unit: sec
+    - name: Attack Distance
+      initialValue: 17
+      finalValue: 17
+      unit: m
+    - name: SelfHealingAmount
+      initialValue: 28
+      finalValue: 28
+      
+- grade: 1
+  priceItem:
+    price: 1300
+  xPriceItem:
+    price: 160
+  userItemTemplate:
+    userItemTemplate: 1435910167704
+  itemIcon:
+    spriteUid: 766f4b6f-d66c-4b9f-856c-ae13211d4b74
+  order:
+    index: 4
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 10
+  damagePerSecondProperty:
+    initialValue: 27
+    finalValue: 27
+  healingProperty:
+    initialValue: 32
+    finalValue: 32
+  energyChargeSpeedProperty:
+    initialValue: 0.125
+    finalValue: 0.125
+  energyRechargeSpeedProperty:
+    initialValue: 0.143
+    finalValue: 0.143
+  selfHealingProperty:
+    initialValue: 28.609
+    finalValue: 28.609
+  increaseFriendTemperatureProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  decreaseFriendTemperatureProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  maxShotDistanceProperty:
+    initialValue: 17.3
+    finalValue: 17.3
+  turretSpeedRotationProperty:
+    initialValue: 15.000
+    finalValue: 15.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 0.5
+    - name: Range
+      normalizedValue: 0.1
+    - name: FireRate
+      normalizedValue: 1.00
+    properties:
+    - name: DPM
+      initialValue: 14766
+      finalValue: 14766
+    - name: Damage per Second
+      initialValue: 461
+      finalValue: 461
+    - name: Healing per Second
+      initialValue: 415
+      finalValue: 415
+    - name: Charge Time
+      initialValue: 8
+      finalValue: 8
+      format: 0.0
+      unit: sec
+    - name: Reload Time
+      initialValue: 7
+      finalValue: 7
+      format: 0
+      unit: sec
+    - name: Attack Distance
+      initialValue: 17
+      finalValue: 17
+      unit: m
+    - name: SelfHealingAmount
+      initialValue: 28
+      finalValue: 28
+      
+- grade: 2
+  priceItem:
+    price: 5400
+  xPriceItem:
+    price: 160
+  userItemTemplate:
+    userItemTemplate: 1435910167704
+  itemIcon:
+    spriteUid: 766f4b6f-d66c-4b9f-856c-ae13211d4b74
+  order:
+    index: 4
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 12
+  damagePerSecondProperty:
+    initialValue: 32
+    finalValue: 32
+  healingProperty:
+    initialValue: 37
+    finalValue: 37
+  energyChargeSpeedProperty:
+    initialValue: 0.125
+    finalValue: 0.125
+  energyRechargeSpeedProperty:
+    initialValue: 0.143
+    finalValue: 0.143
+  selfHealingProperty:
+    initialValue: 28.609
+    finalValue: 28.609
+  increaseFriendTemperatureProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  decreaseFriendTemperatureProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  maxShotDistanceProperty:
+    initialValue: 17.3
+    finalValue: 17.3
+  turretSpeedRotationProperty:
+    initialValue: 15.000
+    finalValue: 15.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 0.5
+    - name: Range
+      normalizedValue: 0.1
+    - name: FireRate
+      normalizedValue: 1.00
+    properties:
+    - name: DPM
+      initialValue: 14766
+      finalValue: 14766
+    - name: Damage per Second
+      initialValue: 461
+      finalValue: 461
+    - name: Healing per Second
+      initialValue: 415
+      finalValue: 415
+    - name: Charge Time
+      initialValue: 8
+      finalValue: 8
+      format: 0.0
+      unit: sec
+    - name: Reload Time
+      initialValue: 7
+      finalValue: 7
+      format: 0
+      unit: sec
+    - name: Attack Distance
+      initialValue: 17
+      finalValue: 17
+      unit: m
+    - name: SelfHealingAmount
+      initialValue: 28
+      finalValue: 28
+      
+- grade: 3
+  priceItem:
+    price: 14000
+  xPriceItem:
+    price: 160
+  userItemTemplate:
+    userItemTemplate: 1435910167704
+  itemIcon:
+    spriteUid: 766f4b6f-d66c-4b9f-856c-ae13211d4b74
+  order:
+    index: 4
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 15
+  damagePerSecondProperty:
+    initialValue: 37
+    finalValue: 37
+  healingProperty:
+    initialValue: 42
+    finalValue: 42
+  energyChargeSpeedProperty:
+    initialValue: 0.125
+    finalValue: 0.125
+  energyRechargeSpeedProperty:
+    initialValue: 0.143
+    finalValue: 0.143
+  selfHealingProperty:
+    initialValue: 28.609
+    finalValue: 28.609
+  increaseFriendTemperatureProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  decreaseFriendTemperatureProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  maxShotDistanceProperty:
+    initialValue: 17.3
+    finalValue: 17.3
+  turretSpeedRotationProperty:
+    initialValue: 15.000
+    finalValue: 15.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 0.5
+    - name: Range
+      normalizedValue: 0.1
+    - name: FireRate
+      normalizedValue: 1.00
+    properties:
+    - name: DPM
+      initialValue: 14766
+      finalValue: 14766
+    - name: Damage per Second
+      initialValue: 461
+      finalValue: 461
+    - name: Healing per Second
+      initialValue: 415
+      finalValue: 415
+    - name: Charge Time
+      initialValue: 8
+      finalValue: 8
+      format: 0.0
+      unit: sec
+    - name: Reload Time
+      initialValue: 7
+      finalValue: 7
+      format: 0
+      unit: sec
+    - name: Attack Distance
+      initialValue: 17
+      finalValue: 17
+      unit: m
+    - name: SelfHealingAmount
+      initialValue: 28
+      finalValue: 28
+      
+
+...

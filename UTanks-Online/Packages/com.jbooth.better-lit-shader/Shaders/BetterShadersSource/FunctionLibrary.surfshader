@@ -1,0 +1,1079 @@
+﻿///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// Common function library
+
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Development/FunctionLibrary"
+   Stackable "False"
+END_OPTIONS
+
+
+BEGIN_PROPERTIES
+   [HideInInspector]_NoiseTex("Noise Texture", 2D) = "black" {}
+END_PROPERTIES
+
+
+BEGIN_CODE
+
+#ifndef __STACKABLEFUNCLIBRARY_INCLUDES__
+#define __STACKABLEFUNCLIBRARY_INCLUDES__
+
+   #if _DEBUG_SAMPLECOUNT
+      int _sampleCount;
+      #define COUNTSAMPLE { _sampleCount++; }
+   #else
+      #define COUNTSAMPLE
+   #endif
+
+   TEXTURE2D(_NoiseTex);
+   SAMPLER(sampler_NoiseTex);
+
+
+
+   half3 AdjustContrast(half3 color, half contrast)
+   {
+       half3 comp = 0.5;
+   #if !UNITY_COLORSPACE_GAMMA
+       comp = 0.22;
+   #endif
+       color = saturate(lerp(comp, color, contrast));
+       return color;
+   }
+
+   float2 DoParallaxOffset( half h, half height, half3 viewDir)
+   {
+      h = h * height - height/2.0;
+      float3 v = normalize(viewDir);
+      v.z += 0.42;
+      return h * (v.xy / v.z);
+   }
+
+
+
+   #define SAMPLEBARY SampleTexBary
+
+   struct SampleConfig
+   {
+      float2 uv0;
+      float2 uv1;
+      float2 uv2;
+      float2 dx0;
+      float2 dy0;
+      float2 dx1;
+      float2 dy1;
+      float2 dx2;
+      float2 dy2;
+      float3 weights;
+      float3 origWeights;
+   };
+
+   struct Config
+   {
+      float2 origUV; // unscaled uv
+      float2 origScale;
+      float2 uv;        // no stocastic or triplanar
+      float2 dx;
+      float2 dy;
+      SampleConfig uvT; // just stochastic, or just triplanar
+      SampleConfig uvX; // stochastic and triplanar
+      SampleConfig uvY;
+      SampleConfig uvZ;
+
+      
+      float3 absVertNormal;
+      half3 axisSign;
+      float3 normal;
+   };
+
+
+    float2 Hash2D( float2 x )
+    {
+        float2 k = float2( 0.3183099, 0.3678794 );
+        x = x*k + k.yx;
+        return -1.0 + 2.0*frac( 16.0 * k*frac( x.x*x.y*(x.x+x.y)) );
+    }
+
+    float Noise2D(float2 p )
+    {
+        float2 i = floor( p );
+        float2 f = frac( p );
+         
+        float2 u = f*f*(3.0-2.0*f);
+
+        return lerp( lerp( dot( Hash2D( i + float2(0.0,0.0) ), f - float2(0.0,0.0) ), 
+                        dot( Hash2D( i + float2(1.0,0.0) ), f - float2(1.0,0.0) ), u.x),
+                    lerp( dot( Hash2D( i + float2(0.0,1.0) ), f - float2(0.0,1.0) ), 
+                        dot( Hash2D( i + float2(1.0,1.0) ), f - float2(1.0,1.0) ), u.x), u.y);
+    }
+      
+
+    float2 WorleyHash2D(float2 p)
+    {
+ 	    return frac(cos(mul(p, float2x2(-64.2,71.3,81.4,-29.8)))*8321.3); 
+    }
+    float WorleyNoise2D(float2 p)
+    {
+        float dist = 1;
+        float2 i = floor(p);
+        float2 f = frac(p);
+    
+        for(int x = -1;x<=1;x++)
+        {
+            for(int y = -1;y<=1;y++)
+            {
+                float d = distance(WorleyHash2D(i+float2(x,y))+float2(x,y),f);
+                dist = min(dist,d);
+            }
+        }
+        return dist;
+	
+    }
+
+#ifndef PI
+    #define PI 3.14159265359
+#endif
+
+    float GetIntegerNoise(float2 p)
+    {
+        p  = 53.7 * frac( (p*0.3183099) + float2(0.71,0.113));
+        return frac( p.x*p.y*(p.x+p.y) );
+    }
+
+    float WorleyHash3D(float f)
+    {
+        return frac(sin(f)*43758.5453);
+    }
+
+    float WorleyHash31(float3 v)
+    {
+        return WorleyHash3D(dot(v, float3(253.14, 453.74, 183.3)));
+    }
+
+    float3 WorleyRandom3D( float3 p )
+    {
+        return frac(sin(float3(dot(p,float3(127.1,311.7,217.3)),dot(p,float3(269.5,183.3,431.1)), dot(p,float3(365.6,749.9,323.7))))*437158.5453);
+    }
+
+    float WorleyNoise3D(float3 uvw)
+    {
+        float noise = 0.0;
+    
+        float3 p = floor(uvw);
+        float3 f = frac(uvw);
+    
+        float4 res = 1;
+        for(int x = -1; x <=1; ++x)
+        {
+            for(int y = -1; y <=1; ++y)
+            {
+                for(int z = -1; z <=1; ++z)
+                {
+                    float3 gp = p + float3(x, y, z);
+
+                    float3 v = WorleyRandom3D(gp);
+
+				    float3 diff = gp + v - uvw;
+                
+                    float d = length(diff);
+                
+                    if(d < res.x)
+                    {
+                        res.xyz = float3(d, res.x, res.y);
+                    }
+                    else if(d < res.y)
+                    {
+                        res.xyz = float3(res.x, d, res.y);
+                    }
+                    else if(d < res.z)
+                    {
+                        res.z = d;
+                    }
+                
+                    res.w = WorleyHash31(gp);
+                }
+            }
+        }
+
+        return res.x;
+    }
+    
+      
+    float3 Hash3D( float3 p )
+    {
+        p = float3( dot(p,float3(127.1,311.7, 74.7)),
+                dot(p,float3(269.5,183.3,246.1)),
+                dot(p,float3(113.5,271.9,124.6)));
+
+        return -1.0 + 2.0*frac(sin(p)*437.5453123);
+    }
+
+    float Noise3D( float3 p )
+    {
+        float3 i = floor( p );
+        float3 f = frac( p );
+         
+        float3 u = f*f*(3.0-2.0*f);
+
+        return lerp( lerp( lerp( dot( Hash3D( i + float3(0.0,0.0,0.0) ), f - float3(0.0,0.0,0.0) ), 
+                            dot( Hash3D( i + float3(1.0,0.0,0.0) ), f - float3(1.0,0.0,0.0) ), u.x),
+                        lerp( dot( Hash3D( i + float3(0.0,1.0,0.0) ), f - float3(0.0,1.0,0.0) ), 
+                            dot( Hash3D( i + float3(1.0,1.0,0.0) ), f - float3(1.0,1.0,0.0) ), u.x), u.y),
+                    lerp( lerp( dot( Hash3D( i + float3(0.0,0.0,1.0) ), f - float3(0.0,0.0,1.0) ), 
+                            dot( Hash3D( i + float3(1.0,0.0,1.0) ), f - float3(1.0,0.0,1.0) ), u.x),
+                        lerp( dot( Hash3D( i + float3(0.0,1.0,1.0) ), f - float3(0.0,1.0,1.0) ), 
+                            dot( Hash3D( i + float3(1.0,1.0,1.0) ), f - float3(1.0,1.0,1.0) ), u.x), u.y), u.z );
+    }
+
+    
+    float FBM2D(float2 uv)
+    {
+        #if _NOISEHQ
+           float f = 0.5000*Noise2D( uv ); uv *= 2.01;
+           f += 0.2500*Noise2D( uv ); uv *= 1.96;
+           f += 0.1250*Noise2D( uv );
+           return f;
+        #elif _NOISETEXTURE
+           COUNTSAMPLE
+           return SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, uv).g;
+        #elif _NOISEWORLEY
+           return WorleyNoise2D(uv);
+        #else
+           return Noise2D(uv);
+        #endif
+
+    }
+      
+    float FBM3D(float3 uv, float3 pN)
+    {
+        #if _NOISEHQ
+           float f = 0.5000*Noise3D( uv ); uv *= 2.01;
+           f += 0.2500*Noise3D( uv ); uv *= 1.96;
+           f += 0.1250*Noise3D( uv );
+           return f;
+        #elif _NOISETEXTURE
+           COUNTSAMPLE
+           COUNTSAMPLE
+           COUNTSAMPLE
+           half A = SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, uv.zy).g;
+           half B = SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, uv.xz + 0.33).g;
+           half C = SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, uv.xy + 0.67).g;
+           half3 triblend = saturate(pow(pN, 4));
+           triblend /= max(dot(triblend, half3(1,1,1)), 0.0001);
+           return A * triblend.x + B * triblend.y + C * triblend.z;
+        #elif _NOISEWORLEY
+           return WorleyNoise3D(uv);
+        #else
+           return Noise3D(uv);
+        #endif
+        
+    }
+
+    float DoNoise(ShaderData d, float frequency, float offset)
+    {
+        #if _NOISEWORLD
+           return FBM3D(d.worldSpacePosition * frequency + offset, d.worldSpaceNormal);
+        #elif _NOISELOCAL
+           return FBM3D(d.localSpacePosition * frequency+ offset, d.localSpaceNormal);
+        #else
+           return FBM2D(d.texcoord0.xy * frequency + offset);
+        #endif
+    }
+
+    
+    #if _SURFACEGRADIENT  
+
+    #define HALF_EPS 4.8828125e-4    // 2^-11, machine epsilon: 1 + EPS = 1 (half of the ULP for 1.0f)
+
+      
+      
+    half3 SurfaceGradientFromTBN(ShaderData d, half2 deriv)
+    {
+        return deriv.x * d.TBNMatrix[0] + deriv.y * d.TBNMatrix[1];
+    }
+
+    half2 TspaceNormalToDerivative(half3 vM)
+    {
+        const half scale = 1.0/128.0;
+        const half3 vMa = abs(vM);
+        const half z_ma = max(vMa.z, scale*max(vMa.x, vMa.y));
+
+        return -half2(vM.x, vM.y)/z_ma;
+    }
+
+    half3 SurfgradFromVolumeGradient(ShaderData d, half3 grad)
+    {
+        return grad - dot(d.worldSpaceNormal, grad) * d.worldSpaceNormal;
+    }
+
+    half3 SurfgradFromTriplanarProjection(ShaderData d, half3 pN, half3 xN, half3 yN, half3 zN)
+    {
+        const half w0 = pN.x;
+        const half w1 = pN.y;
+        const half w2 = pN.z;
+
+        half2 xD = TspaceNormalToDerivative(xN);
+        half2 yD = TspaceNormalToDerivative(yN);
+        half2 zD = TspaceNormalToDerivative(zN);
+
+        half3 volumeGrad = half3(w2 * zD.x + w1 * yD.y, w2 * zD.y + w0 * xD.y, w0 * xD.x + w1 * yD.x);
+
+        return SurfgradFromVolumeGradient(d, volumeGrad);
+    }
+
+    half3 ConvertNormalToGradient(ShaderData d, half3 normal)
+    {
+        half2 deriv = TspaceNormalToDerivative(normal);
+
+        return SurfaceGradientFromTBN(d, deriv);
+    }
+
+    half3 ConvertNormal2ToGradient(ShaderData d, half2 packedNormal)
+    {
+        half2 tNormal = packedNormal;
+        half rcpZ = rsqrt(max(1 - dot(tNormal.x, tNormal.x) - dot(tNormal.y, tNormal.y), dot(HALF_EPS, HALF_EPS))); // Clamp to avoid INF
+        half2 deriv = tNormal * -rcpZ;
+        return SurfaceGradientFromTBN(d, deriv);
+    }
+
+
+    half3 ResolveNormalFromSurfaceGradient(ShaderData d, half3 gradient)
+    {
+        return normalize(d.worldSpaceNormal - gradient);
+    }
+
+    #endif // _SURFACEGRADIENT
+
+
+    // normals are in surface gradient or world space depending on settings, and can also be generated by height
+    half3 GetWorldSpaceNormal(ShaderData d, half3 normal, half pheight)
+    {
+       #if _SURFACEGRADIENT
+          return ResolveNormalFromSurfaceGradient(d, normal);
+       #elif _AUTONORMAL
+          float3 dx = ddx(d.worldSpacePosition);
+          float3 dy = ddy(d.worldSpacePosition);
+          float3 crossX = cross(float3(0,1,0), dx);
+          float3 crossY = cross(float3(0,1,0), dy);
+          float3 dt = abs(dot(crossY, dx));
+          float height = _AutoNormalStrength * 0.5 * pheight;
+          float3 n = ((((height + ddx(height)) - height) * crossY) + (((height + ddy(height)) - height) * crossX)) * sign(dt);
+          n.y *= -1.0;
+          return TangentToWorldSpace(d, normalize((dt * float3(0,1,0)) - n).xzy);
+       #else
+          return TangentToWorldSpace(d, normal);
+          
+       #endif
+       
+    }
+
+   void WaterBRDF (inout half3 albedo, inout half smoothness, half metallic, half wetFactor, half surfPorosity) 
+   {
+      half porosity = saturate((( (1 - smoothness) - 0.5)) / max(surfPorosity, 0.001));
+      half factor = lerp(1, 0.2, (1 - metallic) * porosity);
+      albedo *= lerp(1.0, factor, wetFactor);
+      smoothness = lerp(smoothness, 0.92f, wetFactor);
+   }
+
+   void OffsetUV(inout Config c, float2 offset)
+   {
+       c.uv += offset;
+       c.uvT.uv0 += offset;
+       c.uvT.uv1 += offset;
+       c.uvT.uv2 += offset;
+       c.uvX.uv0 += offset;
+       c.uvX.uv1 += offset;
+       c.uvX.uv2 += offset;
+       c.uvY.uv0 += offset;
+       c.uvY.uv1 += offset;
+       c.uvY.uv2 += offset;
+       c.uvZ.uv0 += offset;
+       c.uvZ.uv1 += offset;
+       c.uvZ.uv2 += offset;
+   }
+
+
+    void TriangleGrid(float2 uv, float scale,
+       out float w1, out float w2, out float w3,
+       out int2 vertex1, out int2 vertex2, out int2 vertex3)
+    {
+       // Scaling of the input
+       uv *= 3.464 * scale; // 2 * sqrt(3)
+
+       // Skew input space into simplex triangle grid
+       const float2x2 gridToSkewedGrid = float2x2(1.0, 0.0, -0.57735027, 1.15470054);
+       float2 skewedCoord = mul(gridToSkewedGrid, uv);
+
+       // Compute local triangle vertex IDs and local barycentric coordinates
+       int2 baseId = int2(floor(skewedCoord));
+       float3 temp = float3(frac(skewedCoord), 0);
+       temp.z = 1.0 - temp.x - temp.y;
+       if (temp.z > 0.0)
+       {
+          w1 = temp.z;
+          w2 = temp.y;
+          w3 = temp.x;
+          vertex1 = baseId;
+          vertex2 = baseId + int2(0, 1);
+          vertex3 = baseId + int2(1, 0);
+       }
+       else
+       {
+          w1 = -temp.z;
+          w2 = 1.0 - temp.y;
+          w3 = 1.0 - temp.x;
+          vertex1 = baseId + int2(1, 1);
+          vertex2 = baseId + int2(1, 0);
+          vertex3 = baseId + int2(0, 1);
+       }
+    }
+
+    // Fast random hash function
+    float2 SimpleHash2(float2 p)
+    {
+       return frac(sin(mul(float2x2(127.1, 311.7, 269.5, 183.3), p)) * 43758.5453);
+    }
+
+
+    half3 BaryWeightBlend(half3 iWeights, half tex0, half tex1, half tex2, half contrast)
+    {
+        // compute weight with height map
+        const half epsilon = 1.0f / 1024.0f;
+        half3 weights = half3(iWeights.x * (tex0 + epsilon), 
+                                 iWeights.y * (tex1 + epsilon),
+                                 iWeights.z * (tex2 + epsilon));
+
+        // Contrast weights
+        half maxWeight = max(weights.x, max(weights.y, weights.z));
+        half transition = contrast * maxWeight;
+        half threshold = maxWeight - transition;
+        half scale = 1.0f / transition;
+        weights = saturate((weights - threshold) * scale);
+        // Normalize weights.
+        half weightScale = 1.0f / (weights.x + weights.y + weights.z);
+        weights *= weightScale;
+        return weights;
+    }
+
+
+    half3 PackedUnpackScaleNormal(half4 packedNormal, float scale)
+   {
+       #if _PACKEDFAST
+          half3 normal;
+          normal.xy = (packedNormal.ag * 2 - 1) * scale;
+          normal.z = sqrt(1 - saturate(dot(normal.xy, normal.xy)));
+          return normal;  
+       #endif
+       return UnpackScaleNormal(packedNormal, scale);
+   }
+
+    void InitStochasticDxDy(inout SampleConfig c, Config cfg)
+    {
+      c.dx0 = ddx(cfg.origUV) * cfg.origScale;
+      c.dy0 = ddy(cfg.origUV) * cfg.origScale;
+      c.dx1 = c.dx0; c.dx1 = c.dx0;
+      c.dx2 = c.dy0; c.dy2 = c.dy0;
+    }
+
+    void PrepareStochasticUVs(float scale, float2 uv, out SampleConfig c)
+    {
+       // Get triangle info
+       ZERO_INITIALIZE(SampleConfig, c);
+       float w1, w2, w3;
+       int2 vertex1, vertex2, vertex3;
+       TriangleGrid(uv, scale, w1, w2, w3, vertex1, vertex2, vertex3);
+
+       // Assign random offset to each triangle vertex
+       c.uv0 = uv;
+       c.uv1 = uv;
+       c.uv2 = uv;
+   
+       c.uv0.xy += SimpleHash2(vertex1);
+       c.uv1.xy += SimpleHash2(vertex2);
+       c.uv2.xy += SimpleHash2(vertex3);
+       c.weights = half3(w1, w2, w3);
+       c.origWeights = half3(w1, w2, w3);
+    }
+
+
+   half3 LitBlendDetailNormal(half3 n1, half3 n2)
+   {
+      #if _SURFACEGRADIENT
+         return n1 + n2;
+      #else
+         return normalize(half3(n1.xy + n2.xy, n1.z*n2.z));
+      #endif
+   }
+
+   float3 TriplanarBlendUnpackedRNM(float3 n1, float3 n2)
+   {
+       n1.z += 1;
+       n2.xy = -n2.xy;
+       return n1 * dot(n1, n2) / n1.z - n2;
+   }
+
+   void InitConfigDxDy(inout Config c)
+   {
+      c.uvT.dx0 = ddx(c.uvT.uv0);
+      c.uvT.dy0 = ddy(c.uvT.uv0);
+      c.uvT.dx1 = ddx(c.uvT.uv1);
+      c.uvT.dy1 = ddy(c.uvT.uv1);
+      c.uvT.dx2 = ddx(c.uvT.uv2);
+      c.uvT.dy2 = ddy(c.uvT.uv2);
+   }
+
+   Config CreateConfig(ShaderData d, float4 scale, float space, int uvsource, half triplanarContrast)
+   {
+      Config c;
+      ZERO_INITIALIZE(Config, c);
+
+      float3 pos = d.worldSpacePosition;
+      float3 normal = d.worldSpaceNormal;
+      if (space > 0)
+      {
+         pos = d.localSpacePosition;
+         normal = d.localSpaceNormal;
+      }
+
+      c.uv = d.texcoord0.xy;
+      
+      if (uvsource == 1)
+        c.uv = d.texcoord1.xy;
+      else if (uvsource == 2)
+        c.uv = pos.yz * float2(1, -1);
+      else if (uvsource == 3)
+        c.uv = pos.xz * float2(1, -1);
+      else if (uvsource == 4)
+        c.uv = pos.xy * float2(1, -1);
+
+      c.origUV = c.uv;
+      c.origScale = scale.xy;
+
+      c.uv = c.uv * scale.xy + scale.zw;
+      c.dx = ddx(c.uv);
+      c.dy = ddy(c.uv);
+
+      c.normal = normal;
+      c.uvT.uv0 = pos.zy * scale.xy + scale.zw;
+      c.uvT.uv1 = pos.xz * scale.xy + scale.zw;
+      c.uvT.uv2 = pos.xy * scale.xy + scale.zw;
+        
+      c.uvT.uv1 += 0.33;
+      c.uvT.uv2 += 0.67;
+
+      c.uvT.dx0 = ddx(c.uvT.uv0); c.uvT.dy0 = ddy(c.uvT.uv0);
+      c.uvT.dx1 = ddx(c.uvT.uv1); c.uvT.dy1 = ddy(c.uvT.uv1);
+      c.uvT.dx2 = ddx(c.uvT.uv2); c.uvT.dy2 = ddy(c.uvT.uv2);
+
+      half3 triblend = saturate(pow(abs(c.normal), triplanarContrast));
+      triblend /= max(dot(triblend, half3(1,1,1)), 0.0001);
+      c.uvT.weights = triblend;
+      c.uvT.origWeights = triblend;
+      c.axisSign = d.worldSpaceNormal < 0 ? -1 : 1;
+      c.absVertNormal = abs(d.worldSpaceNormal);
+     
+
+      return c;
+   }
+
+
+   half4 TriSample(TEXTURE2D_PARAM(tex, ss), inout SampleConfig c)
+   {
+      half4 res = 0;
+      UNITY_BRANCH
+      if (c.weights.x > 0)
+      {
+         COUNTSAMPLE
+         res += SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv0, c.dx0, c.dy0) * c.weights.x;
+      }
+
+      UNITY_BRANCH
+      if (c.weights.y > 0)
+      {
+         COUNTSAMPLE
+         res += SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv1, c.dx1, c.dy1) * c.weights.y;
+      }  
+
+      UNITY_BRANCH
+      if (c.weights.z > 0)
+      {
+         COUNTSAMPLE
+         res += SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv2, c.dx2, c.dy2) * c.weights.z;
+      }
+
+      return res;
+   }
+
+   half4 TriSampleBary(TEXTURE2D_PARAM(tex, ss), inout SampleConfig c, float contrast, ShaderData d)
+   {
+      half4 r1 = SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv0, c.dx0, c.dy0);
+      half4 r2 = SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv1, c.dx1, c.dy1);
+      half4 r3 = SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv2, c.dx2, c.dy2);
+      COUNTSAMPLE
+      COUNTSAMPLE
+      COUNTSAMPLE
+      c.weights = BaryWeightBlend(c.origWeights, r1.a, r2.a, r3.a, contrast);
+      return r1 * c.weights.x + r2 * c.weights.y + r3 * c.weights.z;
+   }
+
+   half4 TriSampleGrad(TEXTURE2D_PARAM(tex, ss), inout SampleConfig c, float contrast, ShaderData d)
+   {
+      half4 r1 = SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv0, c.dx0, c.dy0);
+      half4 r2 = SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv1, c.dx1, c.dy1);
+      half4 r3 = SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv2, c.dx2, c.dy2);
+      COUNTSAMPLE
+      COUNTSAMPLE
+      COUNTSAMPLE
+      return r1 * c.weights.x + r2 * c.weights.y + r3 * c.weights.z;
+   }
+
+   
+   half4 SampleTexBaryStochasticTriplanar(TEXTURE2D_PARAM(tex, ss), inout Config c, float contrast, ShaderData d)
+   {
+        half4 res = 0;
+        UNITY_BRANCH
+        if (c.uvT.weights.x > 0)
+            res += TriSampleBary(TEXTURE2D_ARGS(tex, ss), c.uvX, contrast, d) * c.uvT.weights.x;
+
+        UNITY_BRANCH
+        if (c.uvT.weights.y > 0)
+            res += TriSampleBary(TEXTURE2D_ARGS(tex, ss), c.uvY, contrast, d) * c.uvT.weights.y;
+
+        UNITY_BRANCH
+        if (c.uvT.weights.z > 0)
+           res += TriSampleBary(TEXTURE2D_ARGS(tex, ss), c.uvZ, contrast, d) * c.uvT.weights.z;
+
+        return res;
+   }
+
+   
+   half4 SampleTexBaryStochastic(TEXTURE2D_PARAM(tex, ss), inout Config c, float contrast, ShaderData d)
+   {
+        half4 ret = TriSampleBary(TEXTURE2D_ARGS(tex, ss), c.uvT, contrast, d);
+        return ret;
+   }
+
+   half4 SampleTexBaryTriplanar(TEXTURE2D_PARAM(tex, ss), inout Config c, float contrast, ShaderData d)
+   {
+        half4 ret = TriSampleGrad(TEXTURE2D_ARGS(tex, ss), c.uvT, contrast, d);
+        return ret;
+   }
+
+   
+   half4 SampleTexBary(TEXTURE2D_PARAM(tex, ss), inout Config c, float contrast, ShaderData d)
+   {
+        COUNTSAMPLE
+        return SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uv, c.dx, c.dy);
+   }
+
+   half4 SampleTexStochasticTriplanar(TEXTURE2D_PARAM(tex, ss), Config c)
+   {
+        half4 res = 0;
+        UNITY_BRANCH
+        if (c.uvT.weights.x > 0)
+            res += TriSample(TEXTURE2D_ARGS(tex, ss), c.uvX) * c.uvT.weights.x;
+
+        UNITY_BRANCH
+        if (c.uvT.weights.y > 0)
+            res += TriSample(TEXTURE2D_ARGS(tex, ss), c.uvY) * c.uvT.weights.y;
+
+        UNITY_BRANCH
+        if (c.uvT.weights.z > 0)
+            res += TriSample(TEXTURE2D_ARGS(tex, ss), c.uvZ) * c.uvT.weights.z;
+
+        return res;     
+   }
+
+   
+   half4 SampleTexStochastic(TEXTURE2D_PARAM(tex, ss), Config c)
+   {
+       return TriSample(TEXTURE2D_ARGS(tex, ss), c.uvT);
+   }
+
+   half4 SampleTexTriplanar(TEXTURE2D_PARAM(tex, ss), Config c)
+   {
+       return TriSample(TEXTURE2D_ARGS(tex, ss), c.uvT);
+   }
+   
+   half4 SampleTex(TEXTURE2D_PARAM(tex, ss), Config c)
+   {
+       COUNTSAMPLE
+       return SAMPLE_TEXTURE2D(tex, ss, c.uv);
+   }
+   
+
+ 
+   half3 SampleNormalStochasticTriplanar(TEXTURE2D_PARAM(tex, ss), Config c, ShaderData d, half normalStrength, inout half smoothness, inout half ao)
+   {
+      half4 dataX = half4(0.5,0.5,1,0);
+      half4 dataY = half4(0.5,0.5,1,0);
+      half4 dataZ = half4(0.5,0.5,1,0);
+      UNITY_BRANCH
+      if (c.uvT.weights.x > 0)
+         dataX = (TriSample(TEXTURE2D_ARGS(tex, ss), c.uvX));
+
+      UNITY_BRANCH
+      if (c.uvT.weights.y > 0)
+         dataY = (TriSample(TEXTURE2D_ARGS(tex, ss), c.uvY));
+
+      UNITY_BRANCH
+      if (c.uvT.weights.z > 0)
+         dataZ = (TriSample(TEXTURE2D_ARGS(tex, ss), c.uvZ));
+
+
+      half3 tnormalX = PackedUnpackScaleNormal(dataX, normalStrength);
+      half3 tnormalY = PackedUnpackScaleNormal(dataY, normalStrength);
+      half3 tnormalZ = PackedUnpackScaleNormal(dataZ, normalStrength);
+
+      #if _PACKEDFAST
+         smoothness = dataX.r * c.uvT.weights.x + dataY.r * c.uvT.weights.y + dataZ.r * c.uvT.weights.z;
+         ao = dataX.b * c.uvT.weights.x + dataY.b * c.uvT.weights.y + dataZ.b * c.uvT.weights.z;
+      #endif
+
+      #if _SURFACEGRADIENT
+         return SurfgradFromTriplanarProjection(d, c.uvT.weights, tnormalX, tnormalY, tnormalZ);
+      #else
+          // Swizzle world normals to match tangent space and apply RNM blend
+          tnormalX = TriplanarBlendUnpackedRNM(half3(d.worldSpaceNormal.zy, c.absVertNormal.x), tnormalX);
+          tnormalY = TriplanarBlendUnpackedRNM(half3(d.worldSpaceNormal.xz, c.absVertNormal.y), tnormalY);
+          tnormalZ = TriplanarBlendUnpackedRNM(half3(d.worldSpaceNormal.xy, c.absVertNormal.z), tnormalZ);
+
+          tnormalX.z *= c.axisSign.x;
+          tnormalY.z *= c.axisSign.y;
+          tnormalZ.z *= c.axisSign.z;
+          // Triblend normals and add to world normal
+          half3 worldNormal = normalize(tnormalX.zyx * c.uvT.weights.x + tnormalY.xzy * c.uvT.weights.y + tnormalZ.xyz * c.uvT.weights.z);
+
+          return WorldToTangentSpace(d, worldNormal);
+       #endif
+   }
+
+
+   half3 SampleNormalTriplanar(TEXTURE2D_PARAM(tex, ss), Config c, ShaderData d, half normalStrength, inout half smoothness, inout half ao)
+   {
+      half4 dataX = half4(0.5,0.5,1,0);
+      half4 dataY = half4(0.5,0.5,1,0);
+      half4 dataZ = half4(0.5,0.5,1,0);
+
+      UNITY_BRANCH
+      if (c.uvT.weights.x > 0)
+      {
+          COUNTSAMPLE
+          dataX = (SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uvT.uv0, c.uvT.dx0, c.uvT.dy0));
+      }
+      UNITY_BRANCH
+      if (c.uvT.weights.y > 0)
+      {
+          COUNTSAMPLE
+          dataY = (SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uvT.uv1, c.uvT.dx1, c.uvT.dy1));
+      }
+      UNITY_BRANCH
+      if (c.uvT.weights.z > 0)
+      {
+         COUNTSAMPLE
+         dataZ = (SAMPLE_TEXTURE2D_GRAD(tex, ss, c.uvT.uv2, c.uvT.dx2, c.uvT.dy2));
+      }
+
+      half3 tnormalX = PackedUnpackScaleNormal(dataX, normalStrength);
+      half3 tnormalY = PackedUnpackScaleNormal(dataY, normalStrength);
+      half3 tnormalZ = PackedUnpackScaleNormal(dataZ, normalStrength);
+
+      #if _PACKEDFAST
+         smoothness = dataX.r * c.uvT.weights.x + dataY.r * c.uvT.weights.y + dataZ.r * c.uvT.weights.z;
+         ao = dataX.b * c.uvT.weights.x + dataY.b * c.uvT.weights.y + dataZ.b * c.uvT.weights.z;
+      #endif
+
+      #if _SURFACEGRADIENT
+         return SurfgradFromTriplanarProjection(d, c.uvT.weights, tnormalX, tnormalY, tnormalZ);
+      #else
+
+          // Swizzle world normals to match tangent space and apply RNM blend
+          tnormalX = TriplanarBlendUnpackedRNM(half3(d.worldSpaceNormal.zy, c.absVertNormal.x), tnormalX);
+          tnormalY = TriplanarBlendUnpackedRNM(half3(d.worldSpaceNormal.xz, c.absVertNormal.y), tnormalY);
+          tnormalZ = TriplanarBlendUnpackedRNM(half3(d.worldSpaceNormal.xy, c.absVertNormal.z), tnormalZ);
+
+          tnormalX.z *= c.axisSign.x;
+          tnormalY.z *= c.axisSign.y;
+          tnormalZ.z *= c.axisSign.z;
+          // Triblend normals and add to world normal
+          half3 worldNormal = normalize(tnormalX.zyx * c.uvT.weights.x + tnormalY.xzy * c.uvT.weights.y + tnormalZ.xyz * c.uvT.weights.z);
+          return WorldToTangentSpace(d, worldNormal);
+      #endif
+   }
+
+   half3 SampleNormalStochastic(TEXTURE2D_PARAM(tex, ss), Config c, ShaderData d, half normalStrength, inout half smoothness, inout half ao)
+   {
+     half4 normal = TriSample(tex, ss, c.uvT);
+     #if _PACKEDFAST
+        smoothness = normal.r;
+        ao = normal.b;
+      #endif
+      #if _SURFACEGRADIENT
+         return ConvertNormalToGradient(d, PackedUnpackScaleNormal(normal, normalStrength));
+      #else
+         return PackedUnpackScaleNormal(normal, normalStrength);
+      #endif
+   }
+
+   half3 SampleNormal(TEXTURE2D_PARAM(tex, ss), Config c, ShaderData d, half normalStrength, inout half smoothness, inout half ao)
+   {
+      half4 normal = SAMPLE_TEXTURE2D(tex, ss, c.uv);
+      #if _PACKEDFAST
+        smoothness = normal.r;
+        ao = normal.b;
+      #endif
+
+      #if _SURFACEGRADIENT
+         return ConvertNormalToGradient(d, PackedUnpackScaleNormal(normal, normalStrength));
+      #else
+         return PackedUnpackScaleNormal(normal, normalStrength);
+      #endif
+   }
+
+   half HeightBlend(half h1, half h2, half slope, half contrast)
+   {
+      h2 = 1 - h2;
+      half tween = saturate((slope - min(h1, h2)) / max(abs(h1 - h2), 0.001)); 
+      half blend = saturate( ( tween - (1-contrast) ) / max(contrast, 0.001));
+      return blend;
+   }
+
+/*
+    #if _POM
+    float2 POM(TEXTURE2D_PARAM(tex, ss), Config c, float contrast, ShaderData d)
+    {
+       float2 curv = float2(0, 0);
+       float refPlane = 0;
+
+       float result = 0;
+       int stepIndex = 0;
+       int maxSamples = _POMMaxSamples;
+       int minSamples = 4;
+       float camDist = distance(_WorldSpaceCameraPos, d.worldSpacePosition);
+       float distanceFade = 1 - saturate((camDist - _POMMin) / max(1, _POMFade));
+       int numSteps = ( int )lerp( maxSamples, minSamples, dot( d.worldSpaceNormal, d.worldSpaceViewDir )) * distanceFade;
+       if (numSteps < 1)
+           numSteps = 1;
+       float layerHeight = 1.0 / numSteps;
+       float2 plane = _ParallaxHeight * ( d.tangentSpaceViewDir.xy / d.tangentSpaceViewDir.z ) * distanceFade;
+       OffsetUV(c, refPlane * plane);
+       float2 deltaTex = -plane * layerHeight;
+       float2 prevTexOffset = 0;
+       float prevRayZ = 1.0f;
+       float prevHeight = 0.0f;
+       float2 currTexOffset = deltaTex;
+       float currRayZ = 1.0f - layerHeight;
+       float currHeight = 0.0f;
+       float intersection = 0;
+       float2 finalTexOffset = 0;
+
+       while ( stepIndex < numSteps + 1 )
+       {
+          result = dot( curv, currTexOffset * currTexOffset );
+          Config cfg = c;
+          OffsetUV(cfg, currTexOffset);
+          currHeight = SAMPLEBARY(TEXTURE2D_ARGS(tex, ss), cfg, contrast, d).a * (1 - result);
+
+          if ( currHeight > currRayZ )
+          {
+             stepIndex = numSteps + 1;
+          }
+          else
+          {
+             stepIndex++;
+             prevTexOffset = currTexOffset;
+             prevRayZ = currRayZ;
+             prevHeight = currHeight;
+             currTexOffset += deltaTex;
+             currRayZ -= layerHeight * ( 1 - result );
+          }
+       }
+       int sectionSteps = 10;
+       int sectionIndex = 0;
+       float newZ = 0;
+       float newHeight = 0;
+       while ( sectionIndex < sectionSteps )
+       {
+          intersection = ( prevHeight - prevRayZ ) / ( prevHeight - currHeight + currRayZ - prevRayZ );
+          finalTexOffset = prevTexOffset + intersection * deltaTex;
+          newZ = prevRayZ - intersection * layerHeight;
+          Config cfg = c;
+          OffsetUV(cfg, finalTexOffset);
+          newHeight = SAMPLEBARY(TEXTURE2D_ARGS(tex, ss), cfg, contrast, d).a * (1 - result);
+
+          if ( newHeight > newZ )
+          {
+             currTexOffset = finalTexOffset;
+             currHeight = newHeight;
+             currRayZ = newZ;
+             deltaTex = intersection * deltaTex;
+             layerHeight = intersection * layerHeight;
+          }
+          else
+          {
+             prevTexOffset = finalTexOffset;
+             prevHeight = newHeight;
+             prevRayZ = newZ;
+             deltaTex = ( 1 - intersection ) * deltaTex;
+             layerHeight = ( 1 - intersection ) * layerHeight;
+          }
+          sectionIndex++;
+       }
+       #if _PASSHADOWS
+       if ( unity_LightShadowBias.z == 0.0 )
+       {
+       #endif
+          if ( result > 1 )
+             clip( -1 );
+       #if _PASSHADOWS
+       }
+       #endif
+       return finalTexOffset;
+    }
+    #endif
+*/
+   
+
+   // tess versions
+   #if _TESSELLATION_ON
+   half4 TriSampleLOD(TEXTURE2D_PARAM(tex, ss), inout SampleConfig c, float bias)
+   {
+      half4 res = 0;
+      UNITY_BRANCH
+      if (c.weights.x > 0)
+         res += SAMPLE_TEXTURE2D_LOD(tex, ss, c.uv0, bias) * c.weights.x;
+
+      UNITY_BRANCH
+      if (c.weights.y > 0)
+         res += SAMPLE_TEXTURE2D_LOD(tex, ss, c.uv1, bias) * c.weights.y;
+
+      UNITY_BRANCH
+      if (c.weights.z > 0)
+         res += SAMPLE_TEXTURE2D_LOD(tex, ss, c.uv2, bias) * c.weights.z;
+
+      return res;
+   }
+
+   half4 TriSampleBaryLOD(TEXTURE2D_PARAM(tex, ss), inout SampleConfig c, float bias, float contrast)
+   {
+      half4 r1 = SAMPLE_TEXTURE2D_LOD(tex, ss, c.uv0, bias);
+      half4 r2 = SAMPLE_TEXTURE2D_LOD(tex, ss, c.uv1, bias);
+      half4 r3 = SAMPLE_TEXTURE2D_LOD(tex, ss, c.uv2, bias);
+      c.weights = BaryWeightBlend(c.weights, r1.a, r2.a, r3.a, contrast);
+      return r1 * c.weights.x + r2 * c.weights.y + r3 * c.weights.z;
+   }
+
+   
+   half4 SampleTexBaryLODStochasticTriplanar(TEXTURE2D_PARAM(tex, ss), Config c, float bias, float contrast)
+   {
+        half4 res = 0;
+        UNITY_BRANCH
+        if (c.uvT.weights.x > 0)
+            res += TriSampleBaryLOD(TEXTURE2D_ARGS(tex, ss), c.uvX, bias, contrast) * c.uvT.weights.x;
+
+        UNITY_BRANCH
+        if (c.uvT.weights.y > 0)
+            res += TriSampleBaryLOD(TEXTURE2D_ARGS(tex, ss), c.uvY, bias, contrast) * c.uvT.weights.y;
+
+        UNITY_BRANCH
+        if (c.uvT.weights.z > 0)
+            res += TriSampleBaryLOD(TEXTURE2D_ARGS(tex, ss), c.uvZ, bias, contrast) * c.uvT.weights.z;
+
+        return res;
+   }
+
+   half4 SampleTexBaryLODStochastic(TEXTURE2D_PARAM(tex, ss), Config c, float bias, float contrast)
+   {
+       return TriSampleBaryLOD(TEXTURE2D_ARGS(tex, ss), c.uvT, bias, contrast);
+   }
+
+   half4 SampleTexBaryLODTriplanar(TEXTURE2D_PARAM(tex, ss), Config c, float bias, float contrast)
+   {
+      return TriSampleLOD(TEXTURE2D_ARGS(tex, ss), c.uvT, bias);
+   }
+
+   half4 SampleTexBaryLOD(TEXTURE2D_PARAM(tex, ss), Config c, float bias, float contrast)
+   {
+      return SAMPLE_TEXTURE2D_LOD(tex, ss, c.uv, bias);
+   }
+
+
+    float FBM2DLOD(float2 uv)
+    {
+        #if _NOISEHQ
+           float f = 0.5000*Noise2D( uv ); uv *= 2.01;
+           f += 0.2500*Noise2D( uv ); uv *= 1.96;
+           f += 0.1250*Noise2D( uv );
+           return f;
+        #elif _NOISETEXTURE
+           return SAMPLE_TEXTURE2D_LOD(_NoiseTex, sampler_NoiseTex, uv, _TessellationMipBias).g;
+        #elif _NOISEWORLEY
+           return WorleyNoise2D(uv);
+        #else
+           return Noise2D(uv);
+        #endif
+        
+        
+    }
+
+    float FBM3DLOD(float3 uv, float3 pN)
+    {
+        #if _NOISEHQ
+           float f = 0.5000*Noise3D( uv ); uv *= 2.01;
+           f += 0.2500*Noise3D( uv ); uv *= 1.96;
+           f += 0.1250*Noise3D( uv );
+           return f;
+        #elif _NOISETEXTURE
+           half A = SAMPLE_TEXTURE2D_LOD(_NoiseTex, sampler_NoiseTex, uv.zy, _TessellationMipBias).g;
+           half B = SAMPLE_TEXTURE2D_LOD(_NoiseTex, sampler_NoiseTex, uv.xz + 0.33, _TessellationMipBias).g;
+           half C = SAMPLE_TEXTURE2D_LOD(_NoiseTex, sampler_NoiseTex, uv.xy + 0.67, _TessellationMipBias).g;
+           half3 triblend = saturate(pow(pN, 4));
+           triblend /= max(dot(triblend, half3(1,1,1)), 0.0001);
+           return A * triblend.x + B * triblend.y + C * triblend.z;
+        #elif _NOISEWORLEY
+           return WorleyNoise3D(uv);
+        #else
+           return Noise3D(uv);
+        #endif
+        
+    }
+
+    float DoNoiseLOD(ShaderData d, float frequency, float offset)
+    {
+        #if _NOISEWORLD
+           return FBM3DLOD(d.worldSpacePosition * frequency + offset, d.worldSpaceNormal);
+        #elif _NOISELOCAL
+           return FBM3DLOD(d.localSpacePosition * frequency + offset, d.localSpaceNormal);
+        #else
+           return FBM2DLOD(d.texcoord0.xy * frequency + offset);
+        #endif
+    }
+
+   #endif //_TESSELLATION_ON
+
+
+    half3 FuzzyShade(ShaderData d, half height, half3 color, half3 normal, half coreMult, half edgeMult, half power)
+    {
+        float3 worldNormal = GetWorldSpaceNormal(d, normal, height);
+        half dt = saturate(dot(d.worldSpaceViewDir, worldNormal));
+        half dark = 1.0 - (coreMult * dt);
+        half edge = pow(1-dt, abs(power)) * edgeMult;
+        return color * (dark + edge);
+    }
+
+	half MicroShadow(ShaderData d, half3 normal, half height, half ao, half strength)
+	{
+        float3 sun;
+		float3 sunColor;
+		GetSun(sun, sunColor);
+		float3 worldNormal = GetWorldSpaceNormal(d, normal, height);
+        half shadow = saturate(abs(dot(worldNormal, sun)) + (ao * ao * 2.0) - 1.0);
+        return 1 - ((1-shadow) * strength);
+	}
+
+
+#endif
+END_CODE

@@ -1,0 +1,198 @@
+﻿
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableTrax"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableTraxEditor"
+   Stackable "False"
+END_OPTIONS
+
+BEGIN_SUBSHADERS
+   "FunctionLibrary.surfshader"
+END_SUBSHADERS
+
+BEGIN_PROPERTIES
+    _TraxAlbedo("Trax Albedo", 2D) = "white" {}
+    _TraxPackedNormal("Trax Packed Normal", 2D) = "bump" {}
+    _TraxNormalStrength("Normal Strength", Range(0,2)) = 1
+    _TraxDisplacementDepth("Trax Depression Depth", Float) = 0.1
+    _TraxDisplacementStrength("Trax Displacement", Range(0,3)) = 0.2
+    _TraxMipBias("Trax Mip Bias", Range(0, 5)) = 3
+    _TraxInterpContrast("Interpolation Contrast", Range(0,1)) = 0.9
+    _TraxHeightContrast("Height Contrast", Range(0,1)) = 0.5
+    _TraxTint("Tint Color", Color) = (1,1,1,1)
+END_PROPERTIES
+
+BEGIN_DEFINES
+   #pragma shader_feature_local _ _TRAX_ON
+END_DEFINES
+
+
+BEGIN_CBUFFER
+    half _TraxDisplacementDepth;
+    half _TraxDisplacementStrength;
+    half _TraxMipBias;
+    half _TraxNormalStrength;
+    float4 _TraxAlbedo_ST;
+    half _TraxInterpContrast;
+    half _TraxHeightContrast;
+    half3 _TraxTint;
+
+END_CBUFFER
+
+BEGIN_BLACKBOARD
+   float traxBuffer;
+END_BLACKBOARD
+
+BEGIN_CODE
+
+   #if _TRAX_ON
+   TEXTURE2D(_TraxAlbedo);
+   SAMPLER(sampler_TraxAlbedo);
+   TEXTURE2D(_TraxPackedNormal);
+   TEXTURE2D(_TraxMask);
+
+   sampler2D_float _GMSTraxBuffer;
+
+   float4 _GMSTraxBuffer_TexelSize;
+   float3 _GMSTraxBufferPosition;
+   float _GMSTraxBufferWorldSize;
+   float _GMSTraxFudgeFactor;
+
+   float SampleTraxBufferLOD(float3 worldPos, float3 worldNormal)
+   {    
+      // generate UVs for the buffer, which is moving
+      float2 uv = worldPos.xz;
+      uv -= _GMSTraxBufferPosition.xz;
+      uv /= max(_GMSTraxBufferWorldSize, 1);
+      float fade = saturate(distance(uv, float2(0.0, 0.0)));
+      fade = 1 - pow(fade, 8);
+      uv *= 0.5;
+      uv += 0.5;
+      float vn = saturate(sign(dot(worldNormal, float3(0, 1, 0))));
+      float s =  tex2Dlod(_GMSTraxBuffer, float4(uv, 0, 0)).r;
+
+      return 1 - saturate((worldPos.y + _GMSTraxFudgeFactor) - s) * fade * vn;
+   }
+         
+        
+   float SampleTraxBuffer(float3 worldPos, float3 worldNormal, out float3 norm)
+   {
+      float2 uv = worldPos.xz;
+      uv -= _GMSTraxBufferPosition.xz;
+      uv /= max(_GMSTraxBufferWorldSize, 1);
+      float fade = saturate(distance(uv, float2(0.0, 0.0)));
+      fade = 1 - pow(fade, 3);
+      uv *= 0.5;
+      uv += 0.5;
+            
+
+      float2 offset = _GMSTraxBuffer_TexelSize.xy;
+
+      float s = tex2D(_GMSTraxBuffer, uv).r;
+               
+      float s1 = tex2D(_GMSTraxBuffer, uv + offset * float2(0, -1)).r;
+      float s2 = tex2D(_GMSTraxBuffer, uv + offset * float2(-1, 0)).r;
+      float s3 = tex2D(_GMSTraxBuffer, uv + offset * float2(1, 0)).r;
+      float s4 = tex2D(_GMSTraxBuffer, uv + offset * float2(0, 1)).r;
+      COUNTSAMPLE
+      COUNTSAMPLE
+      COUNTSAMPLE
+      COUNTSAMPLE
+
+      float vn = saturate(sign(dot(worldNormal, float3(0, 1, 0))));
+      float r = 1 - saturate((worldPos.y + _GMSTraxFudgeFactor) - s) * fade * vn;
+ 
+      // generate normals
+      norm.x = (s1 - s4) * 0.25; 
+      norm.y = (s2 - s3) * 0.25;
+      norm.z = 2;
+      norm = normalize(norm);
+     
+      norm.xy *= 1 - r;
+            
+      return r;
+   }
+   #endif
+
+   void ModifyTessellatedVertex(inout VertexData v, inout ExtraV2F d)
+   {
+       #if _TESSELLATION_ON && _TRAX_ON && _HAS_LIT_TESSELLATION
+          
+           float3 worldSpacePosition = TransformObjectToWorld(v.vertex.xyz);
+           float3 worldSpaceNormal = TransformObjectToWorld(v.normal);
+
+           float traxBuffer = SampleTraxBufferLOD(worldSpacePosition, worldSpaceNormal);
+           d.blackboard.traxBuffer = traxBuffer;
+           float2 uv = worldSpacePosition.xz * float2(1, -1) * _TraxAlbedo_ST.xy + _TraxAlbedo_ST.zw;
+           half albedo = SAMPLE_TEXTURE2D_LOD(_TraxAlbedo, sampler_TraxAlbedo, uv, _TraxMipBias).a;
+
+           float traxOffset = albedo * _TraxDisplacementStrength;
+           traxOffset *= 1 - v.texcoord0.z;
+           traxOffset *= _TessellationDisplacement;
+           float dig = _TraxDisplacementDepth * (1 - v.texcoord0.z);
+           float3 traxVertex = d.blackboard.originalVertexPosition + (v.normal * (traxOffset - dig));
+           v.vertex.xyz = lerp(traxVertex, v.vertex.xyz, traxBuffer);
+
+           d.blackboard.vertexHeightOffset = lerp(traxOffset-dig, d.blackboard.vertexHeightOffset, traxBuffer);
+
+       #endif
+
+   }
+
+   void SurfaceFunction(inout Surface o, inout ShaderData d)
+   {
+      #if _TRAX_ON
+        float2 uv = d.worldSpacePosition.xz * float2(1, -1) * _TraxAlbedo_ST.xy + _TraxAlbedo_ST.zw;
+        float2 fsdx = ddx(uv);
+        float2 fsdy = ddy(uv);
+
+        float3 traxNormal;
+        float traxBuffer = SampleTraxBuffer(d.worldSpacePosition, d.worldSpaceNormal, traxNormal);
+        
+        #if _TESSELLATION_ON
+            traxBuffer -= _TraxDisplacementDepth;
+        #endif
+
+        d.blackboard.traxBuffer = traxBuffer;
+
+        UNITY_BRANCH
+        if (traxBuffer > 0)
+        {
+            half4 albedo = SAMPLE_TEXTURE2D_GRAD(_TraxAlbedo, sampler_TraxAlbedo, uv, fsdx, fsdy);
+            albedo.rgb *= _TraxTint.rgb;
+            half4 normalSample = SAMPLE_TEXTURE2D_GRAD(_TraxPackedNormal, sampler_TraxAlbedo, uv, fsdx, fsdy);
+            COUNTSAMPLE
+            COUNTSAMPLE
+
+
+            half smoothness = normalSample.r;
+            half ao = normalSample.b;
+            half3 normal;
+            normal.xy = (normalSample.ag * 2 - 1) * _TraxNormalStrength;
+            normal.z = sqrt(1 - saturate(dot(normal.xy, normal.xy)));
+
+            #if _SURFACEGRADIENT
+               normal = ConvertNormalToGradient(d, normal);
+            #endif
+
+            
+            half h = HeightBlend(albedo.a, o.Alpha, traxBuffer, _TraxHeightContrast);
+
+            h = lerp(traxBuffer, h, _TraxInterpContrast);
+
+            o.Albedo = lerp(albedo, o.Albedo, h);
+
+            #if _SURFACEGRADIENT
+                o.Normal = lerp(normal, o.Normal, h);
+            #else
+                o.Normal = lerp(normal + traxNormal, o.Normal, h);
+            #endif
+        
+            o.Smoothness = lerp(smoothness, o.Smoothness, h);
+            o.Occlusion = lerp(ao, o.Occlusion, h);
+        }
+      #endif
+   }
+
+END_CODE
+

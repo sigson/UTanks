@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 0
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: damage_audio
+      value: {fileID: 8300000, guid: ba119c349c7539b458d41497a792f88f, type: 3}
+    - key: audio_damage_start
+      value: {fileID: 8300000, guid: 77bb3d274b0c0684e81aaafba7ac5f22, type: 3}
+    - key: audio_damage_loop
+      value: {fileID: 8300000, guid: b69f693121a4b0b4aa6a003debded1e4, type: 3}
+    - key: audio_damage_end
+      value: {fileID: 8300000, guid: 1fe8e65756e0d4b4399b56959b186012, type: 3}
+    - key: turret
+      value: {fileID: 8300000, guid: b997f1d13dfda06478e500ed352ddc04, type: 3}
+    - key: script
+      value: {fileID: 854773897665913681, guid: 65343f51c942a164aab76815a7e8f361, type: 3}
+    - key: damage_end
+      value: {fileID: 853297691503717694, guid: b308d10a2039782449a4d71ba8e5130c, type: 3}
+    - key: damage_shaft
+      value: {fileID: 3629332890702653398, guid: cd9367f2d0aba93448ee6f04fbede01c, type: 3}
+    - key: damage_start
+      value: {fileID: 6857132861416541921, guid: 5b19565f194765b4ab75aa4fdc36e785, type: 3}
+    - key: heal_end
+      value: {fileID: 6936146090961482623, guid: dcce09089f2ea024fae0c5bf154d25b5, type: 3}
+    - key: heal_shaft
+      value: {fileID: 6152678322487589096, guid: 0bb50a9d1127d984eb1b757fcfd6c250, type: 3}
+    - key: heal_start
+      value: {fileID: 4119360345323085067, guid: b67c288a02677b044aadb61bdbca7d33, type: 3}
+    - key: idle_spark
+      value: {fileID: 1422274244027811281, guid: 6a9dd02f032ece545bd7e09ed1719949, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary:
+    - key: MainDamage
+      value: {r: 0.97647065, g: 0.98823535, b: 0.38823533, a: 1}
+    - key: MainHeal
+      value: {r: 0.69411767, g: 0.93725497, b: 0.9803922, a: 1}
+    - key: MainIdle
+      value: {r: 1, g: 1, b: 1, a: 1}

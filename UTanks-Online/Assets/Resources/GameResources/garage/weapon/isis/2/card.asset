@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 0
+  parseInheritFiles: 0
+  ItemData:
+    dictionary:
+	- key: damage_audio
+      value: {fileID: 8300000, guid: ba119c349c7539b458d41497a792f88f, type: 3}
+    - key: audio_damage_start
+      value: {fileID: 8300000, guid: 77bb3d274b0c0684e81aaafba7ac5f22, type: 3}
+    - key: audio_damage_loop
+      value: {fileID: 8300000, guid: b69f693121a4b0b4aa6a003debded1e4, type: 3}
+    - key: audio_damage_end
+      value: {fileID: 8300000, guid: 1fe8e65756e0d4b4399b56959b186012, type: 3}
+    - key: healing_sound
+      value: {fileID: 8300000, guid: d08a5376a66872542ba34226fb38a928, type: 3}
+    - key: idle_sound
+      value: {fileID: 8300000, guid: f611b0888a3f7414f96407e184beedda, type: 3}
+    - key: turret
+      value: {fileID: 8300000, guid: b997f1d13dfda06478e500ed352ddc04, type: 3}
+    - key: script
+      value: {fileID: 854773897665913681, guid: 65343f51c942a164aab76815a7e8f361, type: 3}
+    - key: damage_end
+      value: {fileID: 6044133142069210539, guid: b1da8a957c2eb804e801960e934ab665, type: 3}
+    - key: damage_shaft
+      value: {fileID: 1260872052577590414, guid: c2dbbec89620c50458fe5693db62e80e, type: 3}
+    - key: damage_start
+      value: {fileID: 8613312440161862658, guid: 0679ad9bc7f67f74f9d68d0be487f1dc, type: 3}
+    - key: heal_end
+      value: {fileID: 4824301242048169231, guid: b1e8067865b75ae488ffa6184e5eb6d8, type: 3}
+    - key: heal_shaft
+      value: {fileID: 6163915220176240864, guid: 86419d2ebe93dda45a788f60b7a0ef8e, type: 3}
+    - key: heal_start
+      value: {fileID: 3299810682253400455, guid: c573212611336f44caec897781cadb73, type: 3}
+    - key: idle_spark
+      value: {fileID: 6271339445648809285, guid: 02179845ccac4ab49aebdc9d34f557ba, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary:
+    - key: MainDamage
+      value: {r: 1, g: 0.75294125, b: 0.6392157, a: 1}
+    - key: MainHeal
+      value: {r: 0.53333336, g: 0.9686275, b: 0.7254902, a: 1}
+    - key: MainIdle
+      value: {r: 1, g: 1, b: 1, a: 1}

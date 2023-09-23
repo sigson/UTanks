@@ -1,0 +1,17 @@
+grades:
+- grade: 0
+  selfHealingProperty:
+    initialValue: 25
+    finalValue: 25
+- grade: 1
+  selfHealingProperty:
+    initialValue: 25
+    finalValue: 25
+- grade: 2
+  selfHealingProperty:
+    initialValue: 25
+    finalValue: 25
+- grade: 3
+  selfHealingProperty:
+    initialValue: 25
+    finalValue: 25

@@ -1,0 +1,54 @@
+﻿// Uses an RGBA mask texture to mask 4 different tint colors, allowing for pallete shifting style effects
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableTintMask"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableWeightTint"
+END_OPTIONS
+
+BEGIN_PROPERTIES
+	_TintMask("Tint Mask", 2D) = "white" {}
+	_RColor("R Color", Color) = (0.5,0.5,0.5,1)
+	_GColor("G Color", Color) = (0.5,0.5,0.5,1)
+	_BColor("B Color", Color) = (0.5,0.5,0.5,1)
+	_AColor("A Color", Color) = (0.5,0.5,0.5,1)
+END_PROPERTIES
+
+BEGIN_DEFINES
+   #pragma shader_feature_local _ _TINTMASK
+END_DEFINES
+
+BEGIN_CBUFFER
+	float4 _TintMask_ST;
+	half3 _RColor;
+	half3 _GColor;
+	half3 _BColor;
+	half3 _AColor;
+END_CBUFFER
+
+
+BEGIN_CODE
+
+	#if _TINTMASK
+		TEXTURE2D(_TintMask);
+		SAMPLER(sampler_TintMask);
+	#endif
+
+	void SurfaceFunction(inout Surface o, ShaderData d)
+	{
+		#if _TINTMASK
+		   half4 w = SAMPLE_TEXTURE2D(_TintMask, sampler_TintMask, d.texcoord0.xy * _TintMask_ST.xy + _TintMask_ST.zw);
+		   // allow black to be no tint..
+		   o.Albedo = lerp(o.Albedo, o.Albedo * _RColor.rgb * 2, w.r);
+	       o.Albedo = lerp(o.Albedo, o.Albedo * _GColor.rgb * 2, w.g);
+           o.Albedo = lerp(o.Albedo, o.Albedo * _BColor.rgb * 2, w.b);
+           o.Albedo = lerp(o.Albedo, o.Albedo * _AColor.rgb * 2, w.a);
+
+		   // this causes a black outline around the non-tint edge
+		   //half3 tint = o.Albedo * (_RColor.rgb * 2 * w.r + _GColor.rgb * 2 * w.g + _BColor.rgb * 2 * w.b + _AColor.rgb * 2 * w.a);
+		   //o.Albedo = lerp(o.Albedo, tint, saturate(w.r + w.g + w.b + w.a));
+		#endif
+	}
+
+END_CODE
+

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BetterShaders_StackableDisolve
+  m_Shader: {fileID: -6465566751694194690, guid: 775ce5b6b2b6143e292eff333c1d1c6c,
+    type: 3}
+  m_ShaderKeywords: _DISOLVE
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DisolveGradient:
+        m_Texture: {fileID: 2800000, guid: 8c3328892594a4a18b59a2cecab62e8c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DisolveTexture:
+        m_Texture: {fileID: 2800000, guid: 8c3328892594a4a18b59a2cecab62e8c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _DisolveAmount: 0.307
+    - _DisolveColoration: 1
+    - _DisolveEdgeContrast: 69
+    - _DisolveEmissiveStr: 4
+    - _DisolveEnabled: 1
+    m_Colors: []

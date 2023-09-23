@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: garage\supplies\doubledamage
+      value: {fileID: 2800000, guid: 8d66b3f1ed8ed9c458df3401327a88b9, type: 3}
+    - key: garage\supplies\doublearmor
+      value: {fileID: 2800000, guid: b745ab3bdb8a4694a8a16117cb0ac7fd, type: 3}
+    - key: garage\supplies\nitroboost
+      value: {fileID: 2800000, guid: 2fb40628af696434a99700ea71042665, type: 3}
+    - key: garage\supplies\aid
+      value: {fileID: 2800000, guid: 83ab89cfb79f96241934ecef58f68b37, type: 3}
+    - key: garage\supplies\mine
+      value: {fileID: 2800000, guid: 330128ffcda629848964bcb0c711ce5b, type: 3}
+    - key: garage\supplies\goldbox
+      value: {fileID: 2800000, guid: 0732c573d6048414eaf1e74fabd8293a, type: 3}
+    - key: garage\boosters\scorepack
+      value: {fileID: 2800000, guid: e2dacd4cc4d44a748bf587cca0d34c70, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

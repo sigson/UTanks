@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: main_explosion_anim
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 1
+  ItemData:
+    dictionary:
+    - key: main_explosion_0
+      value: {fileID: -8916090767733611429, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_1
+      value: {fileID: 5698683100285940349, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_2
+      value: {fileID: 7165463834139305165, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_3
+      value: {fileID: -3465847486759143039, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_4
+      value: {fileID: -5831895656318210088, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_5
+      value: {fileID: -3280237571468875491, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_6
+      value: {fileID: -3334038081456171990, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_7
+      value: {fileID: 3260106674546168316, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_8
+      value: {fileID: -6113946568573620419, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_9
+      value: {fileID: 5983458011711213664, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_10
+      value: {fileID: -3576489163964023514, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_11
+      value: {fileID: 2361078464624895169, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_12
+      value: {fileID: -4546298554419092868, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_13
+      value: {fileID: 2961223333309942426, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_14
+      value: {fileID: 1742141172120494546, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_15
+      value: {fileID: -5868157257491427293, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_16
+      value: {fileID: 9201487857735860102, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_17
+      value: {fileID: 4840487218934490679, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_18
+      value: {fileID: -7304694514489146622, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_19
+      value: {fileID: -833158532530249063, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_20
+      value: {fileID: 3616998019933148478, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_21
+      value: {fileID: 4365032241115780667, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+    - key: main_explosion_22
+      value: {fileID: -7075626791198169041, guid: ab2eec4017d225f489e9601d10c234f5, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

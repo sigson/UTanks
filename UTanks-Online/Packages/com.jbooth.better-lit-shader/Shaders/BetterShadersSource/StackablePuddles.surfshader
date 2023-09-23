@@ -1,0 +1,297 @@
+﻿///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// Stackable puddle and wetness system
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackablePuddles"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackablePuddlesMaterialEditor"
+END_OPTIONS
+
+
+BEGIN_PROPERTIES
+   _WetnessMode("Wetness Mode", Int) = 0
+   _PuddleMode("Puddle Mode", Int) = 0
+   _RainMode("Rain Mode", Int) = 0
+   _WetnessAmount("Wetness Amount", Range(0,1)) = 0
+   _Porosity("Porosity", Range(0,1)) = 0.4
+   _WetnessMin("Minimum Wetness", Range(0,1)) = 0
+   _WetnessMax("Maximum Wetness", Range(0,1)) = 1
+   _WetnessFalloff("Angle Falloff", Range(0,1)) = 1
+   _WetnessAngleMin("Wetness Minimum Angle", Range(-1,1)) = -1
+   _PuddleAmount("Puddle Amount", Range(0,1)) = 0
+   _PuddleFalloff("Puddle Contrast", Range(2, 50)) = 12
+   _PuddleAngleMin("Moss Angle Minimum", Range(0,1)) = 0.1
+   _PuddleColor("Puddle Color", Color) = (0.2, 0.2, 0.2, 0.7)
+   _PuddleNoiseFrequency("Noise Frequency", Float) = 1
+   _PuddleNoiseAmplitude("Noise Amplitude", Range(0,10)) = 0.5
+   _PuddleNoiseCenter("Noise Center", Range(-5, 5)) = 0
+   _PuddleNoiseOffset("Noise Offset", Float) = 0
+   _RainDropTexture("RainDrop Texture", 2D) = "white" {}
+   _RainIntensityScale("Intensity/Scale/MinWet", Vector) = (1, 25, 0, 0)
+   _WetnessShoreline("Wetness Shore Height", Float) = -99999
+END_PROPERTIES
+
+BEGIN_SUBSHADERS
+   "FunctionLibrary.surfshader"
+END_SUBSHADERS
+
+BEGIN_DEFINES
+   #pragma shader_feature_local_fragment _ _WETNESS
+   #pragma shader_feature_local_fragment _ _PUDDLES
+   #pragma shader_feature_local_fragment _ _PUDDLENOISE
+   #pragma shader_feature_local_fragment _ _RAINDROPS
+END_DEFINES
+
+
+BEGIN_CBUFFER
+    half _Porosity;
+    int _WetnessMode;
+    int _PuddleMode;
+
+    half  _PuddleAmount;
+    half  _PuddleFalloff;
+    half4 _PuddleColor;
+    half _PuddleNoiseFrequency;
+    half _PuddleNoiseAmplitude;
+    half _PuddleNoiseOffset;
+    half _PuddleNoiseCenter;
+    half _PuddleAngleMin;
+
+    half _WetnessAmount;
+	half _WetnessMin;
+    half _WetnessMax;
+    half _WetnessFalloff;
+	half _WetnessAngleMin;
+    float _WetnessShoreline;
+
+    int _RainMode;
+    half4 _RainIntensityScale;
+
+
+END_CBUFFER
+
+
+// All code goes here
+BEGIN_CODE
+
+    #if _RAINDROPS
+       TEXTURE2D(_RainDropTexture);
+       SAMPLER(sampler_RainDropTexture);
+       half _Global_RainIntensity;
+    #endif
+
+    #if _WETNESS
+       half2 _Global_WetnessParams; // global, not in cbuffer
+    #endif
+   
+    #if _RAINDROPS
+    half2 ComputeRipple(float2 uv, half time, half weight)
+    {
+        half4 ripple = SAMPLE_TEXTURE2D(_RainDropTexture, sampler_RainDropTexture, uv);
+        COUNTSAMPLE
+        ripple.yz = ripple.yz * 2 - 1;
+
+        half dropFrac = frac(ripple.w + time);
+        half timeFrac = dropFrac - 1.0 + ripple.x;
+        half dropFactor = saturate(0.2f + weight * 0.8 - dropFrac);
+        half finalFactor = dropFactor * ripple.x * 
+                                sin( clamp(timeFrac * 9.0f, 0.0f, 3.0f) * 3.14159265359);
+
+        return half2(ripple.yz * finalFactor);
+    }
+    #endif
+
+    half2 DoRain(float3 worldPos, half2 waterNorm, float2 uv, out half2 ripple)
+    {
+        #if _RAINDROPS
+            float rainIntensity = _RainIntensityScale.x;
+            if (_RainMode > 1)
+            {
+                rainIntensity = _Global_RainIntensity;
+            }
+
+            float dist = distance(GetCameraWorldPosition(), worldPos);
+            rainIntensity *= 1.0 - saturate(dist/_RainIntensityScale.w);
+
+            half dropStrength = rainIntensity;
+            const float4 timeMul = float4(1.0f, 0.85f, 0.93f, 1.13f); 
+            half4 timeAdd = float4(0.0f, 0.2f, 0.45f, 0.7f);
+            half4 times = _Time.yyyy;
+            times = frac((times * float4(1, 0.85, 0.93, 1.13) + float4(0, 0.2, 0.45, 0.7)) * 1.6);
+
+            float2 ruv1 = uv * _RainIntensityScale.yy;
+            float2 ruv2 = ruv1;
+
+            half4 weights = rainIntensity.xxxx - float4(0, 0.25, 0.5, 0.75);
+            half2 ripple1 = ComputeRipple(ruv1 + float2( 0.25f,0.0f), times.x, weights.x);
+            half2 ripple2 = ComputeRipple(ruv2 + float2(-0.55f,0.3f), times.y, weights.y);
+            half2 ripple3 = ComputeRipple(ruv1 + float2(0.6f, 0.85f), times.z, weights.z);
+            half2 ripple4 = ComputeRipple(ruv2 + float2(0.5f,-0.75f), times.w, weights.w);
+            weights = saturate(weights * 4);
+
+            half2 rippleNormal = half2( weights.x * ripple1.xy +
+                        weights.y * ripple2.xy + 
+                        weights.z * ripple3.xy + 
+                        weights.w * ripple4.xy);
+
+            ripple = rippleNormal * dropStrength * rainIntensity;
+            waterNorm = lerp(waterNorm, normalize(half3(rippleNormal.xy + rippleNormal.xy, 1)).xy, rainIntensity * dropStrength); 
+            return waterNorm;                        
+        #else
+            return waterNorm;
+        #endif
+    }
+
+   half2 _Global_PuddleParams;   // this is a global, so keep it out of the cbuffer
+   void GetPuddleParams(ShaderData d, inout float puddleMask, inout float pudHeight)
+   {
+      #if _PUDDLES || _GLOBALPUDDLES
+          pudHeight = _PuddleAmount;
+          if (_PuddleMode > 0)
+             pudHeight = _Global_PuddleParams.x;    
+      
+
+          half dt = dot(d.worldSpaceNormal, float3(0,1,0));
+	      dt -= _PuddleAngleMin;
+          dt = saturate(dt * _PuddleFalloff);
+          puddleMask *= dt;
+      #endif
+   }
+   
+   void ModifyTessellatedVertex(inout VertexData v, inout ExtraV2F e)
+   {
+      #if _TESSELLATION_ON && _PUDDLES && _HAS_LIT_TESSELLATION
+         ShaderData d;
+         ZERO_INITIALIZE(ShaderData, d);
+         d.texcoord0 = v.texcoord0;
+         d.localSpacePosition = v.vertex.xyz;
+         d.localSpaceNormal = v.normal;
+         d.worldSpacePosition = ObjectToWorldSpacePosition(v.vertex.xyz);
+         d.worldSpaceNormal = TransformObjectToWorld(v.normal);
+         half mask = 1;
+         half pudHeight = 1;
+
+         // save some ops by doing this in 2d
+         #if _PUDDLENOISE
+            #if _NOISEWORLD
+                mask = (FBM2DLOD(d.worldSpacePosition.xz * _PuddleNoiseFrequency + _PuddleNoiseOffset) * _PuddleNoiseAmplitude + _PuddleNoiseCenter);
+                mask = saturate(mask);
+            #elif _NOISELOCAL
+                mask = (FBM2DLOD(d.localSpacePosition.xz * _PuddleNoiseFrequency + _PuddleNoiseOffset) * _PuddleNoiseAmplitude + _PuddleNoiseCenter);
+                mask = saturate(mask);
+            #else
+                mask = (FBM2DLOD(d.texcoord0.xy * _PuddleNoiseFrequency + _PuddleNoiseOffset) * _PuddleNoiseAmplitude + _PuddleNoiseCenter);
+                mask = saturate(mask);
+            #endif
+         #endif
+
+         GetPuddleParams(d, mask, pudHeight);
+         float height = pudHeight * mask;
+         if (e.blackboard.vertexHeightOffset < height)
+         {
+            e.blackboard.vertexHeightOffset = height;
+            height -= _TessellationOffset; 
+            // dampen cracks
+            height *= 1 - v.texcoord0.z;
+            height *= _TessellationDisplacement;
+            v.vertex.xyz = e.blackboard.originalVertexPosition + v.normal * height;
+            
+        }
+      #endif
+   }
+
+
+#if _WETNESS
+
+   float GetWetnessLevel(Surface o, ShaderData d, float wetnessMask)
+   {
+      float wetLevel = clamp(_WetnessAmount, _WetnessMin, _WetnessMax);
+      
+      if (_WetnessMode > 0)
+         wetLevel = clamp(wetLevel, _Global_WetnessParams.x, _Global_WetnessParams.y);
+
+      wetLevel = saturate(wetLevel + (1 - saturate(d.worldSpacePosition.y - _WetnessShoreline)));
+      float3x3 tbn = float3x3(d.worldSpaceTangent, cross(d.worldSpaceTangent, d.worldSpaceNormal), d.worldSpaceNormal);
+      float dt = dot(GetWorldSpaceNormal(d, o.Normal, o.Alpha), float3(0,1,0));
+      dt -= _WetnessAngleMin;
+      dt = saturate(dt * _WetnessFalloff * wetLevel);
+      dt *= wetnessMask;
+      return dt;
+   }
+#endif
+   
+
+   void SurfaceFunction(inout Surface o, ShaderData d)
+   {
+      half wetnessLevel = 0;
+      #if _WETNESS
+          wetnessLevel = GetWetnessLevel(o, d, 1); // mask one day?
+      #endif
+
+      half depthMask = 0;
+      half depth = 0;
+
+      #if _PUDDLES
+          half mask = 1;
+          half pudHeight = 1;
+          #if _PUDDLENOISE
+            #if _NOISEWORLD
+                mask = (FBM2D(d.worldSpacePosition.xz * _PuddleNoiseFrequency + _PuddleNoiseOffset) * _PuddleNoiseAmplitude + _PuddleNoiseCenter);
+                mask = saturate(mask);
+            #elif _NOISELOCAL
+                mask = (FBM2D(d.localSpacePosition.xz * _PuddleNoiseFrequency + _PuddleNoiseOffset) * _PuddleNoiseAmplitude + _PuddleNoiseCenter);
+                mask = saturate(mask);      
+            #else
+                mask = (FBM2D(d.texcoord0.xy * _PuddleNoiseFrequency + _PuddleNoiseOffset) * _PuddleNoiseAmplitude + _PuddleNoiseCenter);
+                mask = saturate(mask);
+            #endif
+          #endif
+
+          GetPuddleParams(d, mask, pudHeight);
+          pudHeight *= mask;
+          depth = pudHeight - o.Height;
+          depthMask = saturate(depth * _PuddleFalloff);
+          depthMask *= _PuddleColor.a;
+          depth = o.Height - pudHeight;
+
+          // extend wetness slighting higher than the puddle
+          half wetmask = saturate((pudHeight + 0.05 - o.Height) * _PuddleFalloff);
+          wetnessLevel = max(wetmask, wetnessLevel);
+       #endif
+
+       
+       #if _WETNESS || _PUDDLES
+          half3 waterNorm = half3(0,0,1);
+          half3 wetAlbedo = o.Albedo;
+          half wetSmoothness = o.Smoothness;
+          #if _PUDDLES
+             wetAlbedo *= _PuddleColor.rgb;
+          #endif
+          WaterBRDF(wetAlbedo, wetSmoothness, o.Metallic, wetnessLevel, _Porosity);
+
+          half ri = 0;
+          half2 ripple = 0;
+          #if (_RAINDROPS || _GLOBALRAIN) && (_PUDDLES || _GLOBALPUDDLES)
+             ri = _RainIntensityScale.z;
+             waterNorm.xy = DoRain(d.worldSpacePosition, waterNorm.xy, d.texcoord0.xy, ripple) * depthMask;
+          #endif
+
+          o.Normal = lerp(o.Normal, waterNorm, depthMask);
+          o.Normal = lerp(o.Normal, LitBlendDetailNormal(o.Normal, half3(ripple.xy, 1)), saturate(ri - depthMask) * wetnessLevel);
+          o.Occlusion = lerp(o.Occlusion, 1, depthMask);
+          o.Smoothness = lerp(o.Smoothness, wetSmoothness, wetnessLevel);
+          o.Albedo = lerp(o.Albedo, wetAlbedo, wetnessLevel);
+          o.Emission *= 1 + depth;
+          o.Metallic *= 1 + depth;
+          o.Specular *= 1 + depth;
+
+       #endif
+
+   }
+
+END_CODE
+

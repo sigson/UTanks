@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d17f433806a554fadf5e8cb67c91de, type: 3}
+  m_Name: MainResourcesDBOld
+  m_EditorClassIdentifier: 
+  ItemsResourcesDB:
+    dictionary: []
+  BattleObjectsResourcesDB:
+    dictionary: []
+  MapObjectsDB:
+    dictionary: []
+  UIObjectsDB:
+    dictionary: []
+  DropBonusPaths:
+    dictionary: []
+  WeaponEffectsDB:
+    dictionary: []
+  BattleMapPreview:
+    dictionary: []
+  MapPropReplacer:
+    dictionary:
+    - key: Billboard
+      value: {fileID: 3920911504825770927, guid: d0c9cfa1c2572844883a2261e22020e5, type: 3}

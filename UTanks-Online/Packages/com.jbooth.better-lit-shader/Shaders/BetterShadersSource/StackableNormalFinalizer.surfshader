@@ -1,0 +1,57 @@
+﻿///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// Normal Finalization
+// This sets the shader to use world space normals with a define, and adds the Surface Gradient option.
+// It's placed at the end of the chain to resolve the surface gradient to a world space normal, or
+// convert the tangent space normal into a world space normal. 
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableNormalFinalizer"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableNormalFinalizerMaterialEditor"
+END_OPTIONS
+
+BEGIN_SUBSHADERS
+   "FunctionLibrary.surfshader"
+END_SUBSHADERS
+
+BEGIN_DEFINES
+   #pragma shader_feature_local _ _SURFACEGRADIENT _AUTONORMAL
+   #define _WORLDSPACENORMAL 1
+END_DEFINES
+
+BEGIN_PROPERTIES
+   _AutoNormalStrength("Auto Normal Strength", Range(0,2)) = 0.5
+END_PROPERTIES
+
+BEGIN_CBUFFER
+	half _AutoNormalStrength;
+END_CBUFFER
+
+BEGIN_CODE
+
+	void SurfaceFunction(inout Surface o, ShaderData d)
+	{
+		#if _SURFACEGRADIENT
+			o.Normal = ResolveNormalFromSurfaceGradient(d, o.Normal);
+	    #elif _AUTONORMAL
+	        float3 dx = ddx(d.worldSpacePosition);
+			float3 dy = ddy(d.worldSpacePosition);
+			float3 crossX = cross(float3(0,1,0), dx);
+			float3 crossY = cross(float3(0,1,0), dy);
+			float3 dt = abs(dot(crossY, dx));
+			float height = _AutoNormalStrength * 0.5 * o.Alpha;
+			float3 n = ((((height + ddx(height)) - height) * crossY) + (((height + ddy(height)) - height) * crossX)) * sign(dt);
+			n.y *= -1.0;
+			o.Normal = normalize((dt * float3(0,1,0)) - n).xzy;
+			o.Normal = (TangentToWorldSpace(d, o.Normal));
+		#else
+			o.Normal = (TangentToWorldSpace(d, o.Normal));
+		#endif
+	}
+
+END_CODE
+

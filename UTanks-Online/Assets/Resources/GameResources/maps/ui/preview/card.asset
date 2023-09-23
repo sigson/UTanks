@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: Halloween2014
+      value: {fileID: 2800000, guid: 74a71e9caec6f1e4dae462ee6996066c, type: 3}
+    - key: "\u0410\u043B\u0435\u043A\u0441\u0430\u043D\u0434\u0440\u043E\u0432\u0441\u043A"
+      value: {fileID: 2800000, guid: 2cd48abf0104f6e4789388fe847af7e3, type: 3}
+    - key: "\u0410\u0440\u0435\u043D\u0430"
+      value: {fileID: 2800000, guid: 6f94e1f0642d41544882cc6e88c7c84b, type: 3}
+    - key: "\u0410\u0442\u0440\u0430"
+      value: {fileID: 2800000, guid: e76037527db48b641817d2cf14b5cf0a, type: 3}
+    - key: "\u0411\u0430\u0440\u0434\u0430"
+      value: {fileID: 2800000, guid: 5b7441cc54f8f1942b8f9d716042c003, type: 3}
+    - key: "\u0411\u0435\u0437\u0443\u043C\u0438\u0435"
+      value: {fileID: 2800000, guid: ef45d3e97b7bf074b8ddfcc1bfc4a739, type: 3}
+    - key: "\u0411\u0435\u0440\u043B\u0438\u043D"
+      value: {fileID: 2800000, guid: 368eb79a6f6c81141b0d5052dfb27d13, type: 3}
+    - key: "\u0411\u043E\u0431\u0440\u0443\u0439\u0441\u043A"
+      value: {fileID: 2800000, guid: 9ce2976d54ba9a54c960a394d4f19e79, type: 3}
+    - key: "\u0411\u043E\u0439\u043D\u044F"
+      value: {fileID: 2800000, guid: 865c514fda03d6b4aa3d3079e1ef624e, type: 3}
+    - key: "\u0411\u0440\u0435\u0441\u0442"
+      value: {fileID: 2800000, guid: b9c9ef202ca12404394ff9c8003f78bc, type: 3}
+    - key: "\u0411\u0443\u0434\u0443\u0449\u0435\u0435"
+      value: {fileID: 2800000, guid: 29c24f20bbb6a6e4cbd5fdb812dcd979, type: 3}
+    - key: "\u0411\u0443\u043C\u0431\u043E\u043A\u0441"
+      value: {fileID: 2800000, guid: 7ea5cddb5ab081744a45ccc911e1648e, type: 3}
+    - key: "\u0412\u043E\u043B\u043D\u0430"
+      value: {fileID: 2800000, guid: a88564dd09e381a48b5d13d97e8e14c7, type: 3}
+    - key: "\u0412\u043E\u043B\u044C\u0444\u0435\u043D\u0448\u0442\u0435\u0439\u043D"
+      value: {fileID: 2800000, guid: a1c30c6927dd4d54298039795b77ed7b, type: 3}
+    - key: "\u0413\u0430\u0440\u0434\u0435\u0440"
+      value: {fileID: 2800000, guid: f31f8766ae044d24588b39a9e3cba8be, type: 3}
+    - key: "\u0413\u043E\u0434 2042"
+      value: {fileID: 2800000, guid: 8a913022571595748a76a3f7db34820a, type: 3}
+    - key: "\u0413\u0440\u0430\u0432\u0438\u0442\u0438"
+      value: {fileID: 2800000, guid: 54260b89cdda9634189a7d5c06034c9d, type: 3}
+    - key: "\u0413\u0443\u0431\u0430\u0445\u0430"
+      value: {fileID: 2800000, guid: f111d9f84423e614bb687d468b704d5a, type: 3}
+    - key: "\u0414\u043E\u043B\u0438\u043D\u0430"
+      value: {fileID: 2800000, guid: a8d2d511b36e54849bf0de36f4b2a9b5, type: 3}
+    - key: "\u0414\u0443\u0430\u043B\u0438\u0442\u0438"
+      value: {fileID: 2800000, guid: 4e9a68859960d914282128e6b26810a8, type: 3}
+    - key: "\u0414\u0443\u044D\u043B\u044C"
+      value: {fileID: 2800000, guid: 02cf7987c93db074ba08fcd0afd3cbdc, type: 3}
+    - key: "\u0414\u044E\u0441\u0441\u0435\u043B\u044C\u0434\u043E\u0440\u0444"
+      value: {fileID: 2800000, guid: 2384ee63da72447438f8d07336fcf19d, type: 3}
+    - key: "\u0416\u0430\u0432\u043E\u0440\u043E\u043D\u043A\u0438"
+      value: {fileID: 2800000, guid: 86fc3609f6c4b3947a70d8e0253f7bc7, type: 3}
+    - key: "\u0417\u043E\u043D\u0430"
+      value: {fileID: 2800000, guid: b5c9ceb211ee27343bc945541a2b4e52, type: 3}
+    - key: "\u0418\u0440\u0430\u043D"
+      value: {fileID: 2800000, guid: dd7298a0121a41b43af71de288ace246, type: 3}
+    - key: "\u041A\u0451\u043B\u044C\u043D"
+      value: {fileID: 2800000, guid: 35361ea025b4fec4c80abe258c09b899, type: 3}
+    - key: "\u041A\u043E\u043B\u0445\u043E\u0437"
+      value: {fileID: 2800000, guid: 15af99fc668a7924ca50dff94eca0fd8, type: 3}
+    - key: "\u041A\u0443\u043D\u0433\u0443\u0440"
+      value: {fileID: 2800000, guid: ee9840b19fbbb5e4eab9a9c3510a5b3a, type: 3}
+    - key: "\u041A\u0443\u0440\u0430\u0436"
+      value: {fileID: 2800000, guid: 65bd0bb38ce2872488b8e4f6e630547a, type: 3}
+    - key: "\u041B\u0430\u0433\u0435\u0440\u044C"
+      value: {fileID: 2800000, guid: 34025337f68d28f439fed3451cf2e8c8, type: 3}
+    - key: "\u041C\u0430\u0433\u0438\u0441\u0442\u0440\u0430\u043B\u044C"
+      value: {fileID: 2800000, guid: 62fcb47a1b4a71441a73096dea9b7ea7, type: 3}
+    - key: "\u041C\u043E\u043B\u043E\u0442\u043E\u0432"
+      value: {fileID: 2800000, guid: aa34ef93ff49c13459363a3592af4ee3, type: 3}
+    - key: "\u041C\u043E\u043D\u0442\u0435-\u041A\u0430\u0440\u043B\u043E"
+      value: {fileID: 2800000, guid: d7da09783094c6f4fbab7679117c974e, type: 3}
+    - key: "\u041C\u043E\u0441\u0442\u0438\u043A"
+      value: {fileID: 2800000, guid: bf7e50c4b5c97e345b19ccfb2dc4d634, type: 3}
+    - key: "\u041C\u043E\u0441\u0442\u044B"
+      value: {fileID: 2800000, guid: 6cd7892ebeda19c45a23a2c12b30221f, type: 3}
+    - key: "\u041D\u0435\u0431\u043E\u0441\u043A\u0440\u0435\u0431\u044B"
+      value: {fileID: 2800000, guid: c5592c1dad1fb4540acd1497a249a91f, type: 3}
+    - key: "\u041D\u043E\u0432\u044D\u043B"
+      value: {fileID: 2800000, guid: a908bad0b07858747868fe127efd806c, type: 3}
+    - key: "\u041E\u0432\u0440\u0430\u0433"
+      value: {fileID: 2800000, guid: 5d255f254217e5f4f8353e0e594df207, type: 3}
+    - key: "\u041E\u0441\u0430"
+      value: {fileID: 2800000, guid: f8ce95934d64d15448ffeda4fa1adab8, type: 3}
+    - key: "\u041E\u0441\u0430\u0434\u0430"
+      value: {fileID: 2800000, guid: 5c7bbf678d2e19044a57e2a97b5be7f9, type: 3}
+    - key: "\u041E\u0441\u0442\u0440\u043E\u0432"
+      value: {fileID: 2800000, guid: 3792e6c23599c8b44924068a2853509e, type: 3}
+    - key: "\u041F\u0430\u0440\u043C\u0430"
+      value: {fileID: 2800000, guid: fe9f2356657af584ba86068bcf49601c, type: 3}
+    - key: "\u041F\u0435\u0440\u0435\u0432\u0430\u043B"
+      value: {fileID: 2800000, guid: cb1f4046d1821a74d842c6ef37acc280, type: 3}
+    - key: "\u041F\u0435\u0440\u0435\u043A\u0440\u0435\u0441\u0442\u043E\u043A"
+      value: {fileID: 2800000, guid: 380198d656c737a4184914b83066fcc6, type: 3}
+    - key: "\u041F\u0435\u0441\u043E\u0447\u043D\u0438\u0446\u0430"
+      value: {fileID: 2800000, guid: 9d278f8314ee853459d63bfea02a1502, type: 3}
+    - key: "\u041F\u0438\u043D\u0433-\u041F\u043E\u043D\u0433"
+      value: {fileID: 2800000, guid: 48bf719cd64ec774f853cdc2105c881b, type: 3}
+    - key: "\u041F\u043B\u0430\u0442\u043E"
+      value: {fileID: 2800000, guid: 7423562bfb0bbb74fb5fb520b2b4534f, type: 3}
+    - key: "\u041F\u043E\u0434\u0437\u0435\u043C\u043A\u0430"
+      value: {fileID: 2800000, guid: 9e62178c8cef2c54bb3bce020eb11395, type: 3}
+    - key: "\u041F\u043E\u043B\u0438\u0433\u043E\u043D"
+      value: {fileID: 2800000, guid: 45921c1fd529fab47966d8a9bf75fcf9, type: 3}
+    - key: "\u041F\u0440\u043E\u043C\u0437\u043E\u043D\u0430"
+      value: {fileID: 2800000, guid: 26135884d3f6e3d4cbe9347c61262586, type: 3}
+    - key: "\u041F\u0440\u043E\u0441\u0442\u043E\u0440"
+      value: {fileID: 2800000, guid: 038d2bc56c9b38b4cb957d15b0bd90e8, type: 3}
+    - key: "\u041F\u0440\u043E\u0442\u0438\u0432\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435"
+      value: {fileID: 2800000, guid: eff73d3094f04234383a26a6b49e12b1, type: 3}
+    - key: "\u041F\u0443\u0441\u0442\u044B\u043D\u044F"
+      value: {fileID: 2800000, guid: af8a55edeaf9c9e4ab4871970e9de3e9, type: 3}
+    - key: "\u0420\u0435\u0434 \u0410\u043B\u0435\u0440\u0442"
+      value: {fileID: 2800000, guid: f7bcd919d02b7dc45b129b9d14eeb379, type: 3}
+    - key: "\u0420\u0438\u043E"
+      value: {fileID: 2800000, guid: f3734013acf2d99448bc49ae15344daa, type: 3}
+    - key: "\u0421\u0430\u043D\u0434\u0430\u043B"
+      value: {fileID: 2800000, guid: 28ddade20e73ea346a47bdbdd5891300, type: 3}
+    - key: "\u0421\u0435\u0440\u043F\u0443\u0445\u043E\u0432"
+      value: {fileID: 2800000, guid: d0a52080ebe51684982338da9e880c93, type: 3}
+    - key: "\u0421\u0435\u0440\u0443\u043F\u0443\u0445\u043E\u0432"
+      value: {fileID: 2800000, guid: 65a0f270d2b94614d94bc761f4c1eed1, type: 3}
+    - key: "\u0421\u043E\u043B\u0438\u043A\u0430\u043C\u0441\u043A"
+      value: {fileID: 2800000, guid: e072fa849ada1f742b163300e3765405, type: 3}
+    - key: "\u0421\u0442\u0430\u0434\u0438\u043E\u043D"
+      value: {fileID: 2800000, guid: 7d4eeb0b7b403764b99e549435c0b050, type: 3}
+    - key: "\u0421\u0442\u0430\u043D\u0446\u0438\u044F"
+      value: {fileID: 2800000, guid: 77c8edb21e6444f40aa1a3005bfc6ab5, type: 3}
+    - key: "\u0422\u0435\u043C\u043F\u043B"
+      value: {fileID: 2800000, guid: 285b1ae1ce152ec4d8dc47dc4255e320, type: 3}
+    - key: "\u0422\u0438\u0448\u0438\u043D\u0430"
+      value: {fileID: 2800000, guid: 44c3fd7f0e971e949996645e2bcd77ca, type: 3}
+    - key: "\u0422\u0440\u0435\u043A"
+      value: {fileID: 2800000, guid: 8e22e1d8c4c3da14785f8d705e1fa7f3, type: 3}
+    - key: "\u0422\u0440\u0438\u0431\u044C\u044E\u0442"
+      value: {fileID: 2800000, guid: 47d3768ae81658946a679d72fe770c18, type: 3}
+    - key: "\u0422\u044D\u043C\u043F\u043B"
+      value: {fileID: 2800000, guid: 643102049cfc6d24ab8555ae2b4c82eb, type: 3}
+    - key: "\u0423\u0449\u0435\u043B\u044C\u0435"
+      value: {fileID: 2800000, guid: ec8128fabcfe307419674f99a98c06db, type: 3}
+    - key: "\u0424\u0430\u0431\u0440\u0438\u043A\u0430"
+      value: {fileID: 2800000, guid: d9c59e9ef8edde24b8bfaa006aba3acb, type: 3}
+    - key: "\u0424\u0435\u0440\u043C\u0430"
+      value: {fileID: 2800000, guid: 1b3ca3c2d7578b642bc8d2e703a67bf4, type: 3}
+    - key: "\u0424\u043E\u0440\u0435\u0441\u0442"
+      value: {fileID: 2800000, guid: a68aca23b3dc0184fa3076ad348a6468, type: 3}
+    - key: "\u0424\u043E\u0440\u0442 \u041D\u043E\u043A\u0441"
+      value: {fileID: 2800000, guid: ce3abf9e1b012d34f94bd7cb26376fb9, type: 3}
+    - key: "\u0425\u043E\u043B\u043C"
+      value: {fileID: 2800000, guid: ae68dda8b6733504e83f4ad4ac47ebbd, type: 3}
+    - key: "\u0427\u0435\u0440\u043D\u043E\u0431\u044B\u043B\u044C"
+      value: {fileID: 2800000, guid: f9ed08a976a4fe047a7d3d14f6da0355, type: 3}
+    - key: "\u0428\u043E\u0441\u0441\u0435"
+      value: {fileID: 2800000, guid: 9d38849b0a2148c40b13c66fdd70244c, type: 3}
+    - key: "\u0428\u0443\u043C"
+      value: {fileID: 2800000, guid: b007cf2d4d1ee4f4e9005e2d7a25253a, type: 3}
+    - key: "\u042D\u0434\u0438\u043D\u0431\u0443\u0440\u0433"
+      value: {fileID: 2800000, guid: 0af2ad7f8bcd16946a465eb2a1c1d3c2, type: 3}
+    - key: "\u042D\u0441\u043F\u043B\u0430\u043D\u0430\u0434\u0430"
+      value: {fileID: 2800000, guid: 9e8fc0cb0aecb50458fe4b69fe5741a5, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

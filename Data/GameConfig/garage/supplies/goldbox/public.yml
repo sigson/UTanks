@@ -1,0 +1,21 @@
+priceItem:
+  price: 100
+modificators: []
+creatures:
+- creature: battle\bonus\gold\crystal
+alwaysShow:
+  show: false
+playerSeparation:
+  enabled: false
+usingSecCooldown:
+  cooldown: 0
+imageItem:
+  spriteUid: b5d7fdc1-b17b-4856-a4b4-446fda9020e5
+order:
+  index: 306
+purchaseUpgradeLevelRestriction:
+  restrictionValue: 0
+crystalsPurchaseUserRankRestriction:
+  restrictionValue: 0
+itemRarity:
+  rarityType: LEGENDARY

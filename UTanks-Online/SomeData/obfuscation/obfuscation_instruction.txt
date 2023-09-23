@@ -1,0 +1,6 @@
+unpack Obfuscator 3.9.2.unitypackage.7z to any place
+open UTanks Online in unity editor
+doubleclick to unpacked Obfuscator 3.9.2.unitypackage
+In unity editor click "Import"
+Replace file ObfuscatorOptionsImport.asset in Assets/Editor/BeeByte/Obfuscator/ObfuscatorOptionsImport.asset to file with same name from instruction folder
+obfuscation will be activated on build

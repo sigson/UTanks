@@ -1,0 +1,59 @@
+previewPathName:
+  preview: HDMain
+lightmapPathName:
+  lightmap: HDMain
+detailsPathName:
+  details: HDMain
+colorPathName:
+  color: Main
+moveEffectsPathName: []
+shotComponentsPathName:
+- shotComponent: railgun
+- shotComponent: charge_part1
+- shotComponent: charge_part2
+- shotComponent: charge_part3
+prefabOfScriptsPathName:
+- prefabOfScript: Main
+soundsPathName:
+- sound: railgun
+videosPathName: []
+effectTexturesPathName:
+- effectTexture: CriticalHit
+animationsPathName: []
+scriptAnimationsPathName:
+- scriptAnimation: charge
+- scriptAnimation: railgun
+modelsPathName:
+- model: HDMain
+meshModelsPathName:
+- meshModel: HDMain
+materialsPathName:
+- material: Main
+- material: Shader
+shadersPathName:
+- shader: ColorShader
+priceItem:
+  price: 0
+xPriceItem:
+  price: 0
+order:
+  index: 300
+unityAsset:
+ reference:
+  assetGuid: e38825a7ddcd74f4681e57bde02d4642
+imageItem:
+  spriteUid: 7e1362c5-960d-45a2-8fe9-3d6190ec7599
+purchaseUpgradeLevelRestriction:
+  restrictionValue: 0
+crystalsPurchaseUserRankRestriction:
+  restrictionValue: 0
+mountUpgradeLevelRestriction:
+  restrictionValue: 0
+mountUserRankRestriction:
+  restrictionValue: 0
+itemRarity:
+  rarityType: COMMON
+skinType:
+  singleForAllModificationsSkin: true
+  skinEra: hd
+  

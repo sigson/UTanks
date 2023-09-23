@@ -1,0 +1,21 @@
+priceItem:
+  price: 5
+modificators:
+- modificator: battle\modificator\healing
+creatures: []
+alwaysShow:
+  show: true
+playerSeparation:
+  enabled: true
+usingSecCooldown:
+  cooldown: 60.00
+imageItem:
+  spriteUid: b5d7fdc1-b17b-4856-a4b4-446fda9020e5
+order:
+  index: 301
+purchaseUpgradeLevelRestriction:
+  restrictionValue: 0
+crystalsPurchaseUserRankRestriction:
+  restrictionValue: 0
+itemRarity:
+  rarityType: LEGENDARY

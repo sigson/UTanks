@@ -1,0 +1,30 @@
+// adds HDRP specific options
+
+BEGIN_PROPERTIES
+	[Toggle(_ENABLE_GEOMETRIC_SPECULAR_AA)] _EnableGeometrySpecAA ("Enable Geometric Specular AA", Float) = 0
+	_SpecularAAScreenSpaceVariance("Screen Space Variance", Range(0, 1)) = 0.2
+	_SpecularAAThreshold ("Threshold", Range(0, 1)) = 0.1
+END_PROPERTIES
+
+BEGIN_DEFINES
+	#pragma shader_feature_fragment_local _ _ENABLE_GEOMETRIC_SPECULAR_AA
+END_DEFINES
+
+BEGIN_CBUFFER
+	float _SpecularAAScreenSpaceVariance;
+	float _SpecularAAThreshold;
+END_CBUFFER
+
+
+BEGIN_CODE
+
+	void SurfaceFunction(inout Surface o, ShaderData d)
+	{
+		#if _ENABLE_GEOMETRIC_SPECULAR_AA
+			o.SpecularAAThreshold = _SpecularAAThreshold;
+			o.SpecularAAScreenSpaceVariance = _SpecularAAScreenSpaceVariance;
+		#endif
+	}
+
+END_CODE
+

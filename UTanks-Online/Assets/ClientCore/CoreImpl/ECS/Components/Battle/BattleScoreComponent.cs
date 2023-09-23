@@ -1,0 +1,46 @@
+﻿using Assets.ClientCore.CoreImpl.ECS.Types.Battle;
+using System.Collections.Concurrent;
+using UTanksClient.Core.Protocol;
+using UTanksClient.ECS.Components.Battle.BattleComponents;
+using UTanksClient.ECS.Components.Battle.Team;
+using UTanksClient.ECS.ECSCore;
+
+namespace UTanksClient.ECS.Components.Battle
+{
+    [TypeUid(1436532217083L)]
+    public class BattleScoreComponent : ECSComponent //obsolete
+    {
+        static public new long Id { get; set; }
+        static public new System.Collections.Generic.List<System.Action> StaticOnChangeHandlers { get; set; }
+
+        public ConcurrentDictionary<long, Command> TeamsScore
+        {
+            get
+            {
+                if (teamsScore.Count == 0)
+                {
+                    //ConcurrentDictionary<long, Command> localTeamsScore = new ConcurrentDictionary<long, Command>();
+                    //ownerEntity.GetComponent<BattleTeamsComponent>().teams.ForEach(x =>
+                    //{
+                    //    localTeamsScore.TryAdd(x.Key, new Command
+                    //    {
+                    //        GoalScore = x.Value.GoalScore,
+                    //        TeamColor = x.Value.TeamColor
+                    //    });
+                    //});
+                    //return localTeamsScore;
+                    return teamsScore;
+                }
+                else
+                {
+                    return teamsScore;
+                }
+            }
+            set
+            {
+                teamsScore = value;
+            }
+        }
+        private ConcurrentDictionary<long, Command> teamsScore = new ConcurrentDictionary<long, Command>();
+    }
+}

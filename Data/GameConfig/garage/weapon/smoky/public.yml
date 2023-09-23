@@ -1,0 +1,391 @@
+grades:
+- grade: 0
+  priceItem:
+    price: 0
+  xPriceItem:
+    price: 0
+  userItemTemplate:
+    userItemTemplate: 1433406776150
+  itemIcon:
+    spriteUid: 4053fb51-0d28-4afb-97a4-c66ce972b375
+  order:
+    index: 1
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 0
+  minDamageProperty:
+    initialValue: 20.000
+    finalValue: 20.000
+  maxDamageProperty:
+    initialValue: 25.000
+    finalValue: 25.000
+  reloadTimeProperty:
+    initialValue: 2.000
+    finalValue: 2.000
+  criticalDamageProperty:
+    initialValue: 80.000
+    finalValue: 80.000
+  startCriticalProbabilityProperty:
+    initialValue: 0.200
+    finalValue: 0.200
+  afterCriticalHitProbabilityProperty:
+    initialValue: -0.500
+    finalValue: -0.500
+  maxCriticalProbabilityProperty:
+    initialValue: 0.950
+    finalValue: 0.950
+  criticalProbabilityDeltaProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  maxDamageDistanceProperty:
+    initialValue: 40.000
+    finalValue: 40.000
+  minDamageDistanceProperty:
+    initialValue: 80.000
+    finalValue: 80.000
+  minDamagePercentProperty:
+    initialValue: 20.000
+    finalValue: 20.000
+  impactProperty:
+    initialValue: 150.000
+    finalValue: 150.000
+  kickbackProperty:
+    initialValue: 110.000
+    finalValue: 110.000
+  turretSpeedRotationProperty:
+    initialValue: 14.000
+    finalValue: 14.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 0.268
+    - name: Range
+      normalizedValue: 0.741
+    - name: FireRate
+      normalizedValue: 0.80
+    properties:
+    - name: DPM
+      initialValue: 15000
+      finalValue: 15000
+    - name: Damage
+      initialValue: 325
+      finalValue: 325
+    - name: Critical Damage
+      initialValue: 600
+      finalValue: 600
+    - name: Critical Chance
+      initialValue: 30
+      finalValue: 30
+      unit: percent
+    - name: Reload Time
+      initialValue: 1.3
+      finalValue: 1.3
+      format: 0.0
+      unit: sec
+    - name: Max Damage Distance
+      initialValue: 83.1
+      finalValue: 83.1
+      format: 0.0
+      unit: m
+    - name: Attack Distance
+      initialValue: 128.3
+      finalValue: 128.3
+      format: 0.0
+      unit: m
+    - name: Impact
+      initialValue: 3.5
+      finalValue: 3.5
+      format: 0.0
+      
+- grade: 1
+  priceItem:
+    price: 1500
+  xPriceItem:
+    price: 0
+  userItemTemplate:
+    userItemTemplate: 1433406776150
+  itemIcon:
+    spriteUid: 4053fb51-0d28-4afb-97a4-c66ce972b375
+  order:
+    index: 1
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 7
+  minDamageProperty:
+    initialValue: 23.000
+    finalValue: 23.000
+  maxDamageProperty:
+    initialValue: 28.000
+    finalValue: 28.000
+  reloadTimeProperty:
+    initialValue: 1.898
+    finalValue: 1.898
+  criticalDamageProperty:
+    initialValue: 92.000
+    finalValue: 92.000
+  startCriticalProbabilityProperty:
+    initialValue: 0.200
+    finalValue: 0.200
+  afterCriticalHitProbabilityProperty:
+    initialValue: -0.500
+    finalValue: -0.500
+  maxCriticalProbabilityProperty:
+    initialValue: 0.950
+    finalValue: 0.950
+  criticalProbabilityDeltaProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  maxDamageDistanceProperty:
+    initialValue: 44.701
+    finalValue: 44.701
+  minDamageDistanceProperty:
+    initialValue: 103.529
+    finalValue: 103.529
+  minDamagePercentProperty:
+    initialValue: 22.352
+    finalValue: 22.352
+  impactProperty:
+    initialValue: 197.060
+    finalValue: 197.060
+  kickbackProperty:
+    initialValue: 142.940
+    finalValue: 142.940
+  turretSpeedRotationProperty:
+    initialValue: 16.000
+    finalValue: 16.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 0.268
+    - name: Range
+      normalizedValue: 0.741
+    - name: FireRate
+      normalizedValue: 0.80
+    properties:
+    - name: DPM
+      initialValue: 15000
+      finalValue: 15000
+    - name: Damage
+      initialValue: 325
+      finalValue: 325
+    - name: Critical Damage
+      initialValue: 600
+      finalValue: 600
+    - name: Critical Chance
+      initialValue: 30
+      finalValue: 30
+      unit: percent
+    - name: Reload Time
+      initialValue: 1.3
+      finalValue: 1.3
+      format: 0.0
+      unit: sec
+    - name: Max Damage Distance
+      initialValue: 83.1
+      finalValue: 83.1
+      format: 0.0
+      unit: m
+    - name: Attack Distance
+      initialValue: 128.3
+      finalValue: 128.3
+      format: 0.0
+      unit: m
+    - name: Impact
+      initialValue: 3.5
+      finalValue: 3.5
+      format: 0.0
+      
+- grade: 2
+  priceItem:
+    price: 6800
+  xPriceItem:
+    price: 0
+  userItemTemplate:
+    userItemTemplate: 1433406776150
+  itemIcon:
+    spriteUid: 4053fb51-0d28-4afb-97a4-c66ce972b375
+  order:
+    index: 1
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 14
+  minDamageProperty:
+    initialValue: 27.000
+    finalValue: 27.000
+  maxDamageProperty:
+    initialValue: 34.000
+    finalValue: 34.000
+  reloadTimeProperty:
+    initialValue: 1.749
+    finalValue: 1.749
+  criticalDamageProperty:
+    initialValue: 108.000
+    finalValue: 108.000
+  startCriticalProbabilityProperty:
+    initialValue: 0.200
+    finalValue: 0.200
+  afterCriticalHitProbabilityProperty:
+    initialValue: -0.500
+    finalValue: -0.500
+  maxCriticalProbabilityProperty:
+    initialValue: 0.950
+    finalValue: 0.950
+  criticalProbabilityDeltaProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  maxDamageDistanceProperty:
+    initialValue: 52.352
+    finalValue: 52.352
+  minDamageDistanceProperty:
+    initialValue: 141.764
+    finalValue: 141.764
+  minDamagePercentProperty:
+    initialValue: 26.176
+    finalValue: 26.176
+  impactProperty:
+    initialValue: 273.530
+    finalValue: 273.530
+  kickbackProperty:
+    initialValue: 196.470
+    finalValue: 196.470
+  turretSpeedRotationProperty:
+    initialValue: 18.000
+    finalValue: 18.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 0.268
+    - name: Range
+      normalizedValue: 0.741
+    - name: FireRate
+      normalizedValue: 0.80
+    properties:
+    - name: DPM
+      initialValue: 15000
+      finalValue: 15000
+    - name: Damage
+      initialValue: 325
+      finalValue: 325
+    - name: Critical Damage
+      initialValue: 600
+      finalValue: 600
+    - name: Critical Chance
+      initialValue: 30
+      finalValue: 30
+      unit: percent
+    - name: Reload Time
+      initialValue: 1.3
+      finalValue: 1.3
+      format: 0.0
+      unit: sec
+    - name: Max Damage Distance
+      initialValue: 83.1
+      finalValue: 83.1
+      format: 0.0
+      unit: m
+    - name: Attack Distance
+      initialValue: 128.3
+      finalValue: 128.3
+      format: 0.0
+      unit: m
+    - name: Impact
+      initialValue: 3.5
+      finalValue: 3.5
+      format: 0.0
+      
+- grade: 3
+  priceItem:
+    price: 17700
+  xPriceItem:
+    price: 0
+  userItemTemplate:
+    userItemTemplate: 1433406776150
+  itemIcon:
+    spriteUid: 4053fb51-0d28-4afb-97a4-c66ce972b375
+  order:
+    index: 1
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 17
+  minDamageProperty:
+    initialValue: 29.000
+    finalValue: 29.000
+  maxDamageProperty:
+    initialValue: 36.000
+    finalValue: 36.000
+  reloadTimeProperty:
+    initialValue: 1.600
+    finalValue: 1.600
+  criticalDamageProperty:
+    initialValue: 116.000
+    finalValue: 116.000
+  startCriticalProbabilityProperty:
+    initialValue: 0.200
+    finalValue: 0.200
+  afterCriticalHitProbabilityProperty:
+    initialValue: -0.500
+    finalValue: -0.500
+  maxCriticalProbabilityProperty:
+    initialValue: 0.950
+    finalValue: 0.950
+  criticalProbabilityDeltaProperty:
+    initialValue: 0.100
+    finalValue: 0.100
+  maxDamageDistanceProperty:
+    initialValue: 60.000
+    finalValue: 60.000
+  minDamageDistanceProperty:
+    initialValue: 180.000
+    finalValue: 180.000
+  minDamagePercentProperty:
+    initialValue: 30.000
+    finalValue: 30.000
+  impactProperty:
+    initialValue: 350.000
+    finalValue: 350.000
+  kickbackProperty:
+    initialValue: 250.000
+    finalValue: 250.000
+  turretSpeedRotationProperty:
+    initialValue: 20.000
+    finalValue: 20.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 0.268
+    - name: Range
+      normalizedValue: 0.741
+    - name: FireRate
+      normalizedValue: 0.80
+    properties:
+    - name: DPM
+      initialValue: 15000
+      finalValue: 15000
+    - name: Damage
+      initialValue: 325
+      finalValue: 325
+    - name: Critical Damage
+      initialValue: 600
+      finalValue: 600
+    - name: Critical Chance
+      initialValue: 30
+      finalValue: 30
+      unit: percent
+    - name: Reload Time
+      initialValue: 1.3
+      finalValue: 1.3
+      format: 0.0
+      unit: sec
+    - name: Max Damage Distance
+      initialValue: 83.1
+      finalValue: 83.1
+      format: 0.0
+      unit: m
+    - name: Attack Distance
+      initialValue: 128.3
+      finalValue: 128.3
+      format: 0.0
+      unit: m
+    - name: Impact
+      initialValue: 3.5
+      finalValue: 3.5
+      format: 0.0
+      
+
+...

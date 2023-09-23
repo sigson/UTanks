@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: idle_explosion_anim
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 1
+  ItemData:
+    dictionary:
+    - key: idle_explosion_0
+      value: {fileID: 4868431590233275044, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_1
+      value: {fileID: -2783182843129646989, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_2
+      value: {fileID: -1461396821117149241, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_3
+      value: {fileID: -2979095899531727997, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_4
+      value: {fileID: -43676960913441916, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_5
+      value: {fileID: -6457379960173270120, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_6
+      value: {fileID: 9175988682915741329, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_7
+      value: {fileID: -3424917679204942100, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_8
+      value: {fileID: -5529934360910161436, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_9
+      value: {fileID: 6133435412152750805, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_10
+      value: {fileID: 4741693153864234633, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_11
+      value: {fileID: 8777124461558641157, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_12
+      value: {fileID: -5160082604728348310, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_13
+      value: {fileID: 5554396188188005324, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_14
+      value: {fileID: -5828332296669119582, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_15
+      value: {fileID: 4874957673440272641, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_16
+      value: {fileID: -4113588221783112141, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_17
+      value: {fileID: -2515079314437348791, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_18
+      value: {fileID: -2719439107457536581, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_19
+      value: {fileID: -219296066843189127, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_20
+      value: {fileID: -2963260698603148619, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_21
+      value: {fileID: -1860919041992162696, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_22
+      value: {fileID: 7483311873209878536, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_23
+      value: {fileID: -3901048555420698529, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_24
+      value: {fileID: -7857967970477730401, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_25
+      value: {fileID: 6820265660762610639, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_26
+      value: {fileID: 894728840070604025, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_27
+      value: {fileID: -2280813541281999265, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_28
+      value: {fileID: 1496589329562299103, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+    - key: idle_explosion_29
+      value: {fileID: -5676855959754361471, guid: 1af27c29517e1fb4186d50705aa90a34, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

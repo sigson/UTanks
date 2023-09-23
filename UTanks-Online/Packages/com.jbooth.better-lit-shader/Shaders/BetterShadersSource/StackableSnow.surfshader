@@ -1,0 +1,351 @@
+﻿///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// Stackable Snow
+
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableSnow"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableSnowMaterialEditor"
+END_OPTIONS
+
+BEGIN_SUBSHADERS
+"FunctionLibrary.surfshader"
+END_SUBSHADERS
+
+
+BEGIN_DEFINES
+   #pragma shader_feature_local _ _SNOW
+   #pragma shader_feature_local _ _SNOWMASKMAP
+   #pragma shader_feature_local _ _SNOWNOISE
+   #pragma shader_feature_local _ _SNOWSTOCHASTIC
+END_DEFINES
+
+BEGIN_PROPERTIES
+    _SnowMode("Snow Mode", Int) = 0
+    _SnowAlbedo("Snow Albedo", 2D) = "white" {}
+    _SnowTint("Snow Trax Albedo", Color) = (1,1,1,1)
+    _SnowNormal("Snow Normal", 2D) = "bump" {}
+    _SnowMaskMap("Snow Mask Map", 2D) = "black" {}
+    _SnowAmount("Snow Amount", Range(0,1)) = 1
+    _SnowAngle("Snow Angle Falloff", Range(0,2)) = 1
+    _SnowContrast("Snow Contrast", Range(0.5, 4)) = 1.5
+    _SnowVertexHeight("Snow Vertex Height", Range(0,1)) = 0.05
+    _SnowWorldFade("Snow Height Fade", Vector) = (100, 50, 0, 0)
+    _SnowTraxAlbedo("Snow Trax Albedo", 2D) = "white" {}
+    _SnowTraxTint("Snow Trax Albedo", Color) = (1,1,1,1)
+    _SnowTraxNormal("Snow Trax Normal", 2D) = "bump" {}
+    _SnowTraxMaskMap("Snow Trax Mask Map", 2D) = "black" {}
+    _SnowNoiseFreq("Snow Noise Frequency", Float) = 1
+    _SnowNoiseAmp("Snow Noise Amplitude", Float) = 1
+    _SnowNoiseOffset("Snow Noise Offset", Float) = 0
+    _SnowStochasticContrast("Snow Stochastic Contrast", Range(0.01, 0.99)) = 0.7
+    _SnowStochasticScale("Snow Stochastic Scale", Range(0,2)) = 1
+END_PROPERTIES
+
+BEGIN_CBUFFER
+    float4 _SnowAlbedo_ST;
+    half3 _SnowTint;
+    half _SnowAmount;
+    half _SnowAngle;
+    half _SnowContrast;
+    half _SnowVertexHeight;
+    half _SnowMode;
+    half3 _SnowWorldFade; // z is on/off
+    float4 _SnowTraxAlbedo_ST;
+    half3 _SnowTraxTint;
+
+    half _SnowNoiseFreq; 
+    half _SnowNoiseAmp;
+    half _SnowNoiseOffset;
+    half _SnowStochasticContrast;
+    half _SnowStochasticScale;
+END_CBUFFER
+
+
+BEGIN_CODE
+
+    #if _SNOW
+       TEXTURE2D(_SnowAlbedo);
+       SAMPLER(sampler_SnowAlbedo);
+       TEXTURE2D(_SnowNormal);
+       TEXTURE2D(_SnowMaskMap);
+       #if _TRAX_ON
+          TEXTURE2D(_SnowTraxAlbedo);
+          TEXTURE2D(_SnowTraxNormal);
+          TEXTURE2D(_SnowTraxMaskMap);
+       #endif
+    #endif
+
+   float _Global_SnowLevel;
+
+
+   void ModifyVertex(inout VertexData v, inout ExtraV2F e)
+   {
+    #if (_SNOW)
+        float amount = _SnowAmount;
+        if (_SnowMode > 0)
+           amount = _Global_SnowLevel;
+
+        float3 worldNormal = mul((float3x3)unity_ObjectToWorld, v.normal);
+        float snowAmount = dot(worldNormal, float3(0,1,0)) + 1;
+        snowAmount -= _SnowAngle;
+        snowAmount *= _SnowContrast * 0.5;
+        snowAmount = saturate(snowAmount) * amount;
+        float3 worldPos = ObjectToWorldSpacePosition(v.vertex.xyz);
+        if (_SnowWorldFade.z > 0)
+        {
+            float worldFade = saturate((worldPos.y - _SnowWorldFade.x) / max(_SnowWorldFade.y, 1));
+            snowAmount *= worldFade;
+        }
+        #if _SNOWNOISE
+            snowAmount *= 1 - saturate(1 - (snowAmount * 2 - 1)) * Noise2D(worldPos.xz * _SnowNoiseFreq + _SnowNoiseOffset) * _SnowNoiseAmp;
+        #endif
+        snowAmount = saturate(snowAmount);
+
+        #if _LAYERVERTEXMASK
+            snowAmount *= v.vertexColor.a;
+        #elif _LAYERTEXTUREMASK && _HAS_WEIGHTTEXTURE_MASK
+            snowAmount *= e.blackboard.weightTextureMask.a;
+        #endif
+
+        float3 displacementVec = mul((float3x3)unity_WorldToObject, float3(0,1,0));
+        v.vertex.xyz = v.vertex.xyz + displacementVec * snowAmount * snowAmount * _SnowVertexHeight;
+    #endif
+   }
+
+   void ModifyTessellatedVertex(inout VertexData v, inout ExtraV2F e)
+   {
+      #if _TESSELLATION_ON && _SNOW && _HAS_LIT_TESSELLATION
+         float amount = _SnowAmount;
+         if (_SnowMode > 0)
+           amount = _Global_SnowLevel;
+
+         float3 worldNormal = mul((float3x3)unity_ObjectToWorld, v.normal);
+         float snowAmount = dot(worldNormal, float3(0,1,0)) + 1;
+         snowAmount -= _SnowAngle;
+         snowAmount *= _SnowContrast * 0.5;
+         float3 worldPos = ObjectToWorldSpacePosition(v.vertex.xyz);
+         if (_SnowWorldFade.z > 0)
+         {
+            float worldFade = saturate((worldPos.y - _SnowWorldFade.x) / max(_SnowWorldFade.y, 1));
+            snowAmount *= worldFade;
+         }
+
+         snowAmount = saturate(snowAmount) * amount;
+
+         #if _SNOWNOISE
+            snowAmount *= 1 - saturate(1 - (snowAmount * 2 - 1)) * Noise2D(worldPos.xz * _SnowNoiseFreq + _SnowNoiseOffset) * _SnowNoiseAmp;
+         #endif
+         snowAmount = saturate(snowAmount);
+
+         #if _LAYERVERTEXMASK
+            snowAmount *= v.vertexColor.a;
+         #elif _LAYERTEXTUREMASK && _HAS_WEIGHTTEXTURE_MASK
+            snowAmount *= e.blackboard.weightTextureMask.a;
+         #endif
+
+         float3 displacementVec = mul((float3x3)unity_WorldToObject, float3(0,1,0));
+         half heightMap = SAMPLE_TEXTURE2D_LOD(_SnowAlbedo, sampler_SnowAlbedo, worldPos.xz * float2(1, -1) * _SnowAlbedo_ST.xy + _SnowAlbedo_ST.zw, 2);
+
+         float height = max(_SnowVertexHeight * 3 * snowAmount + snowAmount * heightMap, e.blackboard.vertexHeightOffset);
+         #if _TRAX_ON
+            height *= e.blackboard.traxBuffer;
+         #endif
+         e.blackboard.vertexHeightOffset = height;
+
+         height -= _TessellationOffset; 
+         // dampen cracks
+         height *= 1 - v.texcoord0.z;
+         height *= _TessellationDisplacement;
+
+         v.vertex.xyz = e.blackboard.originalVertexPosition + v.normal * height;
+         
+      #endif
+
+   }
+
+   void SampleSnowSurface(TEXTURE2D_PARAM(alb, ss), TEXTURE2D_PARAM(norm, ss2), TEXTURE2D_PARAM(mask, ss3),
+        ShaderData d, float2 uv, float2 dx, float2 dy, out half4 albedo, out half3 normal, out half2 smoothAO)
+   {
+      #if _SNOWSTOCHASTIC
+         float w1, w2, w3;
+         int2 vertex1, vertex2, vertex3;
+         TriangleGrid(uv, _SnowStochasticScale, w1, w2, w3, vertex1, vertex2, vertex3);
+
+         // Assign random offset to each triangle vertex
+         float2 uv0 = uv;
+         float2 uv1 = uv;
+         float2 uv2 = uv;
+   
+         uv0.xy += SimpleHash2(vertex1);
+         uv1.xy += SimpleHash2(vertex2);
+         uv2.xy += SimpleHash2(vertex3);
+         half3 weights = half3(w1, w2, w3);
+
+         half4 albedo0 = SAMPLE_TEXTURE2D_GRAD(alb, ss, uv0, dx, dy);
+         half4 albedo1 = SAMPLE_TEXTURE2D_GRAD(alb, ss, uv1, dx, dy);
+         half4 albedo2 = SAMPLE_TEXTURE2D_GRAD(alb, ss, uv2, dx, dy);
+         COUNTSAMPLE
+         COUNTSAMPLE
+         COUNTSAMPLE
+         weights = BaryWeightBlend(weights, albedo0.a, albedo1.a, albedo2.a, _SnowStochasticContrast);
+         albedo = albedo0 * weights.x + albedo1 * weights.y + albedo2 * weights.z;
+
+         normal = half3(0,0,1);
+         smoothAO = half2(0, 1);
+
+         #if !_AUTONORMAL
+            half4 n0 = SAMPLE_TEXTURE2D_GRAD(norm, ss2, uv0, dx, dy);
+            half4 n1 = SAMPLE_TEXTURE2D_GRAD(norm, ss2, uv1, dx, dy);
+            half4 n2 = SAMPLE_TEXTURE2D_GRAD(norm, ss2, uv2, dx, dy);
+            COUNTSAMPLE
+            COUNTSAMPLE
+            COUNTSAMPLE
+
+            half4 snowNormSamp = n0 * weights.x + n1 * weights.y + n2 * weights.z;
+
+            normal = PackedUnpackScaleNormal(snowNormSamp, 1);
+            #if _SURFACEGRADIENT
+               normal = ConvertNormalToGradient(d, normal);
+            #endif
+                
+            #if _PACKEDFAST
+               smoothAO.x = snowNormSamp.r;
+               smoothAO.y = snowNormSamp.b;
+            #endif
+         #endif
+
+         #if _SNOWMASKMAP && !_PACKEDFAST
+            half4 snowMask0 = SAMPLE_TEXTURE2D_GRAD(mask, ss3, uv0, dx, dy);
+            half4 snowMask1 = SAMPLE_TEXTURE2D_GRAD(mask, ss3, uv1, dx, dy);
+            half4 snowMask2 = SAMPLE_TEXTURE2D_GRAD(mask, ss3, uv2, dx, dy);
+            COUNTSAMPLE
+            COUNTSAMPLE
+            COUNTSAMPLE
+            half4 snowMask = snowMask0 * weights.x + snowMask1 * weights.y + snowMask2 * weights.z;
+            smoothAO.x = snowMask.a;
+            smoothAO.y = snowMask.g;
+         #endif
+      #else // not stochastic
+          albedo = SAMPLE_TEXTURE2D_GRAD(alb, ss, uv, dx, dy);
+          COUNTSAMPLE
+
+          normal = half3(0,0,1);
+          smoothAO = half2(0, 1);
+
+          #if !_AUTONORMAL
+             half4 snowNormSamp = SAMPLE_TEXTURE2D_GRAD(norm, ss2, uv, dx, dy);
+             COUNTSAMPLE
+             normal = PackedUnpackScaleNormal(snowNormSamp, 1);
+             #if _SURFACEGRADIENT
+                normal = ConvertNormalToGradient(d, normal);
+             #endif
+                 
+             #if _PACKEDFAST
+                smoothAO.x = snowNormSamp.r;
+                smoothAO.y = snowNormSamp.b;
+             #endif
+         #endif
+
+         #if _SNOWMASKMAP && !_PACKEDFAST
+            half4 snowMask = SAMPLE_TEXTURE2D_GRAD(mask, ss3, uv, dx, dy);
+            COUNTSAMPLE
+            smoothAO.x = snowMask.a;
+            smoothAO.y = snowMask.g;
+         #endif
+     #endif // stochastic
+   }
+
+   
+   void SurfaceFunction(inout Surface o, ShaderData d)
+   {
+      #if _SNOW
+          float amount = _SnowAmount;
+          if (_SnowMode > 0)
+           amount = _Global_SnowLevel;
+
+          float snowAmount = lerp(dot(GetWorldSpaceNormal(d, o.Normal, o.Alpha), float3(0,1,0)), dot(d.worldSpaceNormal, float3(0,1,0)), amount * 0.8) + 1;
+          snowAmount -= _SnowAngle;
+          snowAmount *= _SnowContrast;
+          snowAmount = saturate(snowAmount) - (1-amount) * (1-amount);
+
+          if (_SnowWorldFade.z > 0)
+          {
+             float worldFade = saturate((d.worldSpacePosition.y - _SnowWorldFade.x) / max(_SnowWorldFade.y, 1));
+             snowAmount *= worldFade;
+          }
+
+          #if _SNOWNOISE
+            snowAmount *= 1 - saturate(1 - (snowAmount * 2 - 1)) * Noise2D(d.worldSpacePosition.xz * _SnowNoiseFreq + _SnowNoiseOffset) * _SnowNoiseAmp;
+          #endif
+          snowAmount = saturate(snowAmount);
+
+          float2 uv = d.worldSpacePosition.xz * float2(1, -1) * _SnowAlbedo_ST.xy + _SnowAlbedo_ST.zw;
+          float2 dx = ddx(uv);
+          float2 dy = ddy(uv);
+
+          #if _TRAX_ON
+              float2 tuv = d.worldSpacePosition.xz * float2(1, -1) * _SnowTraxAlbedo_ST.xy + _SnowTraxAlbedo_ST.zw;
+              float2 tdx = ddx(uv);
+              float2 tdy = ddy(uv);
+          #endif
+
+          #if _LAYERVERTEXMASK
+              snowAmount *= d.vertexColor.a;
+          #elif _LAYERTEXTUREMASK && _HAS_WEIGHTTEXTURE_MASK
+              snowAmount *= d.blackboard.weightTextureMask.a;
+          #endif
+
+          UNITY_BRANCH
+          if (snowAmount > 0)
+          {
+             half4 snowAlbedo;
+             half3 snowNormal;
+             half2 snowSmoothAO;
+             SampleSnowSurface(TEXTURE2D_ARGS(_SnowAlbedo, sampler_SnowAlbedo), TEXTURE2D_ARGS(_SnowNormal, sampler_SnowAlbedo),
+                    TEXTURE2D_ARGS(_SnowMaskMap, sampler_SnowAlbedo), d, uv, dx, dy, snowAlbedo, snowNormal, snowSmoothAO);
+
+             snowAlbedo.rgb *= _SnowTint.rgb;
+
+             #if _TRAX_ON
+                half traxBuffer = 1 - d.blackboard.traxBuffer;
+                UNITY_BRANCH
+                if (traxBuffer > 0)
+                {
+                    half4 tsnowAlbedo;
+                    half3 tsnowNormal;
+                    half2 tsnowSmoothAO;
+                    SampleSnowSurface(TEXTURE2D_ARGS(_SnowTraxAlbedo, sampler_SnowAlbedo), TEXTURE2D_ARGS(_SnowTraxNormal, sampler_SnowAlbedo),
+                        TEXTURE2D_ARGS(_SnowTraxMaskMap, sampler_SnowAlbedo), d, tuv, tdx, tdy, tsnowAlbedo, tsnowNormal, tsnowSmoothAO);
+
+                    tsnowAlbedo.rgb *= _SnowTraxTint;
+                    half h = HeightBlend(snowAlbedo.a, tsnowAlbedo.a, traxBuffer, 0.5);
+                    snowAlbedo = lerp(snowAlbedo, tsnowAlbedo, h);
+                    snowNormal = lerp(snowNormal, tsnowNormal, h);
+                    snowSmoothAO = lerp(snowSmoothAO, tsnowSmoothAO, h);
+                }
+             #endif
+
+             #if !_AUTONORMAL
+                o.Normal = lerp(o.Normal, snowNormal, snowAmount);
+             #endif
+             o.Albedo = lerp(o.Albedo, snowAlbedo.rgb, snowAmount);
+             o.Alpha = lerp(o.Alpha, snowAlbedo.a, snowAmount);
+             o.Smoothness = lerp(o.Smoothness, snowSmoothAO.x, snowAmount);
+             o.Occlusion = lerp(o.Occlusion, snowSmoothAO.y, snowAmount);
+             o.Metallic *= (1.0-snowAmount);
+             o.Height = o.Alpha;
+
+          }
+      #endif
+   }
+
+   
+
+
+END_CODE
+

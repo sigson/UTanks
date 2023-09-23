@@ -1,0 +1,40 @@
+﻿///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// Alpha shader with tessellation
+
+BEGIN_OPTIONS
+   ShaderName "Better Lit/Development/Lit Tessellation Alpha"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "LitTessellationMaterialEditor"
+   Queue "Transparent"
+   Alpha "Blend"
+END_OPTIONS
+
+
+BEGIN_SUBSHADERS
+   "LitTessellationBase-Dev.surfshader"
+   "StackableTintMask.surfshader"
+   "StackableTextureLayerWeightProvider.surfshader"
+   "StackableTextureLayer.surfshader"
+   "StackableTextureLayer.surfshader"
+   "StackableTextureLayer.surfshader"
+   "StackableTrax.surfshader"
+   "StackablePuddles.surfshader"
+   "StackableSnow.surfshader"
+   "StackableWind.surfshader"
+   "StackableDoubleSided.surfshader"
+   "StackableNormalFinalizer.surfshader"
+   "StackableDebugView.surfshader"
+   "StackableDissolve.surfshader"
+   "StackableDitherFadeLOD.surfshader"
+   "StackableVegetationStudioInstancing.surfshader"
+   "StackableBakery.surfshader"
+END_SUBSHADERS
+
+
+BEGIN_PROPERTIES
+   _IsAlpha("Not Used or set, just so the editor knows we are an alpha shader", Float) = 0
+END_PROPERTIES

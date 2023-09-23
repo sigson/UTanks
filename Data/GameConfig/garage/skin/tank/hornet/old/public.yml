@@ -1,0 +1,52 @@
+previewPathName:
+  preview: OldMain
+lightmapPathName:
+  lightmap: OldMain
+detailsPathName:
+  details: OldMain
+colorPathName:
+  color: OldMain
+moveEffectsPathName: []
+shotComponentsPathName: []
+prefabOfScriptsPathName: []
+soundsPathName: []
+videosPathName: []
+effectTexturesPathName: []
+animationsPathName: []
+scriptAnimationsPathName: []
+modelsPathName:
+- model: OldMain
+meshModelsPathName:
+- meshModel: OldMain
+materialsPathName:
+- material: Main
+- material: MainTrack
+- material: Shader
+- material: ShaderTrack
+shadersPathName:
+- shader: ColorShader
+priceItem:
+  price: 0
+xPriceItem:
+  price: 0
+order:
+  index: 300
+unityAsset:
+ reference:
+  assetGuid: e38825a7ddcd74f4681e57bde02d4642
+imageItem:
+  spriteUid: 7e1362c5-960d-45a2-8fe9-3d6190ec7599
+purchaseUpgradeLevelRestriction:
+  restrictionValue: 0
+crystalsPurchaseUserRankRestriction:
+  restrictionValue: 0
+mountUpgradeLevelRestriction:
+  restrictionValue: 0
+mountUserRankRestriction:
+  restrictionValue: 0
+itemRarity:
+  rarityType: COMMON
+skinType:
+  singleForAllModificationsSkin: false
+  skinEra: old
+  

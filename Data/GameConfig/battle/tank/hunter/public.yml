@@ -1,0 +1,24 @@
+tankCommonPrefab:
+ assetGuid: 9a55f50b29f309c4fbb678abd0c7f37d
+chassisConfig:
+ reverseBackTurn: false
+ trackSeparation: 0.4
+ suspensionRayOffsetY: 0.1
+ numRaysPerTrack: 5
+ maxRayLength: 0.5
+ nominalRayLength: 0.25
+temperatureConfig:
+  maxTemperature: 1.0
+  minTemperature: -1.0
+  autoIncrementInMs: 0.00025
+  autoDecrementInMs: 0.00005
+  tactPeriodInMs: 1000
+balanceColliderConfig:
+  center:
+    x: 0
+    y: 0.95
+    z: 0
+  size:
+    x: 1
+    y: 0.95
+    z: 4.5

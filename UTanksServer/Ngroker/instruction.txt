@@ -1,0 +1,5 @@
+you need install python 3.10(sic!)
+after installing and adding python to PATH
+pip install PyGithub pyngrok
+python ./ngroker.py
+Congrats!

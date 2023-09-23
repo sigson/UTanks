@@ -1,0 +1,12 @@
+DropConfigPath: battle\bonus\bounty\container
+MainName: 
+BoxEraName: gold_crystal_new
+BoxTextureName: Main
+ParachuteTextureName: Parachute
+CordTextureName: Cord
+BoxModelName: Box
+ParachuteModelName: Parachute
+BoxMeshName: Box
+ParachuteMeshName: Parachute
+BoxMaterialName: BoxMaterial
+ParachuteMaterialName: ParachuteMaterial

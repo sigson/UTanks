@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: Armor
+      value: {fileID: 21300000, guid: 39acd20aad5c8604cb298d5a5bf54ea7, type: 3}
+    - key: CriticalChance
+      value: {fileID: 21300000, guid: f11d81cefebd76843be1216feff96e5d, type: 3}
+    - key: Range
+      value: {fileID: 21300000, guid: c94b72c167a374a42b8845874caace92, type: 3}
+    - key: Attack Distance
+      value: {fileID: 21300000, guid: 8bc6437b2961fb34494e61ee0f28599a, type: 3}
+    - key: Healing per Second
+      value: {fileID: 21300000, guid: 58ab8df457a2d1941996338673c97ab7, type: 3}
+    - key: Max Damage Distance
+      value: {fileID: 21300000, guid: f291823692ad20640952f3aa7ce6716f, type: 3}
+    - key: MineInstalling
+      value: {fileID: 21300000, guid: 4ff558203f9c07e469716d40b1503550, type: 3}
+    - key: Reload Time
+      value: {fileID: 21300000, guid: 3dad18783416eb940a13af7bc01fdc66, type: 3}
+    - key: RotationSpeed
+      value: {fileID: 21300000, guid: ed78d1ae983beba45983779f3dad9a5e, type: 3}
+    - key: ShaftAltDamage
+      value: {fileID: 21300000, guid: 8b973684d50f6b044aab211830313ff7, type: 3}
+    - key: ShaftAltReload
+      value: {fileID: 21300000, guid: 87525baab9ab5ee4983eefdaaa1c782a, type: 3}
+    - key: SplashRange
+      value: {fileID: 21300000, guid: 7e5c70165d8e7494f8a2e9e5375e9a54, type: 3}
+    - key: Acceleration
+      value: {fileID: 21300000, guid: db2156e04d097094483a1b18557c3d87, type: 3}
+    - key: Speed
+      value: {fileID: 21300000, guid: d978481c101207746a731f26d4dd0b83, type: 3}
+    - key: Vampirism
+      value: {fileID: 21300000, guid: 697de58a27fc8a54fb3829f40cfbcd95, type: 3}
+    - key: Afterburning
+      value: {fileID: 21300000, guid: fd9439aa1d3e38a4fad017746c7743be, type: 3}
+    - key: NullIIcon
+      value: {fileID: 21300000, guid: e5b6c4c8a5ec97f46a9dc4032990a53e, type: 3}
+    - key: Damage
+      value: {fileID: 21300000, guid: 92facb79d24e5744db3681a6339382e8, type: 3}
+    - key: Damage per Second
+      value: {fileID: 21300000, guid: 92facb79d24e5744db3681a6339382e8, type: 3}
+    - key: Weight
+      value: {fileID: 21300000, guid: 577a1ef8e08201b4ba965964feab294f, type: 3}
+    - key: Piercing Damage Percent
+      value: {fileID: 21300000, guid: 2de0217e304e98f4db39284b536529e6, type: 3}
+    - key: Impact
+      value: {fileID: 21300000, guid: c67d1defc6382da4ab4bcb09cd87b041, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  ItemData:
+    dictionary:
+    - key: jet
+      value: {fileID: 1305364814616666350, guid: 11e35288a71e2294d9c91496af04194c, type: 3}
+    - key: snow_breeze
+      value: {fileID: 2800000, guid: d7424f7824b092b4f99af267b47345b2, type: 3}
+    - key: snow_flake
+      value: {fileID: 2800000, guid: 5a74c946c2908374eb061828e8e27914, type: 3}
+    - key: freeze
+      value: {fileID: 8300000, guid: dba0cfa02dbd07e4790b78f5bb6748b5, type: 3}
+    - key: turret
+      value: {fileID: 8300000, guid: b997f1d13dfda06478e500ed352ddc04, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

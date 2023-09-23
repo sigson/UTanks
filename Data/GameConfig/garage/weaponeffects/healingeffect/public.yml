@@ -1,0 +1,17 @@
+grades:
+- grade: 0
+  HealingProperty:
+    initialValue: 25
+    finalValue: 25
+- grade: 1
+  HealingProperty:
+    initialValue: 25
+    finalValue: 25
+- grade: 2
+  HealingProperty:
+    initialValue: 25
+    finalValue: 25
+- grade: 3
+  HealingProperty:
+    initialValue: 25
+    finalValue: 25

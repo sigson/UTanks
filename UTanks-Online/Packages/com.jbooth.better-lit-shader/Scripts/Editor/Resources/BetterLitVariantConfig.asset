@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c9b3e4c0fe34a1cbebe54f5732082c, type: 3}
+  m_Name: BetterLitVariantConfig
+  m_EditorClassIdentifier: 
+  tintMask: 0
+  vertexColoring: 0
+  textureLayer0: 0
+  textureLayer1: 0
+  textureLayer2: 0
+  textureLayer3: 0
+  wetness: 0
+  puddles: 0
+  snow: 0
+  wind: 0
+  trax: 0
+  sixSidedGradientTint: 0
+  dissolve: 0
+  wireframe: 0
+  debug: 0
+  bakery: 0
+  stochastic: 0
+  triplanar: 0
+  effectors: 0
+  HDRPFeatures: 0
+  tessellationVariants: 0
+  deferredVariants: 0
+  additionalKeywords:
+  - BAKERY_BICUBIC
+  - BAKERY_COMPRESSED_VOLUME
+  - BAKERY_LMSPEC
+  - BAKERY_VERTEXLMMASK
+  - BAKERY_VOLROTATION
+  - BAKERY_VOLUME
+  - LOD_FADE_CROSSFADE
+  - PROCEDURAL_INSTANCING_ON
+  - USEBAKERY
+  - _LAYERVERTEXMASK
+  - _LIGHTMAPMODE_RNM
+  - _LIGHTMAPMODE_SH
+  - _LIGHTMAPMODE_VERTEX
+  - _LIGHTMAPMODE_VERTEXDIRECTIONAL
+  - _LIGHTMAPMODE_VERTEXSH

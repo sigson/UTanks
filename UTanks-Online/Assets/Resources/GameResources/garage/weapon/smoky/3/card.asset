@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: critical_hit
+      value: {fileID: 2800000, guid: 828e533adf607d44e8fee4a78cee29a7, type: 3}
+    - key: smoky_exp
+      value: {fileID: 8300000, guid: 44b3c1a720249c64bb6603021077c7c2, type: 3}
+    - key: smoky_shot
+      value: {fileID: 8300000, guid: 65df05f746fe9f9438222fb1eff58c11, type: 3}
+    - key: fire
+      value: {fileID: 2800000, guid: 165b88dbaf5d98446bb230b5a10d0df1, type: 3}
+    - key: shot
+      value: {fileID: 2800000, guid: c9830dbb52e13cd4b9f4bef771a3d434, type: 3}
+    - key: turret
+      value: {fileID: 8300000, guid: b997f1d13dfda06478e500ed352ddc04, type: 3}
+    - key: shot_anim
+      value: {fileID: 3682305111351076532, guid: ea3dadef272bad843b53113a5d547f3b, type: 3}
+    - key: script
+      value: {fileID: 4668858842965725731, guid: 92f49f6114bb72145b30b1634489cb8e, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

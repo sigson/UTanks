@@ -1,0 +1,283 @@
+grades:
+- grade: 0
+  priceItem:
+    price: 350
+  xPriceItem:
+    price: 400
+  userItemTemplate:
+    userItemTemplate: 1435138575888
+  itemIcon:
+    spriteUid: dc138502-5581-4287-97eb-8fff8b5650ff
+  order:
+    index: 11
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 2
+  minDamageProperty:
+    initialValue: 50.000
+    finalValue: 50.000
+  maxDamageProperty:
+    initialValue: 78.000
+    finalValue: 78.000
+  chargeTimeProperty:
+    initialValue: 1.196
+    finalValue: 1.196
+  reloadTimeProperty:
+    initialValue: 7.800
+    finalValue: 7.800
+  damageWeakeningByTargetProperty:
+    initialValue: 0.5
+    finalValue: 0.5
+  impactProperty:
+    initialValue: 250.000
+    finalValue: 250.000
+  kickbackProperty:
+    initialValue: 183.400
+    finalValue: 183.400
+  turretSpeedRotationProperty:
+    initialValue: 7.000
+    finalValue: 7.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 1.0
+    - name: Range
+      normalizedValue: 1.00
+    - name: FireRate
+      normalizedValue: 0.20
+    properties:
+    - name: DPM
+      initialValue: 10200
+      finalValue: 10200
+    - name: Damage
+      initialValue: 952
+      finalValue: 952
+    - name: Charge Time
+      initialValue: 1.1
+      finalValue: 1.1
+      format: 0.0
+      unit: sec
+    - name: Reload Time
+      initialValue: 4.5
+      finalValue: 4.5
+      format: 0.0
+      unit: sec
+    - name: Piercing Damage Percent
+      initialValue: 95
+      finalValue: 95
+      unit: percent
+    - name: Impact
+      initialValue: 6
+      finalValue: 6
+      
+- grade: 1
+  priceItem:
+    price: 1600
+  xPriceItem:
+    price: 400
+  userItemTemplate:
+    userItemTemplate: 1435138575888
+  itemIcon:
+    spriteUid: dc138502-5581-4287-97eb-8fff8b5650ff
+  order:
+    index: 11
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 9
+  minDamageProperty:
+    initialValue: 75.000
+    finalValue: 75.000
+  maxDamageProperty:
+    initialValue: 115.000
+    finalValue: 115.000
+  chargeTimeProperty:
+    initialValue: 1.150
+    finalValue: 1.150
+  reloadTimeProperty:
+    initialValue: 7.200
+    finalValue: 7.200
+  damageWeakeningByTargetProperty:
+    initialValue: 0.5
+    finalValue: 0.5
+  impactProperty:
+    initialValue: 367.060
+    finalValue: 367.060
+  kickbackProperty:
+    initialValue: 183.530
+    finalValue: 183.530
+  turretSpeedRotationProperty:
+    initialValue: 9.000
+    finalValue: 9.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 1.0
+    - name: Range
+      normalizedValue: 1.00
+    - name: FireRate
+      normalizedValue: 0.20
+    properties:
+    - name: DPM
+      initialValue: 10200
+      finalValue: 10200
+    - name: Damage
+      initialValue: 952
+      finalValue: 952
+    - name: Charge Time
+      initialValue: 1.1
+      finalValue: 1.1
+      format: 0.0
+      unit: sec
+    - name: Reload Time
+      initialValue: 4.5
+      finalValue: 4.5
+      format: 0.0
+      unit: sec
+    - name: Piercing Damage Percent
+      initialValue: 95
+      finalValue: 95
+      unit: percent
+    - name: Impact
+      initialValue: 6
+      finalValue: 6
+      
+- grade: 2
+  priceItem:
+    price: 5200
+  xPriceItem:
+    price: 400
+  userItemTemplate:
+    userItemTemplate: 1435138575888
+  itemIcon:
+    spriteUid: dc138502-5581-4287-97eb-8fff8b5650ff
+  order:
+    index: 11
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 12
+  minDamageProperty:
+    initialValue: 98.000
+    finalValue: 98.000
+  maxDamageProperty:
+    initialValue: 135.000
+    finalValue: 135.000
+  chargeTimeProperty:
+    initialValue: 1.130
+    finalValue: 1.130
+  reloadTimeProperty:
+    initialValue: 7.140
+    finalValue: 7.140
+  damageWeakeningByTargetProperty:
+    initialValue: 0.5
+    finalValue: 0.5
+  impactProperty:
+    initialValue: 420.000
+    finalValue: 420.000
+  kickbackProperty:
+    initialValue: 240.000
+    finalValue: 240.000
+  turretSpeedRotationProperty:
+    initialValue: 11.000
+    finalValue: 11.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 1.0
+    - name: Range
+      normalizedValue: 1.00
+    - name: FireRate
+      normalizedValue: 0.20
+    properties:
+    - name: DPM
+      initialValue: 10200
+      finalValue: 10200
+    - name: Damage
+      initialValue: 952
+      finalValue: 952
+    - name: Charge Time
+      initialValue: 1.1
+      finalValue: 1.1
+      format: 0.0
+      unit: sec
+    - name: Reload Time
+      initialValue: 4.5
+      finalValue: 4.5
+      format: 0.0
+      unit: sec
+    - name: Piercing Damage Percent
+      initialValue: 95
+      finalValue: 95
+      unit: percent
+    - name: Impact
+      initialValue: 6
+      finalValue: 6
+      
+- grade: 3
+  priceItem:
+    price: 15000
+  xPriceItem:
+    price: 400
+  userItemTemplate:
+    userItemTemplate: 1435138575888
+  itemIcon:
+    spriteUid: dc138502-5581-4287-97eb-8fff8b5650ff
+  order:
+    index: 11
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 16
+  minDamageProperty:
+    initialValue: 112.000
+    finalValue: 112.000
+  maxDamageProperty:
+    initialValue: 165.000
+    finalValue: 165.000
+  chargeTimeProperty:
+    initialValue: 1.097
+    finalValue: 1.097
+  reloadTimeProperty:
+    initialValue: 6.890
+    finalValue: 6.890
+  damageWeakeningByTargetProperty:
+    initialValue: 0.5
+    finalValue: 0.5
+  impactProperty:
+    initialValue: 504.710
+    finalValue: 504.710
+  kickbackProperty:
+    initialValue: 268.240
+    finalValue: 268.240
+  turretSpeedRotationProperty:
+    initialValue: 14.000
+    finalValue: 14.000
+  visualProperties:
+    mainProperties:
+    - name: Damage
+      normalizedValue: 1.0
+    - name: Range
+      normalizedValue: 1.00
+    - name: FireRate
+      normalizedValue: 0.20
+    properties:
+    - name: DPM
+      initialValue: 10200
+      finalValue: 10200
+    - name: Damage
+      initialValue: 952
+      finalValue: 952
+    - name: Charge Time
+      initialValue: 1.1
+      finalValue: 1.1
+      format: 0.0
+      unit: sec
+    - name: Reload Time
+      initialValue: 4.5
+      finalValue: 4.5
+      format: 0.0
+      unit: sec
+    - name: Piercing Damage Percent
+      initialValue: 95
+      finalValue: 95
+      unit: percent
+    - name: Impact
+      initialValue: 6
+      finalValue: 6
+      
+
+...

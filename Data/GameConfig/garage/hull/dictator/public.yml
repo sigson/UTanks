@@ -1,0 +1,347 @@
+grades:
+- grade: 0
+  priceItem:
+    price: 350
+  xPriceItem:
+    price: 580
+  order:
+    index: 7
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 2
+  hullType:
+    hullType: MEDIUM
+  defaultSkin:
+    skin: garage\skin\tank\dictator\default
+  health:
+    initialValue: 105.000
+    finalValue: 105.000
+  unloadTemperatureProperty:
+    initialValue: 0.1
+    finalValue: 0.1
+  weight:
+    initialValue: 3333.333
+    finalValue: 3333.333
+  damping:
+    initialValue: 1700.000
+    finalValue: 1700.000
+  speed:
+    initialValue: 8.833
+    finalValue: 8.833
+  acceleration:
+    initialValue: 13.718
+    finalValue: 13.718
+  reverseAcceleration:
+    initialValue: 9.370
+    finalValue: 9.370
+  sideAcceleration:
+    initialValue: 20.600
+    finalValue: 20.600
+  turnSpeed:
+    initialValue: 90.000
+    finalValue: 90.000
+  turnAcceleration:
+    initialValue: 102.832
+    finalValue: 102.832
+  reverseTurnAcceleration:
+    initialValue: 201.667
+    finalValue: 201.667
+  turretTurnSpeedProperty:
+    initialValue: 106.667
+    finalValue: 106.667
+  turretTurnAccelerationProperty:
+    initialValue: 98.333
+    finalValue: 98.333
+  visualProperties:
+    mainProperties:
+    - name: Armor
+      normalizedValue: 0.837
+    - name: Mobility
+      normalizedValue: 0.661
+    properties:
+    - name: Armor
+      initialValue: 2800
+      finalValue: 2800
+    - name: Weight
+      initialValue: 33
+      finalValue: 33
+      unit: t
+    - name: Speed
+      initialValue: 8.83
+      finalValue: 8.83
+      format: 0.00
+      unit: meters_per_sec
+    - name: Acceleration
+      initialValue: 13.7
+      finalValue: 13.7
+      format: 0.0
+      unit: meters_per_sec
+    - name: Turning Speed
+      initialValue: 90
+      finalValue: 90
+      unit: degrees_per_sec
+    - name: TurretRotationSpeed
+      initialValue: 106.7
+      finalValue: 106.7
+      format: 0.0
+      unit: degrees_per_sec
+      
+- grade: 1
+  priceItem:
+    price: 1700
+  xPriceItem:
+    price: 580
+  order:
+    index: 7
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 7
+  hullType:
+    hullType: MEDIUM
+  defaultSkin:
+    skin: garage\skin\tank\dictator\default
+  health:
+    initialValue: 164.000
+    finalValue: 164.000
+  unloadTemperatureProperty:
+    initialValue: 0.1
+    finalValue: 0.1
+  weight:
+    initialValue: 3333.333
+    finalValue: 3333.333
+  damping:
+    initialValue: 1700.000
+    finalValue: 1700.000
+  speed:
+    initialValue: 8.833
+    finalValue: 8.833
+  acceleration:
+    initialValue: 13.718
+    finalValue: 13.718
+  reverseAcceleration:
+    initialValue: 9.370
+    finalValue: 9.370
+  sideAcceleration:
+    initialValue: 20.600
+    finalValue: 20.600
+  turnSpeed:
+    initialValue: 90.000
+    finalValue: 90.000
+  turnAcceleration:
+    initialValue: 102.832
+    finalValue: 102.832
+  reverseTurnAcceleration:
+    initialValue: 201.667
+    finalValue: 201.667
+  turretTurnSpeedProperty:
+    initialValue: 106.667
+    finalValue: 106.667
+  turretTurnAccelerationProperty:
+    initialValue: 98.333
+    finalValue: 98.333
+  visualProperties:
+    mainProperties:
+    - name: Armor
+      normalizedValue: 0.837
+    - name: Mobility
+      normalizedValue: 0.661
+    properties:
+    - name: Armor
+      initialValue: 2800
+      finalValue: 2800
+    - name: Weight
+      initialValue: 33
+      finalValue: 33
+      unit: t
+    - name: Speed
+      initialValue: 8.83
+      finalValue: 8.83
+      format: 0.00
+      unit: meters_per_sec
+    - name: Acceleration
+      initialValue: 13.7
+      finalValue: 13.7
+      format: 0.0
+      unit: meters_per_sec
+    - name: Turning Speed
+      initialValue: 90
+      finalValue: 90
+      unit: degrees_per_sec
+    - name: TurretRotationSpeed
+      initialValue: 106.7
+      finalValue: 106.7
+      format: 0.0
+      unit: degrees_per_sec
+      
+- grade: 2
+  priceItem:
+    price: 5800
+  xPriceItem:
+    price: 580
+  order:
+    index: 7
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 12
+  hullType:
+    hullType: MEDIUM
+  defaultSkin:
+    skin: garage\skin\tank\dictator\default
+  health:
+    initialValue: 191.000
+    finalValue: 191.000
+  unloadTemperatureProperty:
+    initialValue: 0.1
+    finalValue: 0.1
+  weight:
+    initialValue: 3333.333
+    finalValue: 3333.333
+  damping:
+    initialValue: 1700.000
+    finalValue: 1700.000
+  speed:
+    initialValue: 8.833
+    finalValue: 8.833
+  acceleration:
+    initialValue: 13.718
+    finalValue: 13.718
+  reverseAcceleration:
+    initialValue: 9.370
+    finalValue: 9.370
+  sideAcceleration:
+    initialValue: 20.600
+    finalValue: 20.600
+  turnSpeed:
+    initialValue: 90.000
+    finalValue: 90.000
+  turnAcceleration:
+    initialValue: 102.832
+    finalValue: 102.832
+  reverseTurnAcceleration:
+    initialValue: 201.667
+    finalValue: 201.667
+  turretTurnSpeedProperty:
+    initialValue: 106.667
+    finalValue: 106.667
+  turretTurnAccelerationProperty:
+    initialValue: 98.333
+    finalValue: 98.333
+  visualProperties:
+    mainProperties:
+    - name: Armor
+      normalizedValue: 0.837
+    - name: Mobility
+      normalizedValue: 0.661
+    properties:
+    - name: Armor
+      initialValue: 2800
+      finalValue: 2800
+    - name: Weight
+      initialValue: 33
+      finalValue: 33
+      unit: t
+    - name: Speed
+      initialValue: 8.83
+      finalValue: 8.83
+      format: 0.00
+      unit: meters_per_sec
+    - name: Acceleration
+      initialValue: 13.7
+      finalValue: 13.7
+      format: 0.0
+      unit: meters_per_sec
+    - name: Turning Speed
+      initialValue: 90
+      finalValue: 90
+      unit: degrees_per_sec
+    - name: TurretRotationSpeed
+      initialValue: 106.7
+      finalValue: 106.7
+      format: 0.0
+      unit: degrees_per_sec
+      
+- grade: 3
+  priceItem:
+    price: 18000
+  xPriceItem:
+    price: 580
+  order:
+    index: 7
+  crystalsPurchaseUserRankRestriction:
+    restrictionValue: 19
+  hullType:
+    hullType: MEDIUM
+  defaultSkin:
+    skin: garage\skin\tank\dictator\default
+  health:
+    initialValue: 255.000
+    finalValue: 255.000
+  unloadTemperatureProperty:
+    initialValue: 0.1
+    finalValue: 0.1
+  weight:
+    initialValue: 3333.333
+    finalValue: 3333.333
+  damping:
+    initialValue: 1700.000
+    finalValue: 1700.000
+  speed:
+    initialValue: 8.833
+    finalValue: 8.833
+  acceleration:
+    initialValue: 13.718
+    finalValue: 13.718
+  reverseAcceleration:
+    initialValue: 9.370
+    finalValue: 9.370
+  sideAcceleration:
+    initialValue: 20.600
+    finalValue: 20.600
+  turnSpeed:
+    initialValue: 90.000
+    finalValue: 90.000
+  turnAcceleration:
+    initialValue: 102.832
+    finalValue: 102.832
+  reverseTurnAcceleration:
+    initialValue: 201.667
+    finalValue: 201.667
+  turretTurnSpeedProperty:
+    initialValue: 106.667
+    finalValue: 106.667
+  turretTurnAccelerationProperty:
+    initialValue: 98.333
+    finalValue: 98.333
+  visualProperties:
+    mainProperties:
+    - name: Armor
+      normalizedValue: 0.837
+    - name: Mobility
+      normalizedValue: 0.661
+    properties:
+    - name: Armor
+      initialValue: 2800
+      finalValue: 2800
+    - name: Weight
+      initialValue: 33
+      finalValue: 33
+      unit: t
+    - name: Speed
+      initialValue: 8.83
+      finalValue: 8.83
+      format: 0.00
+      unit: meters_per_sec
+    - name: Acceleration
+      initialValue: 13.7
+      finalValue: 13.7
+      format: 0.0
+      unit: meters_per_sec
+    - name: Turning Speed
+      initialValue: 90
+      finalValue: 90
+      unit: degrees_per_sec
+    - name: TurretRotationSpeed
+      initialValue: 106.7
+      finalValue: 106.7
+      format: 0.0
+      unit: degrees_per_sec
+      
+
+...

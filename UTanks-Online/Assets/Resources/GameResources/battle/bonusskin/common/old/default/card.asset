@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: cord
+      value: {fileID: 2800000, guid: c796c0b834375b8428a4ed3d861ade6a, type: 3}
+    - key: CordMaterial
+      value: {fileID: 2100000, guid: 080eea211ff85de469a212c94818dc55, type: 2}
+    - key: cords
+      value: {fileID: 2800000, guid: 83ff75799895d5e4eb7e0a8321ae5c67, type: 3}
+    - key: DropMaterial
+      value: {fileID: 2100000, guid: b8046dc0bf30e6940879390869fdb8f7, type: 2}
+    - key: para
+      value: {fileID: 2800000, guid: 70a5f78cddd6c134290590e74085e5ff, type: 3}
+    - key: parachute
+      value: {fileID: 919132149155446097, guid: 8e640b8385add4142942c85a1b6f556d, type: 3}
+    - key: ParachuteMaterial
+      value: {fileID: 2100000, guid: d0e5f2e4d2561784a88392cb94f54376, type: 2}
+    - key: 3DFontMaterial
+      value: {fileID: 2100000, guid: 5e5aaee46474ab14a91ef5ce2e6605e5, type: 2}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

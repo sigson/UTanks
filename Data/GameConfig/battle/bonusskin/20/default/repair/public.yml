@@ -1,0 +1,12 @@
+DropConfigPath: battle\bonus\repair
+MainName: 
+BoxEraName: repair20
+BoxTextureName: Main
+ParachuteTextureName: Parachute
+CordTextureName: Cord
+BoxModelName: Box
+ParachuteModelName: Parachute
+BoxMeshName: Box
+ParachuteMeshName: Parachute
+BoxMaterialName: BoxMaterial
+ParachuteMaterialName: ParachuteMaterial

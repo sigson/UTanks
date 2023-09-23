@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: Old
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: Material
+      value: {fileID: 2100000, guid: 7717544ea3ddac043ac8f546f4e0d6d8, type: 2}
+    - key: TransparentMaterial
+      value: {fileID: 2100000, guid: 7717544ea3ddac043ac8f546f4e0d6d8, type: 2}
+    - key: VisualController
+      value: {fileID: 7326281908721004368, guid: a6fa0b064b99ab9499b701ad747219ad, type: 3}
+    - key: PreviewMaterial
+      value: {fileID: 2100000, guid: 3d4902ea7a5bda94da56bd683dc304ac, type: 2}
+    - key: TransparentShader
+      value: {fileID: 4800000, guid: 63f5c5ddeb1bb204f933da3e104a63f6, type: 3}
+    - key: Shader
+      value: {fileID: 4800000, guid: 121db732f693da14d8550d3d61904ed6, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

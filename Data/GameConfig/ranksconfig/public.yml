@@ -1,0 +1,95 @@
+ranksExperiencesConfig:
+   ranksExperiences:
+   -  name: Recruit
+      scoreThreshold: 0
+      crystalReward: 0
+   -  name: Private
+      scoreThreshold: 100
+      crystalReward: 10
+   -  name: Gefreiter
+      scoreThreshold: 500
+      crystalReward: 30
+   -  name: Corporal
+      scoreThreshold: 1500
+      crystalReward: 120
+   -  name: Master Corporal
+      scoreThreshold: 3700
+      crystalReward: 230
+   -  name: Sergeant
+      scoreThreshold: 7100
+      crystalReward: 420
+   -  name: Staff Sergeant
+      scoreThreshold: 12300
+      crystalReward: 740
+   -  name: Master Sergeant
+      scoreThreshold: 20000
+      crystalReward: 950
+   -  name: First Sergeant
+      scoreThreshold: 29000
+      crystalReward: 1400
+   -  name: Sergeant-Major
+      scoreThreshold: 41000
+      crystalReward: 2000
+   -  name: Warrant Officer 1
+      scoreThreshold: 57000
+      crystalReward: 2500
+   -  name: Warrant Officer 2
+      scoreThreshold: 76000
+      crystalReward: 3100
+   -  name: Warrant Officer 3
+      scoreThreshold: 98000
+      crystalReward: 3900
+   -  name: Warrant Officer 4
+      scoreThreshold: 125000
+      crystalReward: 4600
+   -  name: Warrant Officer 5
+      scoreThreshold: 156000
+      crystalReward: 5600
+   -  name: Third Lieutenant
+      scoreThreshold: 192000
+      crystalReward: 6600
+   -  name: Second Lieutenant
+      scoreThreshold: 233000
+      crystalReward: 7900
+   -  name: First Lieutenant
+      scoreThreshold: 280000
+      crystalReward: 8900
+   -  name: Captain
+      scoreThreshold: 332000
+      crystalReward: 10000
+   -  name: Major
+      scoreThreshold: 390000
+      crystalReward: 12000
+   -  name: Lieutenant Colonel
+      scoreThreshold: 455000
+      crystalReward: 14000
+   -  name: Colonel
+      scoreThreshold: 527000
+      crystalReward: 16000
+   -  name: Brigadier
+      scoreThreshold: 606000
+      crystalReward: 18000
+   -  name: Major General
+      scoreThreshold: 692000
+      crystalReward: 20000
+   -  name: Lieutenant General
+      scoreThreshold: 787000
+      crystalReward: 22000
+   -  name: General
+      scoreThreshold: 889000
+      crystalReward: 24000
+   -  name: Marshal
+      scoreThreshold: 1000000
+      crystalReward: 28000
+   -  name: Fieldmarshal
+      scoreThreshold: 1122000
+      crystalReward: 31000
+   -  name: Commander
+      scoreThreshold: 1255000
+      crystalReward: 34000
+   -  name: Generalissimo
+      scoreThreshold: 1400000
+      crystalReward: 37000
+   -  name: 
+      scoreThreshold: -1
+      crystalReward: 

@@ -1,0 +1,61 @@
+﻿
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableDoubleSided"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableDoubleSidedMaterialEditor"
+END_OPTIONS
+
+BEGIN_PROPERTIES
+   [Enum(Off,0,Front,1,Back,2)]_CullMode("Culling Mode", Float) = 2
+   [Enum(Flip, 0, Mirror, 1, None, 2)] _DoubleSidedNormalMode("Double sided normal mode", Float) = 1
+END_PROPERTIES
+
+BEGIN_PASS("forward")
+   Cull [_CullMode]
+END_PASS
+
+BEGIN_PASS("gbuffer")
+   Cull [_CullMode]
+END_PASS
+
+BEGIN_PASS("depth")
+   Cull [_CullMode]
+END_PASS
+
+BEGIN_PASS("shadow")
+   Cull [_CullMode]
+END_PASS
+
+BEGIN_PASS("motion")
+   Cull [_CullMode]
+END_PASS
+
+// cull mode doesn't have to be in the CBuffer, actually, because it's not
+// used in the HLSL code, rather outside of it.
+BEGIN_CBUFFER
+   float _DoubleSidedNormalMode;
+END_CBUFFER
+
+// note that Unity does a small optimization to this in HDRP with a custom material editor.
+// They don't use _DoubleSidedNormalMode directly, rather the editor sets a cbuffer property
+// with (-1,-1,-1), (1,1,-1) or (1,1,1) for the various modes and just multiplies that
+// if the DOUBLESIDED_ON keyword is set. But this seems like a ton of extra work to
+// take 4 multiplies and a select down to 1 multiply, and chews up a keyword and extra
+// cbuffer space. So I just use it directly instead.
+
+BEGIN_CODE
+
+	void SurfaceFunction(inout Surface o, ShaderData d)
+	{
+        if (_DoubleSidedNormalMode == 0)
+        {
+           o.Normal *= d.isFrontFace ? 1 : -1;
+        }
+        else if (_DoubleSidedNormalMode == 1)
+        {
+		   o.Normal.z *= d.isFrontFace ? 1 : -1;
+        }
+	}
+
+END_CODE
+

@@ -1,0 +1,12 @@
+DropConfigPath: battle\bonus\speed
+MainName: 
+BoxEraName: speed20
+BoxTextureName: Main
+ParachuteTextureName: Parachute
+CordTextureName: Cord
+BoxModelName: Box
+ParachuteModelName: Parachute
+BoxMeshName: Box
+ParachuteMeshName: Parachute
+BoxMaterialName: BoxMaterial
+ParachuteMaterialName: ParachuteMaterial

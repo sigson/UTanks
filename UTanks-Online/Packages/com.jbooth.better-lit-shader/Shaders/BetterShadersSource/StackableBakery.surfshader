@@ -1,0 +1,756 @@
+﻿// Add this to add bakery support to your shaders.
+
+BEGIN_OPTIONS
+    Stackable "False" // prevents this from being added multiple times
+	ExtraV2F4Modifier "_centroid"
+    ExtraV2F5Modifier "_centroid"
+    ExtraV2F6Modifier "_centroid"
+    ExtraV2F7Modifier "_centroid"
+    VertexColorModifier "_centroid"
+    VertexColorRequire "_LAYERVERTEXMASK || (USEBAKERY && (defined(_LIGHTMAPMODE_VERTEX) || defined(_LIGHTMAPMODE_VERTEXDIRECTIONAL) || defined(_LIGHTMAPMODE_VERTEXSH)))"
+    VertexTexCoord3Require "USEBAKERY && defined(_LIGHTMAPMODE_VERTEXSH)"
+    ExtraV2F4Require "USEBAKERY && defined(BAKERY_VERTEXLMMASK) && (defined(_LIGHTMAPMODE_VERTEX) || defined(_LIGHTMAPMODE_VERTEXDIRECTIONAL) || defined(_LIGHTMAPMODE_VERTEXSH))"
+    ExtraV2F5Require "USEBAKERY && defined(_LIGHTMAPMODE_VERTEXSH) || defined(_LIGHTMAPMODE_VERTEXDIRECTIONAL)"
+    ExtraV2F6Require "USEBAKERY && defined(_LIGHTMAPMODE_VERTEXSH)"
+    ExtraV2F7Require "USEBAKERY && defined(_LIGHTMAPMODE_VERTEXSH)"
+    StripV2F { texcoord3 } // only used in vertex
+END_OPTIONS
+
+BEGIN_PROPERTIES
+	[BetterHeader(Bakery)]
+	[KeywordEnum(Standard, RNM, SH, Vertex, VertexDirectional, VertexSH)] _LightmapMode ("Lightmapping mode", Float) = 0
+    [Toggle(BAKERY_VERTEXLMMASK)] _BAKERY_VERTEXLMMASK ("Enable vertex shadowmask", Float) = 0
+    [Toggle(BAKERY_SHNONLINEAR)] _BAKERY_SHNONLINEAR ("SH non-linear mode", Float) = 1
+    [Toggle(BAKERY_LMSPEC)] _BAKERY_LMSPEC ("Enable Lightmap Specular", Float) = 0
+    [Toggle(BAKERY_BICUBIC)] _BAKERY_BICUBIC ("Enable Bicubic Filter", Float) = 0
+    [Toggle(BAKERY_VOLUME)] _BAKERY_VOLUME ("Use volumes", Float) = 0
+    [Toggle(BAKERY_VOLROTATION)] _BAKERY_VOLROTATION ("Allow volume rotation", Float) = 0
+
+END_PROPERTIES
+
+
+// would be nice to reduce the number of shader features here. Note that you can use
+// _fragment if the feature is only used in the fragment shader to reduce compile times.
+
+BEGIN_DEFINES
+	#pragma shader_feature _LIGHTMAPMODE_STANDARD _LIGHTMAPMODE_RNM _LIGHTMAPMODE_SH _LIGHTMAPMODE_VERTEX _LIGHTMAPMODE_VERTEXDIRECTIONAL _LIGHTMAPMODE_VERTEXSH
+
+    #pragma shader_feature USEBAKERY
+    #pragma shader_feature BAKERY_VERTEXLMMASK
+    #pragma shader_feature BAKERY_SHNONLINEAR
+    #pragma shader_feature BAKERY_LMSPEC
+    #pragma shader_feature BAKERY_BICUBIC
+    #pragma shader_feature BAKERY_VOLUME
+    #pragma shader_feature BAKERY_VOLROTATION
+    #pragma shader_feature BAKERY_COMPRESSED_VOLUME
+
+    #if USEBAKERY
+	    #define _OVERRIDE_BAKEDGI
+        #if BAKERY_VOLUME || (defined(_LIGHTMAPMODE_VERTEX) || defined(_LIGHTMAPMODE_VERTEXDIRECTIONAL) || defined(_LIGHTMAPMODE_VERTEXSH)) && defined(BAKERY_VERTEXLMMASK)
+            #define _OVERRIDE_SHADOWMASK
+        #endif
+    #endif
+
+
+END_DEFINES
+
+BEGIN_CODE
+
+// declare outside of CBuffer
+
+float4x4 _GlobalVolumeMatrix;
+float4x4 _VolumeMatrix;
+float3 _VolumeMin;
+float3 _VolumeInvSize;
+float3 _GlobalVolumeMin;
+float3 _GlobalVolumeInvSize;
+
+// I inlined a section of your include. You can use includes in better shaders, but doing it via a subshader or this way
+// is much better. The reason is that this allows your shader to be all inclusive, and packed up for asset store distribition,
+// without requiring specific paths to other files, etc.
+//
+
+#ifndef BAKERY_INCLUDED
+#define BAKERY_INCLUDED
+
+#define BAKERYMODE_DEFAULT 0
+#define BAKERYMODE_VERTEXLM 1.0f
+#define BAKERYMODE_RNM 2.0f
+#define BAKERYMODE_SH 3.0f
+
+
+// can't fit vertexLM SH to sm3_0 interpolators
+#ifndef SHADER_API_D3D11
+    #undef _LIGHTMAPMODE_VERTEXSH
+#endif
+
+// can't do stuff on sm2_0 due to standard shader alrady taking up all instructions
+#if SHADER_TARGET < 30
+    #undef BAKERY_BICUBIC
+    #undef BAKERY_LMSPEC
+
+    #undef _LIGHTMAPMODE_RNM
+    #undef _LIGHTMAPMODE_SH
+    #undef _LIGHTMAPMODE_VERTEX
+#endif
+
+#define lumaConv float3(0.2125f, 0.7154f, 0.0721f)
+
+#ifdef BAKERY_VOLUME
+    #ifdef BAKERY_COMPRESSED_VOLUME
+        Texture3D _Volume3;
+    #endif
+#endif
+
+
+half3 LinearToGamma (half3 linRGB)
+{
+    linRGB = max(linRGB, half3(0.h, 0.h, 0.h));
+    // An almost-perfect approximation from http://chilliant.blogspot.com.au/2012/08/srgb-approximations-for-hlsl.html?m=1
+    return max(1.055h * pow(linRGB, 0.416666667h) - 0.055h, 0.h);
+}
+
+float shEvaluateDiffuseL1Geomerics(float L0, float3 L1, float3 n)
+{
+    // average energy
+    float R0 = L0;
+
+    // avg direction of incoming light
+    float3 R1 = 0.5f * L1;
+
+    // directional brightness
+    float lenR1 = length(R1);
+
+    // linear angle between normal and direction 0-1
+    //float q = 0.5f * (1.0f + dot(R1 / lenR1, n));
+    //float q = dot(R1 / lenR1, n) * 0.5 + 0.5;
+    float q = dot(normalize(R1), n) * 0.5 + 0.5;
+
+    // power for q
+    // lerps from 1 (linear) to 3 (cubic) based on directionality
+    float p = 1.0f + 2.0f * lenR1 / R0;
+
+    // dynamic range constant
+    // should vary between 4 (highly directional) and 0 (ambient)
+    float a = (1.0f - lenR1 / R0) / (1.0f + lenR1 / R0);
+
+    return R0 * (a + (1.0f - a) * (p + 1.0f) * pow(q, p));
+}
+
+#ifdef BAKERY_VERTEXLMMASK
+    float4 unpack4NFloats(float src)
+	{
+        //return fmod(float4(src / 262144.0, src / 4096.0, src / 64.0, src), 64.0)/64.0;
+        return frac(float4(src / (262144.0*64), src / (4096.0*64), src / (64.0*64), src));
+    }
+#endif
+
+#if defined(_LIGHTMAPMODE_VERTEXDIRECTIONAL) || defined(_LIGHTMAPMODE_VERTEXSH)
+    float3 unpack3NFloats(float src)
+	{
+        float r = frac(src);
+        float g = frac(src * 256.0);
+        float b = frac(src * 65536.0);
+        return float3(r, g, b);
+    }
+#endif
+
+// Unity defines these under different names in each SRP, so use our own
+inline float3 Bakery_SafeNormalize(float3 inVec)
+{
+    float dp3 = max(0.001f, dot(inVec, inVec));
+    return inVec * rsqrt(dp3);
+}
+
+#if _URP || _HDRP
+
+float SmoothnessToPerceptualRoughness(float smoothness)
+{
+    return (1 - smoothness);
+}
+#endif
+
+#if !_STANDARD
+half4 unity_Lightmap_HDR;
+inline half3 DecodeLightmap( fixed4 color )
+{
+    return DecodeLightmap( color, unity_Lightmap_HDR );
+}
+
+#define UNITY_INV_PI        0.31830988618f
+inline float GGXTerm (float NdotH, float roughness)
+{
+    float a2 = roughness * roughness;
+    float d = (NdotH * a2 - NdotH) * NdotH + 1.0f; // 2 mad
+    return UNITY_INV_PI * a2 / (d * d + 1e-7f); // This function is not intended to be running on Mobile,
+                                            // therefore epsilon is smaller than what can be represented by half
+}
+
+#endif
+
+#ifdef _LIGHTMAPMODE_VERTEXDIRECTIONAL
+    void BakeryVertexLMDirection(inout float3 diffuseColor, inout float3 specularColor, float3 lightDirection, float3 vertexNormalWorld, float3 normalWorld, float3 viewDir, float smoothness)
+    {
+        float3 dominantDir = Bakery_SafeNormalize(lightDirection);
+        half halfLambert = dot(normalWorld, dominantDir) * 0.5 + 0.5;
+        half flatNormalHalfLambert = dot(vertexNormalWorld, dominantDir) * 0.5 + 0.5;
+
+        #ifdef BAKERY_LMSPEC
+            half3 halfDir = Bakery_SafeNormalize(normalize(dominantDir) - viewDir);
+            half nh = saturate(dot(normalWorld, halfDir));
+            half perceptualRoughness = SmoothnessToPerceptualRoughness(smoothness);
+            half roughness = PerceptualRoughnessToRoughness(perceptualRoughness);
+            half spec = GGXTerm(nh, roughness);
+            specularColor = spec * diffuseColor;
+        #endif
+
+        diffuseColor *= halfLambert / max(1e-4h, flatNormalHalfLambert);
+    }
+#endif
+
+#ifdef _LIGHTMAPMODE_VERTEXSH
+    void BakeryVertexLMSH(inout float3 diffuseColor, inout float3 specularColor, float3 shL1x, float3 shL1y, float3 shL1z, float3 normalWorld, float3 viewDir, float smoothness)
+    {
+        float3 L0 = diffuseColor;
+        float3 nL1x = shL1x;
+        float3 nL1y = shL1y;
+        float3 nL1z = shL1z;
+        float3 L1x = nL1x * L0 * 2;
+        float3 L1y = nL1y * L0 * 2;
+        float3 L1z = nL1z * L0 * 2;
+
+        float3 sh;
+    #if BAKERY_SHNONLINEAR
+        //sh.r = shEvaluateDiffuseL1Geomerics(L0.r, float3(L1x.r, L1y.r, L1z.r), normalWorld);
+        //sh.g = shEvaluateDiffuseL1Geomerics(L0.g, float3(L1x.g, L1y.g, L1z.g), normalWorld);
+        //sh.b = shEvaluateDiffuseL1Geomerics(L0.b, float3(L1x.b, L1y.b, L1z.b), normalWorld);
+
+        float lumaL0 = dot(L0, 1);
+        float lumaL1x = dot(L1x, 1);
+        float lumaL1y = dot(L1y, 1);
+        float lumaL1z = dot(L1z, 1);
+        float lumaSH = shEvaluateDiffuseL1Geomerics(lumaL0, float3(lumaL1x, lumaL1y, lumaL1z), normalWorld);
+
+        sh = L0 + normalWorld.x * L1x + normalWorld.y * L1y + normalWorld.z * L1z;
+        float regularLumaSH = dot(sh, 1);
+        //sh *= regularLumaSH < 0.001 ? 1 : (lumaSH / regularLumaSH);
+        sh *= lerp(1, lumaSH / regularLumaSH, saturate(regularLumaSH*16));
+
+    #else
+        sh = L0 + normalWorld.x * L1x + normalWorld.y * L1y + normalWorld.z * L1z;
+    #endif
+
+        diffuseColor = max(sh, 0.0);
+
+        #ifdef BAKERY_LMSPEC
+            float3 dominantDir = float3(dot(nL1x, lumaConv), dot(nL1y, lumaConv), dot(nL1z, lumaConv));
+            float focus = saturate(length(dominantDir));
+            half3 halfDir = Bakery_SafeNormalize(normalize(dominantDir) - viewDir);
+            half nh = saturate(dot(normalWorld, halfDir));
+            half perceptualRoughness = SmoothnessToPerceptualRoughness(smoothness );//* sqrt(focus));
+            half roughness = PerceptualRoughnessToRoughness(perceptualRoughness);
+            half spec = GGXTerm(nh, roughness);
+            specularColor = max(spec * sh, 0.0);
+        #endif
+    }
+#endif
+
+
+
+#ifdef BAKERY_BICUBIC
+float BakeryBicubic_w0(float a)
+{
+    return (1.0f/6.0f)*(a*(a*(-a + 3.0f) - 3.0f) + 1.0f);
+}
+
+float BakeryBicubic_w1(float a)
+{
+    return (1.0f/6.0f)*(a*a*(3.0f*a - 6.0f) + 4.0f);
+}
+
+float BakeryBicubic_w2(float a)
+{
+    return (1.0f/6.0f)*(a*(a*(-3.0f*a + 3.0f) + 3.0f) + 1.0f);
+}
+
+float BakeryBicubic_w3(float a)
+{
+    return (1.0f/6.0f)*(a*a*a);
+}
+
+float BakeryBicubic_g0(float a)
+{
+    return BakeryBicubic_w0(a) + BakeryBicubic_w1(a);
+}
+
+float BakeryBicubic_g1(float a)
+{
+    return BakeryBicubic_w2(a) + BakeryBicubic_w3(a);
+}
+
+float BakeryBicubic_h0(float a)
+{
+    return -1.0f + BakeryBicubic_w1(a) / (BakeryBicubic_w0(a) + BakeryBicubic_w1(a)) + 0.5f;
+}
+
+float BakeryBicubic_h1(float a)
+{
+    return 1.0f + BakeryBicubic_w3(a) / (BakeryBicubic_w2(a) + BakeryBicubic_w3(a)) + 0.5f;
+}
+#endif
+
+
+#if defined(_LIGHTMAPMODE_RNM) || defined(_LIGHTMAPMODE_SH)
+Texture2D _RNM0, _RNM1, _RNM2;
+#endif
+
+#ifdef BAKERY_VOLUME
+Texture3D _Volume0, _Volume1, _Volume2, _VolumeMask;
+SamplerState sampler_Volume0;
+#endif
+
+#if defined(BAKERY_BICUBIC) && defined(LIGHTMAP_ON) && defined(SHADER_API_D3D11)
+    // Bicubic
+    float4 BakeryTex2D(Texture2D tex, float2 uv)
+    {
+		float width, height;
+		tex.GetDimensions(width, height);
+		float texelSize = 1.0f / width;
+
+        float x = uv.x * width;
+        float y = uv.y * width;
+
+        x -= 0.5f;
+        y -= 0.5f;
+
+        float px = floor(x);
+        float py = floor(y);
+
+        float fx = x - px;
+        float fy = y - py;
+
+        float g0x = BakeryBicubic_g0(fx);
+        float g1x = BakeryBicubic_g1(fx);
+        float h0x = BakeryBicubic_h0(fx);
+        float h1x = BakeryBicubic_h1(fx);
+        float h0y = BakeryBicubic_h0(fy);
+        float h1y = BakeryBicubic_h1(fy);
+
+        return     BakeryBicubic_g0(fy) * ( g0x * tex.Sample(samplerunity_Lightmap, (float2(px + h0x, py + h0y) * texelSize))   +
+                              g1x * tex.Sample(samplerunity_Lightmap, (float2(px + h1x, py + h0y) * texelSize))) +
+
+                   BakeryBicubic_g1(fy) * ( g0x * tex.Sample(samplerunity_Lightmap, (float2(px + h0x, py + h1y) * texelSize))   +
+                              g1x * tex.Sample(samplerunity_Lightmap, (float2(px + h1x, py + h1y) * texelSize)));
+    }
+#else
+    // Bilinear
+    float4 BakeryTex2D(Texture2D tex, float2 uv)
+    {
+		#ifdef LIGHTMAP_ON
+			return tex.Sample(samplerunity_Lightmap, uv);
+		#else
+			return float4(1,0,0,1);
+		#endif
+    }
+#endif
+
+#ifdef DIRLIGHTMAP_COMBINED
+#ifdef BAKERY_LMSPEC
+float BakeryDirectionalLightmapSpecular(float2 lmUV, float3 normalWorld, float3 viewDir, float smoothness)
+{
+    float3 dominantDir = UNITY_SAMPLE_TEX2D_SAMPLER(unity_LightmapInd, unity_Lightmap, lmUV).xyz * 2 - 1;
+    half3 halfDir = Bakery_SafeNormalize(normalize(dominantDir) - viewDir);
+    half nh = saturate(dot(normalWorld, halfDir));
+    half perceptualRoughness = SmoothnessToPerceptualRoughness(smoothness);
+    half roughness = PerceptualRoughnessToRoughness(perceptualRoughness);
+    half spec = GGXTerm(nh, roughness);
+    return spec;
+}
+#endif
+#endif
+
+
+
+#ifdef _LIGHTMAPMODE_RNM
+void BakeryRNM(inout float3 diffuseColor, inout float3 specularColor, float2 lmUV, float3 normalMap, float smoothness, float3 viewDirT)
+{
+    const float3 rnmBasis0 = float3(0.816496580927726f, 0, 0.5773502691896258f);
+    const float3 rnmBasis1 = float3(-0.4082482904638631f, 0.7071067811865475f, 0.5773502691896258f);
+    const float3 rnmBasis2 = float3(-0.4082482904638631f, -0.7071067811865475f, 0.5773502691896258f);
+
+    float3 rnm0 = DecodeLightmap(BakeryTex2D(unity_Lightmap, lmUV));
+    float3 rnm1 = DecodeLightmap(BakeryTex2D(_RNM1, lmUV));
+    float3 rnm2 = DecodeLightmap(BakeryTex2D(_RNM2, lmUV));
+
+    #ifdef BAKERY_SSBUMP
+        diffuseColor = normalMap.x * rnm0
+                     + normalMap.z * rnm1
+                     + normalMap.y * rnm2;
+         diffuseColor *= 2;
+    #else
+        diffuseColor = saturate(dot(rnmBasis0, normalMap)) * rnm0
+                     + saturate(dot(rnmBasis1, normalMap)) * rnm1
+                     + saturate(dot(rnmBasis2, normalMap)) * rnm2;
+    #endif
+
+    #ifdef BAKERY_LMSPEC
+        float3 dominantDirT = rnmBasis0 * dot(rnm0, lumaConv) +
+                              rnmBasis1 * dot(rnm1, lumaConv) +
+                              rnmBasis2 * dot(rnm2, lumaConv);
+
+        float3 dominantDirTN = normalize(dominantDirT);
+        float3 specColor = saturate(dot(rnmBasis0, dominantDirTN)) * rnm0 +
+                           saturate(dot(rnmBasis1, dominantDirTN)) * rnm1 +
+                           saturate(dot(rnmBasis2, dominantDirTN)) * rnm2;
+
+        half3 halfDir = Bakery_SafeNormalize(dominantDirTN - viewDirT);
+        half nh = saturate(dot(normalMap, halfDir));
+        half perceptualRoughness = SmoothnessToPerceptualRoughness(smoothness);
+        half roughness = PerceptualRoughnessToRoughness(perceptualRoughness);
+        half spec = GGXTerm(nh, roughness);
+        specularColor = spec * specColor;
+    #endif
+}
+#endif
+
+#ifdef DIRLIGHTMAP_COMBINED
+inline half3 Unity_DecodeDirectionalLightmap(half3 color, fixed4 dirTex, half3 normalWorld)
+{
+    // In directional (non-specular) mode Enlighten bakes dominant light direction
+    // in a way, that using it for half Lambert and then dividing by a "rebalancing coefficient"
+    // gives a result close to plain diffuse response lightmaps, but normalmapped.
+
+    // Note that dir is not unit length on purpose. Its length is "directionality", like
+    // for the directional specular lightmaps.
+
+    half halfLambert = dot(normalWorld, dirTex.xyz - 0.5) + 0.5;
+
+    return color * halfLambert / max(1e-4h, dirTex.w);
+}
+#endif
+
+#ifdef _LIGHTMAPMODE_SH
+void BakerySH(inout float3 diffuseColor, inout float3 specularColor, float2 lmUV, float3 normalWorld, float3 viewDir, float smoothness)
+{
+    float3 L0 = DecodeLightmap(BakeryTex2D(unity_Lightmap, lmUV));
+    float3 nL1x = BakeryTex2D(_RNM0, lmUV) * 2 - 1;
+    float3 nL1y = BakeryTex2D(_RNM1, lmUV) * 2 - 1;
+    float3 nL1z = BakeryTex2D(_RNM2, lmUV) * 2 - 1;
+    float3 L1x = nL1x * L0 * 2;
+    float3 L1y = nL1y * L0 * 2;
+    float3 L1z = nL1z * L0 * 2;
+
+    float3 sh;
+#if BAKERY_SHNONLINEAR
+    float lumaL0 = dot(L0, 1);
+    float lumaL1x = dot(L1x, 1);
+    float lumaL1y = dot(L1y, 1);
+    float lumaL1z = dot(L1z, 1);
+    float lumaSH = shEvaluateDiffuseL1Geomerics(lumaL0, float3(lumaL1x, lumaL1y, lumaL1z), normalWorld);
+
+    sh = L0 + normalWorld.x * L1x + normalWorld.y * L1y + normalWorld.z * L1z;
+    float regularLumaSH = dot(sh, 1);
+    //sh *= regularLumaSH < 0.001 ? 1 : (lumaSH / regularLumaSH);
+    sh *= lerp(1, lumaSH / regularLumaSH, saturate(regularLumaSH*16));
+
+    //sh.r = shEvaluateDiffuseL1Geomerics(L0.r, float3(L1x.r, L1y.r, L1z.r), normalWorld);
+    //sh.g = shEvaluateDiffuseL1Geomerics(L0.g, float3(L1x.g, L1y.g, L1z.g), normalWorld);
+    //sh.b = shEvaluateDiffuseL1Geomerics(L0.b, float3(L1x.b, L1y.b, L1z.b), normalWorld);
+
+#else
+    sh = L0 + normalWorld.x * L1x + normalWorld.y * L1y + normalWorld.z * L1z;
+#endif
+
+    diffuseColor = max(sh, 0.0);
+
+    #ifdef BAKERY_LMSPEC
+        float3 dominantDir = float3(dot(nL1x, lumaConv), dot(nL1y, lumaConv), dot(nL1z, lumaConv));
+        float focus = saturate(length(dominantDir));
+        half3 halfDir = Bakery_SafeNormalize(normalize(dominantDir) - viewDir);
+        half nh = saturate(dot(normalWorld, halfDir));
+        half perceptualRoughness = SmoothnessToPerceptualRoughness(smoothness );//* sqrt(focus));
+        half roughness = PerceptualRoughnessToRoughness(perceptualRoughness);
+        half spec = GGXTerm(nh, roughness);
+
+        sh = L0 + dominantDir.x * L1x + dominantDir.y * L1y + dominantDir.z * L1z;
+
+        specularColor = max(spec * sh, 0.0);
+    #endif
+}
+#endif
+
+#endif // include guards
+
+
+    void ModifyVertex(inout VertexData v, inout ExtraV2F e)
+    {
+        #if USEBAKERY
+		    #if defined(_LIGHTMAPMODE_VERTEX) || defined(_LIGHTMAPMODE_VERTEXDIRECTIONAL) || defined(_LIGHTMAPMODE_VERTEXSH)
+			    // Unpack from RGBM
+			    v.vertexColor.rgb *= v.vertexColor.a * 8.0f;
+			    v.vertexColor.rgb *= v.vertexColor.rgb;
+
+			    #ifdef BAKERY_VERTEXLMMASK
+				    e.extraV2F4.xyzw = unpack4NFloats(v.texcoord1);
+			    #endif
+		    #endif
+
+            #ifdef _LIGHTMAPMODE_VERTEXDIRECTIONAL
+                e.extraV2F5.xyz = unpack3NFloats(v.texcoord1.y) * 2 - 1;
+		    #endif
+
+            #ifdef _LIGHTMAPMODE_VERTEXSH
+                e.extraV2F5.xyz = unpack3NFloats(v.texcoord1.y) * 2 - 1;
+                e.extraV2F6.xyz = unpack3NFloats(v.texcoord3.x) * 2 - 1;
+                e.extraV2F7.xyz = unpack3NFloats(v.texcoord3.y) * 2 - 1;
+            #endif
+       #endif
+    }
+
+#if _HDRP || _URP
+    half3 SHEvalLinearL0L1 (half4 normal)
+    {
+        half3 x;
+
+        // Linear (L1) + constant (L0) polynomial terms
+        x.r = dot(unity_SHAr,normal);
+        x.g = dot(unity_SHAg,normal);
+        x.b = dot(unity_SHAb,normal);
+
+        return x;
+    }
+
+    // normal should be normalized, w=1.0
+    half3 SHEvalLinearL2 (half4 normal)
+    {
+        half3 x1, x2;
+        // 4 of the quadratic (L2) polynomials
+        half4 vB = normal.xyzz * normal.yzzx;
+        x1.r = dot(unity_SHBr,vB);
+        x1.g = dot(unity_SHBg,vB);
+        x1.b = dot(unity_SHBb,vB);
+
+        // Final (5th) quadratic (L2) polynomial
+        half vC = normal.x*normal.x - normal.y*normal.y;
+        x2 = unity_SHC.rgb * vC;
+
+        return x1 + x2;
+    }
+
+    half3 ShadeSH9 (half4 normal)
+    {
+        // Linear + constant polynomial terms
+        half3 res = SHEvalLinearL0L1 (normal);
+
+        // Quadratic polynomials
+        res += SHEvalLinearL2 (normal);
+
+        #ifdef UNITY_COLORSPACE_GAMMA
+            res = LinearToGamma (res);
+        #endif
+
+        return res;
+
+    }
+#endif
+
+
+
+	void DoBakeryStuff(inout float3 indDif, inout float3 indSpec, inout float4 shadowmask, float3 tangentNormal, float3 normalWorld, float smoothness, ShaderData d)
+	{
+		// Quality!
+		indDif = 1;
+		indSpec = 0;
+
+        #if defined(_PASSFORWARD) || defined(_PASSGBUFFER) // forward pass on URP/Standard/HDRP + built-in deferred
+
+			#ifdef LIGHTMAP_ON
+
+                // Static
+
+				float2 lmUV = d.texcoord1 * unity_LightmapST.xy + unity_LightmapST.zw;
+
+				#ifdef _LIGHTMAPMODE_STANDARD
+					indDif = DecodeLightmap(BakeryTex2D(unity_Lightmap, lmUV));
+
+					#ifdef DIRLIGHTMAP_COMBINED
+						float4 dirMap = BakeryTex2D(unity_LightmapInd, lmUV);
+						indDif = Unity_DecodeDirectionalLightmap(indDif, dirMap, normalWorld);
+
+						#ifdef BAKERY_LMSPEC
+							indSpec = BakeryDirectionalLightmapSpecular(lmUV, normalWorld, -d.worldSpaceViewDir, smoothness) * indDif;
+						#endif
+
+					#endif
+
+				#endif
+
+				#if defined(_LIGHTMAPMODE_VERTEX) || defined(_LIGHTMAPMODE_VERTEXDIRECTIONAL) || defined(_LIGHTMAPMODE_VERTEXSH)
+
+					indDif = d.vertexColor;
+
+                    #ifdef BAKERY_VERTEXLMMASK
+                        shadowmask = d.extraV2F4;
+                    #endif
+
+					#ifdef _LIGHTMAPMODE_VERTEXDIRECTIONAL
+						// worldSpaceNormal is per-vertex
+						// normalWorld is per-pixel
+						float3 bakedLightDirection = d.extraV2F5;
+						BakeryVertexLMDirection(indDif, indSpec, bakedLightDirection, d.worldSpaceNormal, normalWorld, -d.worldSpaceViewDir, smoothness);
+					#endif
+
+					#ifdef _LIGHTMAPMODE_VERTEXSH
+						BakeryVertexLMSH(indDif, indSpec, d.extraV2F5, d.extraV2F6, d.extraV2F7, normalWorld, -d.worldSpaceViewDir, smoothness);
+					#endif
+
+				#endif
+
+				#ifdef _LIGHTMAPMODE_RNM
+					BakeryRNM(indDif, indSpec, lmUV, tangentNormal, smoothness, -d.tangentSpaceViewDir);
+				#endif
+
+				#ifdef _LIGHTMAPMODE_SH
+					BakerySH(indDif, indSpec, lmUV, normalWorld, -d.worldSpaceViewDir, smoothness);
+				#endif
+
+            #else
+
+                // Dynamic
+
+                #ifdef BAKERY_VOLUME
+
+                    bool isGlobal = dot(abs(_VolumeInvSize),1) == 0;
+                    float3 volViewDir = -d.worldSpaceViewDir;
+                    #ifdef BAKERY_VOLROTATION
+                        float4x4 volMatrix = (isGlobal ? _GlobalVolumeMatrix : _VolumeMatrix);
+                        float3 volInvSize = (isGlobal ? _GlobalVolumeInvSize : _VolumeInvSize);
+                        float3 lpUV = mul(volMatrix, float4(d.worldSpacePosition,1)).xyz * volInvSize + 0.5f;
+                        float3 volNormal = mul((float3x3)volMatrix, normalWorld);
+                        #ifdef BAKERY_LMSPEC
+                            volViewDir = mul((float3x3)volMatrix, volViewDir);
+                        #endif
+                    #else
+                        float3 lpUV = (d.worldSpacePosition - (isGlobal ? _GlobalVolumeMin : _VolumeMin)) * (isGlobal ? _GlobalVolumeInvSize : _VolumeInvSize);
+                        float3 volNormal = normalWorld;
+                    #endif
+
+                    #ifdef BAKERY_COMPRESSED_VOLUME
+                        float4 tex0, tex1, tex2, tex3;
+                        float3 L0, L1x, L1y, L1z;
+                        tex0 = _Volume0.Sample(sampler_Volume0, lpUV);
+                        tex1 = _Volume1.Sample(sampler_Volume0, lpUV) * 2 - 1;
+                        tex2 = _Volume2.Sample(sampler_Volume0, lpUV) * 2 - 1;
+                        tex3 = _Volume3.Sample(sampler_Volume0, lpUV) * 2 - 1;
+                        L0 = tex0.xyz;
+                        L1x = tex1.xyz * L0;
+                        L1y = tex2.xyz * L0;
+                        L1z = tex3.xyz * L0;
+                    #else
+                        float4 tex0, tex1, tex2;
+                        float3 L0, L1x, L1y, L1z;
+                        tex0 = _Volume0.Sample(sampler_Volume0, lpUV);
+                        tex1 = _Volume1.Sample(sampler_Volume0, lpUV);
+                        tex2 = _Volume2.Sample(sampler_Volume0, lpUV);
+                        L0 = tex0.xyz;
+                        L1x = tex1.xyz;
+                        L1y = tex2.xyz;
+                        L1z = float3(tex0.w, tex1.w, tex2.w);
+                    #endif
+                    indDif.r = shEvaluateDiffuseL1Geomerics(L0.r, float3(L1x.r, L1y.r, L1z.r), volNormal);
+                    indDif.g = shEvaluateDiffuseL1Geomerics(L0.g, float3(L1x.g, L1y.g, L1z.g), volNormal);
+                    indDif.b = shEvaluateDiffuseL1Geomerics(L0.b, float3(L1x.b, L1y.b, L1z.b), volNormal);
+
+                    #ifdef UNITY_COLORSPACE_GAMMA
+                        indDif = pow(indDif, 1.0f / 2.2f);
+                    #endif
+
+                    #ifdef BAKERY_LMSPEC
+                        float3 nL1x = L1x / L0;
+                        float3 nL1y = L1y / L0;
+                        float3 nL1z = L1z / L0;
+                        float3 dominantDir = float3(dot(nL1x, lumaConv), dot(nL1y, lumaConv), dot(nL1z, lumaConv));
+                        half3 halfDir = Bakery_SafeNormalize(normalize(dominantDir) - volViewDir);
+                        half nh = saturate(dot(volNormal, halfDir));
+                        half perceptualRoughness = SmoothnessToPerceptualRoughness(smoothness);
+                        half roughness = PerceptualRoughnessToRoughness(perceptualRoughness);
+                        half spec = GGXTerm(nh, roughness);
+                        float3 sh = L0 + dominantDir.x * L1x + dominantDir.y * L1y + dominantDir.z * L1z;
+                        indSpec = max(spec * sh, 0.0);
+                    #endif
+
+                    shadowmask = _VolumeMask.Sample(sampler_Volume0, lpUV);
+
+                #else
+
+                    #ifdef BAKERY_SHNONLINEAR
+                        float3 L0 = float3(unity_SHAr.w, unity_SHAg.w, unity_SHAb.w);
+                        indDif.r = shEvaluateDiffuseL1Geomerics(L0.r, unity_SHAr.xyz, normalWorld);
+                        indDif.g = shEvaluateDiffuseL1Geomerics(L0.g, unity_SHAg.xyz, normalWorld);
+                        indDif.b = shEvaluateDiffuseL1Geomerics(L0.b, unity_SHAb.xyz, normalWorld);
+                    #else
+                        indDif = ShadeSH9(float4(normalWorld,1));
+                    #endif
+
+                #endif
+
+			#endif
+
+        #endif
+	}
+
+	// this is the main surface function. Surface is like a surface shader output structure, but
+	// with our new outputs as well.
+	void SurfaceFunction(inout Surface o, ShaderData d)
+	{
+        #if USEBAKERY
+		    float3 indDif;
+		    float3 indSpec;
+            float4 shadowmask = 1;
+            float3 tangentNormal = o.Normal;
+            float3 worldNormal = o.Normal;
+            #if _WORLDSPACENORMAL
+                tangentNormal = mul((float3x3)d.TBNMatrix, o.Normal);
+            #else
+                worldNormal = mul(o.Normal, (float3x3)d.TBNMatrix);
+            #endif
+
+		    DoBakeryStuff(indDif, indSpec, shadowmask, tangentNormal, worldNormal, o.Smoothness, d);
+
+            #if _URP || _HDRP
+                // Apply fresnel
+                float3 albedo = o.Albedo;
+                float metalness = o.Metallic;
+                float3 normalWorld = worldNormal;
+                float3 viewDir = d.worldSpaceViewDir;
+                float smoothness = o.Smoothness;
+
+                // Convert metalness to specular and "oneMinusReflectivity"
+                float3 specularColor = lerp(float3(0.04, 0.04, 0.04), albedo, metalness);
+                float oneMinusDielectricSpec = 1.0 - 0.04;
+                float oneMinusReflectivity = oneMinusDielectricSpec - metalness * oneMinusDielectricSpec;
+
+                // Note: HDRP ShaderGraph will remove metallic parts from diffuse by itself, so we don't do it here
+
+                // Directly apply fresnel and smoothness-dependent grazing term
+                float nv = 1.0f - saturate(dot(normalWorld, viewDir));
+                float nv2 = nv * nv;
+                float fresnel = nv * nv2 * nv2;
+
+                float reflectivity = max(max(specularColor.r, specularColor.g), specularColor.b); // hack, but consistent with Unity code
+                float grazingTerm = saturate(smoothness + reflectivity);
+                float3 fresnel3 = lerp(specularColor, float3(grazingTerm, grazingTerm, grazingTerm), fresnel);
+
+                indSpec *= fresnel3;
+            #endif
+
+		    o.DiffuseGI = indDif;
+		    o.BackDiffuseGI = indDif;
+		    o.SpecularGI = indSpec;
+            o.ShadowMask = shadowmask;
+        #endif
+
+	}
+
+END_CODE
+

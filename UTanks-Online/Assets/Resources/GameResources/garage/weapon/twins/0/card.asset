@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  ItemData:
+    dictionary:
+    - key: charge
+      value: {fileID: 2800000, guid: fff0745d533e9694f9eda41cb4f4911f, type: 3}
+    - key: explosion
+      value: {fileID: 2800000, guid: e660d86a54959d64899225d152fe83ae, type: 3}
+    - key: fade
+      value: {fileID: 2800000, guid: cd6b16fdcc46e5b4081b69a8eef68a22, type: 3}
+    - key: shot
+      value: {fileID: 2800000, guid: eb33ea6a9aab228428b26735064be3a0, type: 3}
+    - key: TwinsProjectile
+      value: {fileID: 6194346603249985582, guid: c418d02f2c6330b4594dc4aa7c12b8df, type: 3}
+    - key: plazma_shot
+      value: {fileID: 8300000, guid: ee9f84fea1b794349b24d667818e70a9, type: 3}
+    - key: turret
+      value: {fileID: 8300000, guid: b997f1d13dfda06478e500ed352ddc04, type: 3}
+    - key: script
+      value: {fileID: 8093527543322519361, guid: bc9d903e44cf8ce41966e31ab8222faf, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary:
+    - key: Main
+      value: {r: 0.5176471, g: 0.98823535, b: 0.96470594, a: 1}

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - MuzzleCheck
+  - PhysicalProjectile
+  - RootAIMRails
+  - Tank
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Drop
+  - Water
+  - UI
+  - Bounds
+  - TankBounds
+  - Friction
+  - Tank
+  - ShaderColormap
+  - Grass
+  - Garage
+  - AIMLayer
+  - SpriteBillboard
+  - GhostTank
+  - Cloth
+  - Muzzle
+  - Projectile
+  - WeatherInteractor
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1701729681
+    locked: 0
+  - name: Background2
+    uniqueID: 654438017
+    locked: 0
+  - name: Icon
+    uniqueID: 349685167
+    locked: 0
+  - name: Text
+    uniqueID: 753833543
+    locked: 0

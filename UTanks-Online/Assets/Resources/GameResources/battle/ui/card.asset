@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: DM_MiniIcon
+      value: {fileID: 21300000, guid: 1df9500aeb3f57040b29ff3fac5e79c3, type: 3}
+    - key: DM
+      value: {fileID: 2800000, guid: fd6db4a85004be04d8aedaf5cce57863, type: 3}
+    - key: DM_Background
+      value: {fileID: 2800000, guid: 4dcd52389f855664aab9252994a14823, type: 3}
+    - key: TDM_MiniIcon
+      value: {fileID: 2800000, guid: e2d06d7bde47f3846b9617631c08ebe6, type: 3}
+    - key: TDM
+      value: {fileID: 2800000, guid: e2d06d7bde47f3846b9617631c08ebe6, type: 3}
+    - key: TDM_Background
+      value: {fileID: 2800000, guid: e2d06d7bde47f3846b9617631c08ebe6, type: 3}
+    - key: CTF_MiniIcon
+      value: {fileID: 2800000, guid: 95221c40db9f6a8429aae784e2835c36, type: 3}
+    - key: CTF
+      value: {fileID: 2800000, guid: d6198df96af1e094389a775bea675236, type: 3}
+    - key: CTF_Background
+      value: {fileID: 2800000, guid: e62ef030224f2834d97cca5a1981bee2, type: 3}
+    - key: DOM_MiniIcon
+      value: {fileID: 2800000, guid: 78fa07b7bc2ac3344bd5a0c14d8190db, type: 3}
+    - key: DOM
+      value: {fileID: 2800000, guid: 440aa89c425450e4d9915b7de9d45f7f, type: 3}
+    - key: DOM_Background
+      value: {fileID: 2800000, guid: ff637ae31249e7349bbfdf22eb67edaf, type: 3}
+    - key: Siege
+      value: {fileID: 2800000, guid: d8e8b330a3f270647b7531f95d1d1ca4, type: 3}
+    - key: Rugby
+      value: {fileID: 2800000, guid: 5f58c74276adbf840bd3fd630f86afa4, type: 3}
+    - key: Jugger
+      value: {fileID: 2800000, guid: 2fbd1f059bfc2464d868ae13bb15a295, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

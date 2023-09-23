@@ -1,0 +1,547 @@
+{
+  "selectableMaps": {
+	"FundTimeSection": 20,
+	"WinnerFundAdvantage": 0.3,
+	"FundActionPerTimeSection": 5,
+	"FundMaxPositiveCompensation": 3,
+	"KillUnconditionalFundReward": 1,
+	"KillRankKoefReward": 0.12,
+	"KillUncoditionalScorePoints": 10,
+	"KillRankCoefScorePoints": 0.12,
+	"KillUncoditionalInBattleScorePoints": 10,
+	"FlagReturnReward": 0.2,
+	"FlagCapturedReward": 0.5,
+	"UncapturePoint": 0.3,
+	"CapturePoint": 0.5,
+	"MaxPlayerSupplySeparation": 4,
+	"DropBonusSkinPath": "battle\\bonusskin\\old\\default",
+	"SupplyDropBonusDespawnSecTime": 60,
+	"CrystalDropBonusDespawnSecTime": 300,
+	"GoldDropBonusDespawnSecTime": 2400,
+	"RubyDropBonusDespawnSecTime": 500,
+	"CrystalDropBonusReward": 1,
+	"GoldDropBonusReward": 100,
+	"RubyDropBonusReward": 500,
+	"ContainerDropPath": "",
+	"SuperContainerDropPath": "",
+    "GameMaps": [
+      {
+        "Name": "Noise",
+        "Maps": [
+          {
+			"MapHeaderName": "Noise",
+            "MapGroupName": "Noise summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Noise_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "ctf",
+              "tdm",
+              "dom"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Duel",
+        "Maps": [
+          {
+			"MapHeaderName": "Duel",
+            "MapGroupName": "Duel summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Duel_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Island",
+        "Maps": [
+          {
+			"MapHeaderName": "Island",
+            "MapGroupName": "Island summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Island_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Madness",
+        "Maps": [
+          {
+			"MapHeaderName": "Madness",
+            "MapGroupName": "Madness summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Madness_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Future",
+        "Maps": [
+          {
+			"MapHeaderName": "Future",
+            "MapGroupName": "Future summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Future_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Esplanade",
+        "Maps": [
+          {
+			"MapHeaderName": "Esplanade",
+            "MapGroupName": "Esplanade summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Esplanade_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "MoonSilence",
+        "Maps": [
+          {
+			"MapHeaderName": "MoonSilence",
+            "MapGroupName": "Moon Silence summer",
+            "MapGroup": "summer",
+			"SkyboxName": "cybercity",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\MoonSilence_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Skyscrapers",
+        "Maps": [
+          {
+			"MapHeaderName": "Skyscrapers",
+            "MapGroupName": "Skyscrapers summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Skyscrapers_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Sandbox",
+        "Maps": [
+          {
+			"MapHeaderName": "Sandbox",
+            "MapGroupName": "Sandbox summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Sandbox_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Plateau",
+        "Maps": [
+          {
+			"MapHeaderName": "Plateau",
+            "MapGroupName": "Plateau summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Plateau_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Polygon",
+        "Maps": [
+          {
+			"MapHeaderName": "Polygon",
+            "MapGroupName": "Polygon summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Polygon_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Rio",
+        "Maps": [
+          {
+			"MapHeaderName": "Rio",
+            "MapGroupName": "Rio summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Rio_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Serpukhov",
+        "Maps": [
+          {
+			"MapHeaderName": "Serpukhov",
+            "MapGroupName": "Serpukhov summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Serpukhov_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Silence",
+        "Maps": [
+          {
+			"MapHeaderName": "Silence",
+            "MapGroupName": "Silence summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Silence_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          },
+		  {
+			"MapHeaderName": "Silence",
+            "MapGroupName": "Silence Old winter",
+            "MapGroup": "winter",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Silence_old_winter.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "old",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Factory",
+        "Maps": [
+          {
+			"MapHeaderName": "Factory",
+            "MapGroupName": "Factory summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Factory_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "2042",
+        "Maps": [
+          {
+			"MapHeaderName": "2042",
+            "MapGroupName": "2042 summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\2042_new_summer.xml",
+			"MapModel": "",
+			"MapConfigPath": "",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Agroprom",
+        "Maps": [
+          {
+			"MapHeaderName": "Agroprom",
+            "MapGroupName": "Agroprom summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Pripyat_new_summer.xml",
+			"MapModel": "agroprom_map",
+			"MapConfigPath": "battle\\map\\agroprom",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "Pripyat",
+        "Maps": [
+          {
+			"MapHeaderName": "Pripyat",
+            "MapGroupName": "Pripyat summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Pripyat_new_summer.xml",
+			"MapModel": "pripyat_map",
+			"MapConfigPath": "battle\\map\\pripyat",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      },
+	  {
+        "Name": "CNPP",
+        "Maps": [
+          {
+			"MapHeaderName": "CNPP Station",
+            "MapGroupName": "CNPP summer",
+            "MapGroup": "summer",
+			"SkyboxName": "crash",
+			"AudioName": "space",
+            "Path": "Data\\Maps\\Pripyat_new_summer.xml",
+			"MapModel": "cnpp_map",
+			"MapConfigPath": "battle\\map\\cnpp",
+			"MapVersion": "new",
+            "BattleModes": [
+              "dm",
+              "tdm"
+            ],
+            "MaxPlayers": 16,
+            "MinimalRankAccess": 0,
+            "FundScaling": 1,
+            "CrystalDropFrequencyScaling": 1,
+            "SuperDropFrequencyScaling": 1,
+            "SupplyDropFrequencyScaling": 1
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+﻿// Wind Particulate effect
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableWind"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableWindEditor"
+END_OPTIONS
+
+BEGIN_PROPERTIES
+   [BetterHeader(Wind Particulate)]
+   [Enum(World, 0, UV, 1)]_WindParticulateSpace("Wind UV Source", Float) = 0
+   _WindParticulate("Wind Texture", 2D) = "black" {}
+   _WindParticulateStrength("Strength", Range(0, 3)) = 2
+   _WindParticulateSpeed("Speed", Float) = 1
+   _WindParticulatePower("Contrast", Range(0.2, 6)) = 1
+   _WindParticulateRotation("Rotation", Float) = 0
+   _WindParticulateColor("Color, strength", Color) = (1, 1, 1, 1)
+   _WindParticulateWorldHeightMask("Wind Height Mask", Vector) = (-99999, -99999, 99999, 99999)
+   _WindParticulateTextureHeight("Wind Texture Height", Range(0,1)) = 1
+   _WindParticulateAngleMask("Wind Angle Mask", Vector) = (-1, -1, 1, 1)
+   _WindParticulateOcclusionStrength("Wind Occlusion Strength", Range(0,1)) = 1
+   _WindParticulateEmissive("Wind Emissive", Color) = (0,0,0,0)
+END_PROPERTIES
+
+BEGIN_DEFINES
+   #pragma shader_feature_local _ _WIND_ON
+END_DEFINES
+
+BEGIN_CBUFFER
+    half     _WindParticulateSpace;
+    half     _WindParticulateRotation;
+    half      _WindParticulateSpeed;
+    float4     _WindParticulate_ST;
+    half      _WindParticulatePower;
+    half4    _WindParticulateColor;
+    half4    _WindParticulateWorldHeightMask;
+    half4    _WindParticulateAngleMask;
+    half      _WindParticulateOcclusionStrength;
+    half      _WindParticulateStrength;
+    half4    _WindParticulateEmissive;
+    half     _WindParticulateTextureHeight;
+END_CBUFFER
+
+BEGIN_SUBSHADERS
+   "FunctionLibrary.surfshader"
+END_SUBSHADERS
+
+// All code goes here
+BEGIN_CODE
+
+   TEXTURE2D(_WindParticulate);
+   SAMPLER(sampler_WindParticulate);
+
+// In case we want to read it more than once..
+
+#ifndef __STACKABLE_WIND_INCLUDES__
+#define __STACKABLE_WIND_INCLUDES__
+
+
+   half FilterRange(float4 range, float y)
+   {
+      half w = saturate((y - range.x) / max(range.y - range.x, 0.0001));
+      w *= 1.0 - saturate((y - range.z) / max(range.w - range.z, 0.0001));
+      return w;
+   }
+
+   
+   float2 RotateUV(float2 uv, float amt)
+   {
+      uv -=0.5;
+      float s = sin ( amt);
+      float c = cos ( amt );
+      float2x2 mtx = float2x2( c, -s, s, c);
+      mtx *= 0.5;
+      mtx += 0.5;
+      mtx = mtx * 2-1;
+      uv = mul ( uv, mtx );
+      uv += 0.5;
+      return uv;
+   }
+
+
+   half FilterWindParticulateSlope(float4 range, float3 worldNormalVertex, float windRot)
+   {
+      float2 windDir = RotateUV(float2(1, 0), windRot);
+      float2 flow = lerp(worldNormalVertex.xz, normalize(worldNormalVertex.xz), max(0.1, worldNormalVertex.z));
+      float cofacing = dot(windDir, flow); // 1 going downhill, -1 going uphill
+      return FilterRange(range, cofacing);
+   }
+
+   fixed ProcessWindParticulateMask(inout fixed mask, float contrast)
+   {
+      mask = pow(abs(mask), abs(contrast));
+      fixed invMask = 1.0 - mask;
+      invMask *= invMask; 
+      invMask *= invMask;
+      return invMask;
+   }
+#endif // include guard
+
+   void SurfaceFunction(inout Surface o, ShaderData d)
+   {
+      #if _WIND_ON && !_PASSMETA
+   
+         float3 upVector = float3(0,0,1);
+
+         half upDot = max(0.0, dot(d.worldSpaceNormal, float3(0, 1, 0)));
+
+         float2 uv = d.worldSpacePosition.xz;
+         if (_WindParticulateSpace > 0.5)
+            uv = d.texcoord0.xy;
+         float windRotation = _WindParticulateRotation;
+         float windStrength = _WindParticulateStrength;
+
+         float2 wuv = RotateUV(uv, windRotation);
+
+         half windBlend = 1.0;
+
+         float windWorldMask = FilterRange(_WindParticulateWorldHeightMask, d.worldSpacePosition.y);
+         windWorldMask *= FilterRange(_WindParticulateAngleMask, upDot);
+
+         // compute mask
+         wuv *= float2(_WindParticulate_ST.x, 1) * _WindParticulate_ST.y + _WindParticulate_ST.zw;
+         float speed = _Time.x * _WindParticulateSpeed;
+         half w1 = SAMPLE_TEXTURE2D(_WindParticulate, sampler_WindParticulate, wuv * 3 + speed * float2(1,0)).g;
+         half w2 = SAMPLE_TEXTURE2D(_WindParticulate, sampler_WindParticulate, wuv + speed * float2(1.1,0)).a;
+         half windMask = (w1 * w2);
+
+         windMask *= windStrength * windBlend * windWorldMask;
+         windMask *= saturate((_WindParticulateTextureHeight - o.Height) * 10);
+
+         half windInvMask = ProcessWindParticulateMask(windMask, _WindParticulatePower);
+    
+         o.Albedo = lerp(o.Albedo, _WindParticulateColor.rgb, windMask * _WindParticulateColor.a);
+         o.Emission += _WindParticulateColor.rgb * windMask * _WindParticulateColor.a * _WindParticulateEmissive.rgb;
+         o.Normal.xy *= windInvMask;
+         o.Smoothness *= windInvMask;
+         o.Occlusion -= (1.0 - windInvMask) * _WindParticulateOcclusionStrength;
+         o.Metallic *= windInvMask;
+      #endif
+
+   }
+
+END_CODE
+

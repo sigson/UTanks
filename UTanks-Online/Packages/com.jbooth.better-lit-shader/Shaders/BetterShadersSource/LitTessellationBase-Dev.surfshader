@@ -1,0 +1,120 @@
+﻿///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// Lit tessellation shader. Note that this shader sets up some global variables needed
+// for shaders on the stack above it. This is so they can know the original vertex position
+// and height offset applied to do their offsets from there and blend accourdingly.
+
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/Lit Tessellation Base"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "LitTessellationMaterialEditor"
+   Tessellation "Distance"
+END_OPTIONS
+
+BEGIN_SUBSHADERS
+   "LitBase-Dev.surfshader"
+END_SUBSHADERS
+
+// note this is what the internal Better Shaders system uses for edge tessellation, so we just expose it here in a pragma.
+// we also set up a define so that other shaders in the stack know we are here, and can read data from us safely.
+BEGIN_DEFINES
+    #pragma shader_feature_local _ _TESSEDGE
+    #define _HAS_LIT_TESSELLATION 1
+END_DEFINES
+
+// we want this data in later stages, so they can understand where the vertex originally was,
+// and how we moved it. Note that the blackboard in the vertex stages is in the ExtraV2F structure,
+// but is not passed to the pixel shader
+BEGIN_BLACKBOARD
+   float3 originalVertexPosition;
+   float vertexHeightOffset;
+END_BLACKBOARD
+
+BEGIN_PROPERTIES
+   _TessellationMipBias("Mip Bias", Range(0,6)) = 1
+   _TessellationMinEdgeLength("Min Edge Length", Range(8, 60)) = 12
+   _TessellationDistanceRange("Distance Start/Fade", Vector) = (30, 20, 0, 0)
+   _TessellationMaxSubdiv("Maximum Subdivision", Range(2, 32)) = 16
+   _TessellationDisplacement("Displacement", Range(0, 4)) = 1
+   _TessellationOffset("Displacement Offset", Range(0,1)) = 0.5
+   _DisplacementStrength("Displacement Strength", Range(0,1)) = 1
+END_PROPERTIES
+
+BEGIN_CBUFFER
+   half _TessellationMipBias;
+   float2 _TessellationDistanceRange;
+   half _TessellationMinEdgeLength;
+   half _TessellationMaxSubdiv;
+   half _TessellationDisplacement;
+   half _TessellationOffset;
+   half _DisplacementStrength;
+END_CBUFFER
+
+BEGIN_CODE
+
+   
+   void ModifyTessellatedVertex(inout VertexData v, inout ExtraV2F e)
+   {
+      #undef SAMPLEBARY
+      #if _STOCHASTIC && _TRIPLANAR
+        #define SAMPLEBARY SampleTexBaryLODStochasticTriplanar
+      #elif _STOCHASTIC
+        #define SAMPLEBARY SampleTexBaryLODStochastic
+      #elif _TRIPLANAR
+        #define SAMPLEBARY SampleTexBaryLODTriplanar
+      #else
+        #define SAMPLEBARY SampleTexBaryLOD
+      #endif
+      ShaderData d;
+      ZERO_INITIALIZE(ShaderData, d);
+      d.texcoord0.xy = v.texcoord0.xy;
+      d.texcoord1.xy = v.texcoord1.xy;
+      d.localSpacePosition = v.vertex.xyz;
+      d.localSpaceNormal = v.normal;
+      d.worldSpacePosition = ObjectToWorldSpacePosition(v.vertex.xyz);
+      d.worldSpaceNormal = TransformObjectToWorld(v.normal);
+
+      Config c = CreateConfig(d, _AlbedoMap_ST, _TriplanarSpace, _UVSource, _TriplanarContrast);
+
+      #if _STOCHASTIC && !_TRIPLANAR
+         PrepareStochasticUVs(_StochasticScale, c.uv, c.uvT);
+      #elif _STOCHASTIC && _TRIPLANAR
+         PrepareStochasticUVs(_StochasticScale, c.uvT.uv0, c.uvX);
+         PrepareStochasticUVs(_StochasticScale, c.uvT.uv1, c.uvY);
+         PrepareStochasticUVs(_StochasticScale, c.uvT.uv2, c.uvZ);
+      #endif
+
+      half height = SAMPLEBARY(TEXTURE2D_ARGS(_AlbedoMap, sampler_AlbedoMap), c, _TessellationMipBias, _StochasticContrast).a;
+      height = lerp(_HeightRemap.x, _HeightRemap.y, height);
+      height *= _DisplacementStrength;
+      e.blackboard.vertexHeightOffset = height;
+      e.blackboard.originalVertexPosition = v.vertex.xyz;
+
+      height -= _TessellationOffset;
+      // dampen cracks
+      height *= 1 - v.texcoord0.z;
+      height *= _TessellationDisplacement;
+
+      v.vertex.xyz += v.normal.xyz * height;
+
+   }
+
+   float3 GetTessFactors ()
+   {
+      #if _TESSEDGE
+         return float3(_TessellationMinEdgeLength, _TessellationMaxSubdiv, 0);
+      #else
+         return float3(_TessellationDistanceRange.x, _TessellationDistanceRange.x + _TessellationDistanceRange.y, _TessellationMaxSubdiv);
+      #endif
+   }
+
+   void SurfaceFunction(Surface o, ShaderData d)
+   {
+   }
+
+END_CODE
+

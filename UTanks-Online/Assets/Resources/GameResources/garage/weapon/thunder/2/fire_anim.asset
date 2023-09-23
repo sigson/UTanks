@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: fire_anim
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 1
+  loadAllRelatedAssets: 1
+  ItemData:
+    dictionary:
+    - key: fire_0
+      value: {fileID: 8334651344603559088, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_1
+      value: {fileID: 9204931480678746970, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_2
+      value: {fileID: -8359625512513901107, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_3
+      value: {fileID: 7804807344221744696, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_4
+      value: {fileID: -9112466456087325836, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_5
+      value: {fileID: 173077104931781641, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_6
+      value: {fileID: -4815649327972379770, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_7
+      value: {fileID: 1034857412894652757, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_8
+      value: {fileID: 429675774711054156, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_9
+      value: {fileID: -5467760050751137256, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_10
+      value: {fileID: -5580774828894895019, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_11
+      value: {fileID: -3101274996891623232, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_12
+      value: {fileID: -3777497919893597465, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_13
+      value: {fileID: 7911460335719728912, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_14
+      value: {fileID: -6086694843929395052, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_15
+      value: {fileID: -8580248683870737263, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_16
+      value: {fileID: 2367568624225237548, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_17
+      value: {fileID: 4451038462793939483, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_18
+      value: {fileID: 1857998550455476055, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_19
+      value: {fileID: 2794244667548990357, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_20
+      value: {fileID: 5815634045572515806, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_21
+      value: {fileID: 4075620674892173349, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_22
+      value: {fileID: 1747668986372096787, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_23
+      value: {fileID: -6856055144743474245, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_24
+      value: {fileID: 5930615450870197110, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_25
+      value: {fileID: 681115041920650685, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_26
+      value: {fileID: -6227825822400137203, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_27
+      value: {fileID: 2921717818507866703, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+    - key: fire_28
+      value: {fileID: 2937671998264412458, guid: c163e57fb8388a944bad47eac9d37488, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

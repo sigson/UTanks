@@ -1,0 +1,12 @@
+{
+    "name": "com.jbooth.better-lit-shader",
+    "displayName": "Better Lit Shader",
+    "version": "1.0.9",
+    "author": {
+        "name": "Jason Booth",
+        "email": "slipster216@gmail.com",
+        "url": "http://jdbtechservices.com/"
+    },
+    "unity": "2019.4",
+    "description": "A replacement for the Lit Shader with extended features"
+}

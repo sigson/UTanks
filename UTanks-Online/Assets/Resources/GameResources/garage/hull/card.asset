@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: audio_engineidle
+      value: {fileID: 8300000, guid: 4750e38bd55211b4eb216416ec1d15e7, type: 3}
+    - key: audio_engineidle2
+      value: {fileID: 8300000, guid: 2e9582e83933fee4b86e9eabb8f87c2a, type: 3}
+    - key: audio_move
+      value: {fileID: 8300000, guid: ad45b8a294ecce144898b09e1e6f9035, type: 3}
+    - key: audio_move_start
+      value: {fileID: 8300000, guid: e21bca7f5731eb4429a8d6bc876e7069, type: 3}
+    - key: audio_engineidle_loop
+      value: {fileID: 8300000, guid: aacaa09d1c6ba7f48837265e9f001689, type: 3}
+    - key: audio_tank_explosion
+      value: {fileID: 8300000, guid: bf532c9747b31e04a88bb70c8de9a4bb, type: 3}
+    - key: tank_explosion
+      value: {fileID: 6260470007549169276, guid: c9c95e64bf66fdd4b9a9dd53be46fe0a, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

@@ -1,0 +1,9 @@
+{
+  "databaseNetwork": {
+    "enabled": false,
+    "hostAddress": "127.0.0.1",
+    "hostPort": 6070,
+    "key": "D465-P634-UI41-T015",
+    "token": "143-438-129-432-102-525"
+  }
+}

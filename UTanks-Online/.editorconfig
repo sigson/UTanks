@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS3003: Тип несовместим с CLS
+dotnet_diagnostic.CS3003.severity = silent
+
+# CS3009: Базовый тип несовместим с CLS
+dotnet_diagnostic.CS3009.severity = none

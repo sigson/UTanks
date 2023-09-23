@@ -1,0 +1,427 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Material #2965
+  m_Shader: {fileID: -6465566751694194690, guid: 8d7180d86aab44f15bb161c4ab3113a9, type: 3}
+  m_ShaderKeywords: BAKERY_SHNONLINEAR _FLATSHADE _LIGHTMAPMODE_STANDARD
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoMap:
+        m_Texture: {fileID: 2800000, guid: fdbbc289c7a02fe439f8795f2676976b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseColor:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveGradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerAlbedoMap_Ext_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerAlbedoMap_Ext_2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerEmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerEmissionMap_Ext_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerEmissionMap_Ext_2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerMaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerMaskMap_Ext_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerMaskMap_Ext_2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerNormalMap_Ext_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerNormalMap_Ext_2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerTextureMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: fdbbc289c7a02fe439f8795f2676976b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RainDropTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowAlbedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowMaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowTraxAlbedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowTraxMaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowTraxNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecularMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TintMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TraxAlbedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TraxPackedNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindParticulate:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlbedoBrightness: 0
+    - _AlbedoContrast: 1
+    - _AlphaThreshold: 0
+    - _AutoNormalStrength: 0.5
+    - _BAKERY_BICUBIC: 0
+    - _BAKERY_LMSPEC: 0
+    - _BAKERY_SHNONLINEAR: 1
+    - _BAKERY_VERTEXLMMASK: 0
+    - _BAKERY_VOLROTATION: 0
+    - _BAKERY_VOLUME: 0
+    - _BumpScale: 1
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DebugSampleCountThreshold: 12
+    - _DetailAlbedoStrength: 1
+    - _DetailNormalMapScale: 1
+    - _DetailNormalStrength: 1
+    - _DetailSmoothnessStrength: 1
+    - _DetailStochasticContrast: 0.7
+    - _DetailStochasticScale: 0.5
+    - _DetailTriplanarContrast: 4
+    - _DetailTriplanarSpace: 0
+    - _DetailUVSource: 0
+    - _DissolveAmount: 0
+    - _DissolveColoration: 1
+    - _DissolveEdgeContrast: 10
+    - _DissolveEmissiveStr: 0
+    - _DoubleSidedNormalMode: 1
+    - _DstBlend: 0
+    - _FlatShadingBlend: 1
+    - _FuzzyShadingOn: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0
+    - _GlossyReflections: 1
+    - _IsConverted: 1
+    - _LayerAlbedoBrightness: 0
+    - _LayerAlbedoBrightness_Ext_1: 0
+    - _LayerAlbedoBrightness_Ext_2: 0
+    - _LayerAlbedoContrast: 1
+    - _LayerAlbedoContrast_Ext_1: 1
+    - _LayerAlbedoContrast_Ext_2: 1
+    - _LayerAlbedoStrength: 1
+    - _LayerAlbedoStrength_Ext_1: 1
+    - _LayerAlbedoStrength_Ext_2: 1
+    - _LayerAngleMin: 0.1
+    - _LayerAngleMin_Ext_1: 0.1
+    - _LayerAngleMin_Ext_2: 0.1
+    - _LayerBlendContrast: 2
+    - _LayerBlendContrast_Ext_1: 2
+    - _LayerBlendContrast_Ext_2: 2
+    - _LayerBlendMode: 0
+    - _LayerBlendMode_Ext_1: 0
+    - _LayerBlendMode_Ext_2: 0
+    - _LayerFalloff: 8
+    - _LayerFalloff_Ext_1: 8
+    - _LayerFalloff_Ext_2: 8
+    - _LayerFuzzyShadingOn: 0
+    - _LayerFuzzyShadingOn_Ext_1: 0
+    - _LayerFuzzyShadingOn_Ext_2: 0
+    - _LayerHeight: 0
+    - _LayerHeightContrast: 0.5
+    - _LayerHeightContrast_Ext_1: 0.5
+    - _LayerHeightContrast_Ext_2: 0.5
+    - _LayerHeight_Ext_1: 0
+    - _LayerHeight_Ext_2: 0
+    - _LayerInvertHeight: 0
+    - _LayerInvertHeight_Ext_1: 0
+    - _LayerInvertHeight_Ext_2: 0
+    - _LayerMetallic: 0
+    - _LayerMetallic_Ext_1: 0
+    - _LayerMetallic_Ext_2: 0
+    - _LayerMicroShadowStrength: 0
+    - _LayerMicroShadowStrength_Ext_1: 0
+    - _LayerMicroShadowStrength_Ext_2: 0
+    - _LayerNoiseAmplitude: 0.5
+    - _LayerNoiseAmplitude_Ext_1: 0.5
+    - _LayerNoiseAmplitude_Ext_2: 0.5
+    - _LayerNoiseCenter: 0
+    - _LayerNoiseCenter_Ext_1: 0
+    - _LayerNoiseCenter_Ext_2: 0
+    - _LayerNoiseFrequency: 1
+    - _LayerNoiseFrequency_Ext_1: 1
+    - _LayerNoiseFrequency_Ext_2: 1
+    - _LayerNoiseOffset: 0
+    - _LayerNoiseOffset_Ext_1: 0
+    - _LayerNoiseOffset_Ext_2: 0
+    - _LayerNormalStrength: 1
+    - _LayerNormalStrength_Ext_1: 1
+    - _LayerNormalStrength_Ext_2: 1
+    - _LayerScale: 3
+    - _LayerScale_Ext_1: 3
+    - _LayerScale_Ext_2: 3
+    - _LayerSmoothness: 0
+    - _LayerSmoothnessStrength: 1
+    - _LayerSmoothnessStrength_Ext_1: 1
+    - _LayerSmoothnessStrength_Ext_2: 1
+    - _LayerSmoothness_Ext_1: 0
+    - _LayerSmoothness_Ext_2: 0
+    - _LayerStochasticContrast: 0.7
+    - _LayerStochasticContrast_Ext_1: 0.7
+    - _LayerStochasticContrast_Ext_2: 0.7
+    - _LayerStochasticScale: 0.5
+    - _LayerStochasticScale_Ext_1: 0.5
+    - _LayerStochasticScale_Ext_2: 0.5
+    - _LayerStrength: 1
+    - _LayerStrength_Ext_1: 1
+    - _LayerStrength_Ext_2: 1
+    - _LayerTessStrength: 1
+    - _LayerTessStrength_Ext_1: 1
+    - _LayerTessStrength_Ext_2: 1
+    - _LayerTextureMaskUVMode: 0
+    - _LayerTriplanarContrast: 4
+    - _LayerTriplanarContrast_Ext_1: 4
+    - _LayerTriplanarContrast_Ext_2: 4
+    - _LayerTriplanarSpace: 0
+    - _LayerTriplanarSpace_Ext_1: 0
+    - _LayerTriplanarSpace_Ext_2: 0
+    - _LayerUVSource: 0
+    - _LayerUVSource_Ext_1: 0
+    - _LayerUVSource_Ext_2: 0
+    - _LayerVertexNormalBlend: 0.8
+    - _LayerVertexNormalBlend_Ext_1: 0.8
+    - _LayerVertexNormalBlend_Ext_2: 0.8
+    - _LightmapMode: 0
+    - _Metallic: 0
+    - _MicroShadowStrength: 0
+    - _Mode: 0
+    - _NormalStrength: 1
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _ParallaxHeight: 0
+    - _Porosity: 0.4
+    - _PuddleAmount: 0
+    - _PuddleAngleMin: 0.1
+    - _PuddleFalloff: 12
+    - _PuddleMode: 0
+    - _PuddleNoiseAmplitude: 0.5
+    - _PuddleNoiseCenter: 0
+    - _PuddleNoiseFrequency: 1
+    - _PuddleNoiseOffset: 0
+    - _RainMode: 0
+    - _Smoothness: 0
+    - _SmoothnessTextureChannel: 0
+    - _SnowAmount: 1
+    - _SnowAngle: 1
+    - _SnowContrast: 1.5
+    - _SnowMode: 0
+    - _SnowNoiseAmp: 1
+    - _SnowNoiseFreq: 1
+    - _SnowNoiseOffset: 0
+    - _SnowStochasticContrast: 0.7
+    - _SnowStochasticScale: 1
+    - _SnowVertexHeight: 0.05
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _StochasticContrast: 0.7
+    - _StochasticScale: 0.5
+    - _TraxDisplacementDepth: 0.1
+    - _TraxDisplacementStrength: 0.2
+    - _TraxHeightContrast: 0.5
+    - _TraxInterpContrast: 0.9
+    - _TraxMipBias: 3
+    - _TraxNormalStrength: 1
+    - _TriplanarContrast: 4
+    - _TriplanarSpace: 0
+    - _UVSec: 0
+    - _UVSource: 0
+    - _WetnessAmount: 0
+    - _WetnessAngleMin: -1
+    - _WetnessFalloff: 1
+    - _WetnessMax: 1
+    - _WetnessMin: 0
+    - _WetnessMode: 0
+    - _WetnessShoreline: -99999
+    - _WindParticulateOcclusionStrength: 1
+    - _WindParticulatePower: 1
+    - _WindParticulateRotation: 0
+    - _WindParticulateSpace: 0
+    - _WindParticulateSpeed: 1
+    - _WindParticulateStrength: 2
+    - _WindParticulateTextureHeight: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _AColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _AORemap: {r: 0, g: 1, b: 0, a: 0}
+    - _BColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FuzzyShadingColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FuzzyShadingParams: {r: 0.3, g: 1, b: 1.5, a: 1}
+    - _GColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _HeightRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerAORemap: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerAORemap_Ext_1: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerAORemap_Ext_2: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerBlendTint: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerBlendTint_Ext_1: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerBlendTint_Ext_2: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerEmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerEmissionColor_Ext_1: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerEmissionColor_Ext_2: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerFuzzyShadingColor: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerFuzzyShadingColor_Ext_1: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerFuzzyShadingColor_Ext_2: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerFuzzyShadingParams: {r: 0.3, g: 1, b: 1.5, a: 1}
+    - _LayerFuzzyShadingParams_Ext_1: {r: 0.3, g: 1, b: 1.5, a: 1}
+    - _LayerFuzzyShadingParams_Ext_2: {r: 0.3, g: 1, b: 1.5, a: 1}
+    - _LayerHeightRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerHeightRemap_Ext_1: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerHeightRemap_Ext_2: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMetallicRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMetallicRemap_Ext_1: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMetallicRemap_Ext_2: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerSmoothnessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerSmoothnessRemap_Ext_1: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerSmoothnessRemap_Ext_2: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerTint: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerTint_Ext_1: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerTint_Ext_2: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerWeightOverDistance: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerWeightOverDistance_Ext_1: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerWeightOverDistance_Ext_2: {r: 1, g: 1, b: 1, a: 1}
+    - _MetallicRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _PuddleColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.7}
+    - _RColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _RainIntensityScale: {r: 1, g: 25, b: 0, a: 0}
+    - _SmoothnessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _SnowTint: {r: 1, g: 1, b: 1, a: 1}
+    - _SnowTraxTint: {r: 1, g: 1, b: 1, a: 1}
+    - _SnowWorldFade: {r: 100, g: 50, b: 0, a: 0}
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _TraxTint: {r: 1, g: 1, b: 1, a: 1}
+    - _WindParticulateAngleMask: {r: -1, g: -1, b: 1, a: 1}
+    - _WindParticulateColor: {r: 1, g: 1, b: 1, a: 1}
+    - _WindParticulateEmissive: {r: 0, g: 0, b: 0, a: 0}
+    - _WindParticulateWorldHeightMask: {r: -99999, g: -99999, b: 99999, a: 99999}
+  m_BuildTextureStacks: []

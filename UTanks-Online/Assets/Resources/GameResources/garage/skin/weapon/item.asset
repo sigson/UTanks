@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: item
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  loadAllRelatedAssets: 0
+  ItemData:
+    dictionary:
+    - key: 20
+      value: {fileID: 11400000, guid: 5c8351269267bdf47b7ba78d9a376425, type: 2}
+    - key: default
+      value: {fileID: 11400000, guid: d01d10b85edf12245aee20ab2f9aff41, type: 2}
+    - key: hd
+      value: {fileID: 11400000, guid: 8f8f5808875b11c48a4070289e511b8f, type: 2}
+    - key: old
+      value: {fileID: 11400000, guid: f22a2d3b99e7a2e49b1b9c806f61fad4, type: 2}
+    - key: tx
+      value: {fileID: 11400000, guid: 0dc0dc054293dc34ab4c683340dbd389, type: 2}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary: []

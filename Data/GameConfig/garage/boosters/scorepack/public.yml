@@ -1,0 +1,16 @@
+userItemTemplate:
+  userItemTemplate: 1513580884352
+cardImageItem:
+  spriteUid: ba2b2fc4-085b-4755-a636-f57b6aca8732
+oneTimeScoreUpper:
+  score: 1000
+purchaseUpgradeLevelRestriction:
+  restrictionValue: 0
+crystalsPurchaseUserRankRestriction:
+  restrictionValue: 0
+priceItem:
+  price: 100
+order:
+  index: 1
+durationItem:
+  duration: 86400000

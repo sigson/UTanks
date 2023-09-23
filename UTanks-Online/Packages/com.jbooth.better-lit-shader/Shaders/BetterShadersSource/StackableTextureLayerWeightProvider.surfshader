@@ -1,0 +1,79 @@
+﻿
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/StackableTextureLayerWeightProvider"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "StackableTextureLayerWeightEditor"
+
+   VertexColorRequire "_LAYERVERTEXMASK"
+
+END_OPTIONS
+
+BEGIN_PROPERTIES
+	_LayerTextureMask("Layer Texture Mask", 2D) = "white" {}
+    _LayerTextureMaskUVMode("Layer Texture Mask UV Mode", Float) = 0
+END_PROPERTIES
+
+BEGIN_DEFINES
+    #pragma shader_feature_local _ _LAYERVERTEXMASK _LAYERTEXTUREMASK
+
+    #define _HAS_WEIGHTTEXTURE_MASK 1
+END_DEFINES
+
+BEGIN_CBUFFER
+	half _LayerTextureMaskUVMode;
+    float4 _LayerTextureMask_ST;
+END_CBUFFER
+
+BEGIN_BLACKBOARD
+   half4 weightTextureMask;
+   
+END_BLACKBOARD
+
+
+BEGIN_CODE
+
+	#if _LAYERTEXTUREMASK
+       TEXTURE2D(_LayerTextureMask);
+       SAMPLER(sampler_LayerTextureMask); 
+    #endif
+
+   void ModifyTessellatedVertex(inout VertexData v, inout ExtraV2F e)
+   {
+      #if _TESSELLATION_ON
+          #if _LAYERTEXTUREMASK
+               float3 worldSpacePosition = TransformObjectToWorld(v.vertex.xyz);
+               float2 layerUV = v.texcoord0.xy;
+               if (_LayerTextureMaskUVMode == 1)
+                  layerUV = v.texcoord1.xy;
+               else if (_LayerTextureMaskUVMode == 2)
+                  layerUV = worldSpacePosition.yz;
+               else if (_LayerTextureMaskUVMode == 3)
+                  layerUV = worldSpacePosition.xz;
+               else if (_LayerTextureMaskUVMode == 4)
+                  layerUV = worldSpacePosition.xy;
+
+               e.blackboard.weightTextureMask = SAMPLE_TEXTURE2D_LOD(_LayerTextureMask, sampler_LayerTextureMask, layerUV * _LayerTextureMask_ST.xy + _LayerTextureMask_ST.zw, _TessellationMipBias);
+          #endif
+      #endif
+    }
+
+
+	void SurfaceFunction(inout Surface o, inout ShaderData d)
+	{
+		#if _LAYERTEXTUREMASK
+           float2 layerUV = d.texcoord0.xy;
+           if (_LayerTextureMaskUVMode == 1)
+              layerUV = d.texcoord1.xy;
+           else if (_LayerTextureMaskUVMode == 2)
+              layerUV = d.worldSpacePosition.yz;
+           else if (_LayerTextureMaskUVMode == 3)
+              layerUV = d.worldSpacePosition.xz;
+           else if (_LayerTextureMaskUVMode == 4)
+              layerUV = d.worldSpacePosition.xy;
+
+           d.blackboard.weightTextureMask = SAMPLE_TEXTURE2D(_LayerTextureMask, sampler_LayerTextureMask, layerUV * _LayerTextureMask_ST.xy + _LayerTextureMask_ST.zw);
+      #endif
+	}
+
+END_CODE
+

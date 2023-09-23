@@ -1,0 +1,362 @@
+///////////////////////////////
+// Better Lit Shader
+// © Jason Booth, 2021
+///////////////////////////////
+
+// Basic Lit shader
+
+// This is the base of the shader itself, the main texture layer. Some things to note if you are extending this:
+// The normal may be in tangent space, world space, or not generated at all, depending on the normal mode.
+// If you need the normal in world space, there is a utility function to get this in the FunctionLibrary.surfshader
+//
+// All sampling is handle via macro re-routing. This lets us share a library of functions for sampling with
+// combinations of triplanar and stochastic, without having the #ifdef's directly in that library. Each texture layer
+// has it's own shader features, and based on them defines the sampling function to use in the library, and undef's
+// them as well.
+//
+// A config structure holds a lot of information about how things should be sampled, for both triplanar and stochastic
+// effects. 
+
+
+BEGIN_OPTIONS
+   ShaderName "Hidden/Better Lit/Dev/Lit Base"
+   CustomEditor "JBooth.BetterShaders.BetterShaderMaterialGUI"
+   SubEditor "LitBaseSubMaterialEditor"
+END_OPTIONS
+
+BEGIN_SUBSHADERS
+   "FunctionLibrary.surfshader"
+END_SUBSHADERS
+
+BEGIN_PROPERTIES
+    [HideInInspector]_MainTex("Unity Standard Shader Hack Property", 2D) = "white" {} // use this to do material conversion.
+    [HideInInspector]_BaseColor("Unity HDRP/URP Shader Hack Property", 2D) = "white" {} // use this to do material conversion.
+    [HideInInspector]_BumpMap("Unity Standard Shader Hack Property", 2D) = "bump" {} // use this to do material conversion.
+    [HideInInspector]_IsConverted("Have we done one time conversion yet?", Float) = 0
+    
+    _TriplanarSpace ("Triplanar Space", Float) = 0
+    _TriplanarContrast ("Triplanar Contrast", Range(1, 10)) = 4
+    _UVSource("UV Source", Float) = 0
+    _AlbedoMap("Albedo/Height", 2D) = "white" {}
+    _Tint ("Tint", Color) = (1, 1, 1, 1)
+    _AlbedoBrightness("Brightness", Range(-1, 1)) = 0
+    _AlbedoContrast("Contrast", Range(0,2)) = 1
+    _AlphaThreshold("Alpha Threshold", Range(0,1)) = 0.0
+    _Cutoff("Unity Lightmapper sucks", Range(0, 1)) = 0.0
+    _NormalMap("Normal", 2D) = "bump" {}
+    _NormalStrength("Normal Strength", Range(0,2)) = 1
+    
+    _MaskMap("Mask Map", 2D) = "black" {}
+    _Smoothness("Smoothness", Range(0,1)) = 0
+    _Metallic("Metallic", Range(0,1)) = 0
+    _SpecularMap("Specular Map", 2D) = "black" {}
+
+    _EmissionMap("Emission Map", 2D) = "black" {}
+    _EmissionColor("Emission Strength", Color) = (0,0,0,0)
+
+    _SmoothnessRemap("Smoothness Remap", Vector) = (0, 1, 0, 0)
+    _AORemap("AO Remap", Vector) = (0, 1, 0, 0)
+    _MetallicRemap("Metallic Remap", Vector) = (0, 1, 0, 0)
+    _HeightRemap("Height Remap", Vector) = (0, 1, 0, 0)
+
+    _DetailUVSource("Detail UV Source", Float) = 0
+    _DetailMap("Detail Map", 2D) = "white" {}
+    _DetailAlbedoStrength("Detail Albedo Strength", Range(0, 2)) = 1
+    _DetailNormalStrength("Detail Normal Strength", Range(0, 2)) = 1
+    _DetailSmoothnessStrength("Detail Smoothness Strength", Range(0, 2)) = 1
+    _DetailTriplanarSpace ("Triplanar Space", Float) = 0
+    _DetailTriplanarContrast ("Triplanar Contrast", Range(1, 10)) = 4
+    _DetailStochasticContrast("Stochastic Contrast", Range(0.01,0.999)) = 0.7
+    _DetailStochasticScale("Stochastic Contrast", Range(0.2,1.5)) = 0.5
+    _FlatShadingBlend("Flat Shading Blend", Range(0,4)) = 1
+    _StochasticContrast("Stochastic Contrast", Range(0.01,0.999)) = 0.7
+    _StochasticScale("Stochastic Contrast", Range(0.2,1.5)) = 0.5
+    _ParallaxHeight("Parallax Height", Range(0, 0.25)) = 0
+
+    _MicroShadowStrength("Micro Shadow Strength", Range(0, 2)) = 0
+    _FuzzyShadingOn("FuzzyShadingToggle", Float) = 0
+    _FuzzyShadingColor("Fuzzy Shading Color", Color) = (1,1,1,1)
+    _FuzzyShadingParams("Fuzzy Shading Params", Vector) = (0.3,1,1.5,1) // coreMult, edgeMult, power
+
+    //_POMMaxSamples ("POM Max Samples", Range(4, 32)) = 8
+    //_POMMin ("POM Min Distance", Float) = 25
+    //_POMFade ("Pom Fade Range", Float) = 25
+
+END_PROPERTIES
+   
+
+BEGIN_DEFINES
+   #pragma shader_feature_local _ _PACKEDFAST
+   #pragma shader_feature_local _ _TRIPLANAR
+   #pragma shader_feature_local _ _NORMALMAP 
+   #pragma shader_feature_local _ _MASKMAP
+   #pragma shader_feature_local _ _DETAIL
+   #pragma shader_feature_local _ _DETAILTRIPLANAR
+   #pragma shader_feature_local _ _DETAILSTOCHASTIC
+   #pragma shader_feature_local _ _EMISSION
+   #pragma shader_feature_local _ _FLATSHADE
+   #pragma shader_feature_local _ _STOCHASTIC
+   #pragma shader_feature_local _ _PARALLAX //_POM
+   #pragma shader_feature_local _ _SPECULAR
+   #pragma shader_feature_local _ _NOISEWORLD _NOISELOCAL
+   #pragma shader_feature_local _ _NOISEHQ _NOISETEXTURE _NOISEWORLEY
+   //#pragma shader_feature_local _ _MICROSHADOW
+   //#pragma shader_feature_local _ _FUZZYSHADING 
+   //#pragma shader_feature_local _ _ALPHACUT
+   // only for URP/Standard Forward
+   #pragma shader_feature_local_fragment _ _SIMPLELIT
+END_DEFINES
+
+BEGIN_CBUFFER  
+   half4 _Tint;
+   half _UVSource;
+   half _TriplanarContrast;
+   half _AlbedoContrast;
+   half _AlbedoBrightness;
+   float4 _AlbedoMap_ST;
+   float4 _DetailMap_ST;
+   half _NormalStrength;
+   half3 _EmissionColor;
+   float _DetailUVSource;
+   half _StochasticScale;
+   half _DetailStochasticScale;
+   half _Smoothness;
+   half _Metallic;
+   half2 _SmoothnessRemap;
+   half2 _AORemap;
+   half2 _MetallicRemap;
+   half2 _HeightRemap;
+   half _DetailAlbedoStrength;
+   half _DetailNormalStrength;
+   half _DetailSmoothnessStrength;
+   half _AlphaThreshold;
+   half _Cutoff; // for Unity's light mapper
+   half _TriplanarSpace;
+   half _DetailTriplanarSpace;
+   half _DetailTriplanarContrast;
+   half _MicroShadowStrength;
+   half3 _FuzzyShadingColor;
+   half _FuzzyShadingOn;
+   half3 _FuzzyShadingParams;
+
+   //int _POMMaxSamples;
+   //float _POMMin;
+   //float _POMFade;
+#if _FLATSHADE
+   half _FlatShadingBlend;
+#endif
+
+   half _StochasticContrast;
+   half _DetailStochasticContrast;
+
+#if _PARALLAX || _POM
+   half _ParallaxHeight;
+#endif
+
+END_CBUFFER
+
+
+BEGIN_CODE
+
+   #if defined(_SPECULAR)
+      #define _USESPECULAR 1
+      #define _MATERIAL_FEATURE_SPECULAR_COLOR 1
+   #endif
+
+   
+   TEXTURE2D(_AlbedoMap);
+   SAMPLER(sampler_AlbedoMap);
+   TEXTURE2D(_NormalMap);
+   SAMPLER(sampler_NormalMap);
+   TEXTURE2D(_MaskMap);
+   TEXTURE2D(_DetailMap);
+   TEXTURE2D(_EmissionMap);
+
+   #if _SPECULAR
+       TEXTURE2D(_SpecularMap);
+   #endif
+
+   
+   
+   void SurfaceFunction(inout Surface o, inout ShaderData d)
+   {
+      // define samplers based on settings
+      #undef SAMPLEBARY
+      #undef SAMPLE
+      #undef SAMPLENORMAL
+      #if _STOCHASTIC && _TRIPLANAR
+        #define SAMPLEBARY SampleTexBaryStochasticTriplanar
+        #define SAMPLE     SampleTexStochasticTriplanar
+        #define SAMPLENORMAL SampleNormalStochasticTriplanar
+      #elif _STOCHASTIC
+        #define SAMPLEBARY SampleTexBaryStochastic
+        #define SAMPLE     SampleTexStochastic
+        #define SAMPLENORMAL SampleNormalStochastic
+      #elif _TRIPLANAR
+        #define SAMPLEBARY SampleTexBaryTriplanar
+        #define SAMPLE     SampleTexTriplanar
+        #define SAMPLENORMAL SampleNormalTriplanar
+      #else
+        #define SAMPLEBARY SampleTexBary
+        #define SAMPLE     SampleTex
+        #define SAMPLENORMAL SampleNormal
+      #endif
+
+      Config c = CreateConfig(d, _AlbedoMap_ST, _TriplanarSpace, _UVSource, _TriplanarContrast);
+      InitConfigDxDy(c);
+      #if _STOCHASTIC && !_TRIPLANAR
+         PrepareStochasticUVs(_StochasticScale, c.uv, c.uvT);
+         InitStochasticDxDy(c.uvT, c);
+      #elif _STOCHASTIC && _TRIPLANAR
+         PrepareStochasticUVs(_StochasticScale, c.uvT.uv0, c.uvX);
+         PrepareStochasticUVs(_StochasticScale, c.uvT.uv1, c.uvY);
+         PrepareStochasticUVs(_StochasticScale, c.uvT.uv2, c.uvZ);
+         InitStochasticDxDy(c.uvX, c);
+         InitStochasticDxDy(c.uvY, c);
+         InitStochasticDxDy(c.uvZ, c);
+      #endif
+
+      #if _POM
+          // would need to handle height remapping if we ever want to ship this
+          float2 pomOffset = POM(TEXTURE2D_ARGS(_AlbedoMap, sampler_AlbedoMap), c, _StochasticContrast, d);
+          OffsetUV(c, pomOffset);
+      #endif
+
+      half4 albedo = SAMPLEBARY(TEXTURE2D_ARGS(_AlbedoMap, sampler_AlbedoMap), c, _StochasticContrast, d);
+      
+      #if _PARALLAX
+         float2 offset = DoParallaxOffset(albedo.a, _ParallaxHeight, d.tangentSpaceViewDir);
+         OffsetUV(c, offset);
+         albedo = SAMPLE(TEXTURE2D_ARGS(_AlbedoMap, sampler_AlbedoMap), c);
+      #endif
+
+      albedo.a = lerp(_HeightRemap.x, _HeightRemap.y, albedo.a);
+      albedo.rgb *= _Tint.rgb;
+
+      albedo.rgb = AdjustContrast(albedo.rgb, _AlbedoContrast);
+      albedo.rgb += _AlbedoBrightness;
+
+
+      if (_AlphaThreshold > 0)
+      {
+         clip(albedo.a - _AlphaThreshold);
+      }
+
+      #if defined(_FLATSHADE)
+		     float3 dx = ddx(d.worldSpacePosition);
+		     float3 dy = ddy(d.worldSpacePosition);
+		     float3 worldNormal = normalize(cross(dy, dx));
+		     worldNormal = lerp(d.worldSpaceNormal, worldNormal, _FlatShadingBlend);
+		     d.worldSpaceNormal = worldNormal;
+		     d.TBNMatrix[2] = worldNormal;
+      #endif
+
+
+
+      o.Albedo = albedo.rgb;
+      o.Alpha = albedo.a;
+
+      float smoothness = _Smoothness;
+      float ao = 1;
+
+      #if defined(_NORMALMAP) && !defined(_AUTONORMAL)
+         o.Normal = SAMPLENORMAL(TEXTURE2D_ARGS(_NormalMap, sampler_NormalMap), c, d, _NormalStrength, smoothness, ao);
+         ao = lerp(_AORemap.x, _AORemap.y, ao);
+         smoothness = lerp(_SmoothnessRemap.x, _SmoothnessRemap.y, smoothness);
+      #endif
+
+      half detailMask = 1;
+      o.Smoothness = smoothness;
+      o.Occlusion = ao;
+      o.Metallic = _Metallic;
+      #if defined(_MASKMAP) && !_PACKEDFAST
+         // Unity mask map format (R) Metallic, (G) Occlusion, (B) Detail Mask (A) Smoothness
+         half4 mask = SAMPLE(TEXTURE2D_ARGS(_MaskMap, sampler_AlbedoMap), c);
+         o.Metallic = lerp(_MetallicRemap.x, _MetallicRemap.y, mask.r);
+         o.Occlusion = lerp(_AORemap.x, _AORemap.y, mask.g);
+         o.Smoothness = lerp(_SmoothnessRemap.x, _SmoothnessRemap.y, mask.a);
+         detailMask = mask.b;
+      #endif // separate maps
+
+      #if _SPECULAR
+         o.Specular = SAMPLE(TEXTURE2D_ARGS(_SpecularMap, sampler_AlbedoMap), c).rgb;
+      #endif
+
+      half3 emission = 0;
+      #if defined(_EMISSION)
+         o.Emission = SAMPLE(TEXTURE2D_ARGS(_EmissionMap, sampler_AlbedoMap), c).rgb * _EmissionColor;
+      #endif
+
+      if (_FuzzyShadingOn > 0)
+      {
+        o.Albedo *= FuzzyShade(d, albedo.a, _FuzzyShadingColor, o.Normal, _FuzzyShadingParams.x, _FuzzyShadingParams.y, _FuzzyShadingParams.z);
+      }
+
+
+      // HDRP style detail texturing
+
+      #if defined(_DETAIL)
+        #undef SAMPLEBARY
+        #undef SAMPLE
+        #undef SAMPLENORMAL
+        #if _DETAILSTOCHASTIC && _DETAILTRIPLANAR
+          #define SAMPLEBARY SampleTexBaryStochasticTriplanar
+          #define SAMPLE     SampleTexStochasticTriplanar
+          #define SAMPLENORMAL SampleNormalStochasticTriplanar
+        #elif _DETAILSTOCHASTIC
+          #define SAMPLEBARY SampleTexBaryStochastic
+          #define SAMPLE     SampleTexStochastic
+          #define SAMPLENORMAL SampleNormalStochastic
+        #elif _DETAILTRIPLANAR
+          #define SAMPLEBARY SampleTexBaryTriplanar
+          #define SAMPLE     SampleTexTriplanar
+          #define SAMPLENORMAL SampleNormalTriplanar
+        #else
+          #define SAMPLEBARY SampleTexBary
+          #define SAMPLE     SampleTex
+          #define SAMPLENORMAL SampleNormal
+        #endif
+
+         Config dc = CreateConfig(d, _DetailMap_ST, _DetailTriplanarSpace, _DetailUVSource, _DetailTriplanarContrast);
+         InitConfigDxDy(dc);
+         #if _DETAILSTOCHASTIC && !_DETAILTRIPLANAR
+             PrepareStochasticUVs(_DetailStochasticScale, dc.uv, dc.uvT);
+             InitStochasticDxDy(dc.uvT, dc);
+         #elif _DETAILSTOCHASTIC && _DETAILTRIPLANAR
+             PrepareStochasticUVs(_DetailStochasticScale, dc.uvT.uv0, dc.uvX);
+             PrepareStochasticUVs(_DetailStochasticScale, dc.uvT.uv1, dc.uvY);
+             PrepareStochasticUVs(_DetailStochasticScale, dc.uvT.uv2, dc.uvZ);
+             InitStochasticDxDy(dc.uvX, dc);
+             InitStochasticDxDy(dc.uvY, dc);
+             InitStochasticDxDy(dc.uvZ, dc);
+         #endif
+
+         half4 detailSample = SAMPLEBARY(TEXTURE2D_ARGS(_DetailMap, sampler_AlbedoMap), dc, _DetailStochasticContrast, d);
+         smoothness = detailSample.z;
+         #if !_AUTONORMAL
+            half3 dnormal = float3(detailSample.ag * 2 - 1, 1) * detailMask * _DetailNormalStrength;
+            dnormal.z = sqrt(1 - dnormal.x * dnormal.x - dnormal.y * dnormal.y);
+            #if _SURFACEGRADIENT
+               dnormal = ConvertNormalToGradient(d, dnormal);
+            #endif
+            o.Normal = LitBlendDetailNormal(o.Normal, dnormal);
+         #endif
+     
+         o.Albedo = lerp(o.Albedo, o.Albedo * 2 * detailSample.x,  detailMask * _DetailAlbedoStrength);
+         o.Smoothness = lerp(o.Smoothness, o.Smoothness * 2 * smoothness, detailMask * _DetailSmoothnessStrength);
+      #endif
+
+      if (_MicroShadowStrength > 0)
+      {
+        o.Occlusion *= MicroShadow(d, o.Normal, o.Alpha, o.Occlusion, _MicroShadowStrength);
+      }
+  
+      // in case something needs height in the stack..
+      o.Height = o.Alpha;
+
+
+      
+   }
+END_CODE
+
+

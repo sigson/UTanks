@@ -1,0 +1,1117 @@
+{
+  "garageShop": {
+    "WeaponKits": [
+      {
+        "PathName": ""
+      }
+    ],
+    "Turrets": [
+      {
+        "PathName": "garage\\weapon\\smoky",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\weapon\\smoky",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\weapon\\smoky",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\weapon\\smoky",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\smoky\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\weapon\\thunder",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\weapon\\thunder",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\weapon\\thunder",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\weapon\\thunder",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\thunder\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\weapon\\railgun",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\hd",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\weapon\\railgun",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\hd",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\weapon\\railgun",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\hd",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\weapon\\railgun",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\hd",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\railgun\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\weapon\\isis",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\isis\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\isis\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\weapon\\isis",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\isis\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\isis\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\weapon\\isis",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\isis\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\isis\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\weapon\\isis",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\isis\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\isis\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\weapon\\twins",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\twins\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\twins\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\weapon\\twins",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\twins\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\twins\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\weapon\\twins",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\twins\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\twins\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\weapon\\twins",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\twins\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\twins\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\weapon\\flamethrower",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\weapon\\flamethrower",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\weapon\\flamethrower",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\weapon\\flamethrower",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\weapon\\flamethrower\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      }
+    ],
+    "Hulls": [
+      {
+        "PathName": "garage\\hull\\hunter",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\hunter\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hunter\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\hull\\hunter",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\hunter\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hunter\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\hull\\hunter",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\hunter\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hunter\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\hull\\hunter",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\hunter\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hunter\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\hull\\dictator",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\hull\\dictator",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\hull\\dictator",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\hull\\dictator",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\dictator\\20",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\hull\\hornet",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\hd",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\hull\\hornet",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\hd",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\hull\\hornet",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\hd",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\hull\\hornet",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\old",
+            "Equiped": false
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\hornet\\hd",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\hull\\wasp",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\wasp\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\wasp\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\hull\\wasp",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\wasp\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\wasp\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\hull\\wasp",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\wasp\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\wasp\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\hull\\wasp",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\wasp\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\wasp\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\hull\\viking",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\viking\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\viking\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\hull\\viking",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\viking\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\viking\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\hull\\viking",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\viking\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\viking\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\hull\\viking",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\viking\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\viking\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\hull\\titan",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\titan\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\titan\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\hull\\titan",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\titan\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\titan\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\hull\\titan",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\titan\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\titan\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\hull\\titan",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\titan\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\titan\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      },
+	  {
+        "PathName": "garage\\hull\\mammoth",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\mammoth\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\mammoth\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 0
+      },
+	  {
+        "PathName": "garage\\hull\\mammoth",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\mammoth\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\mammoth\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 1
+      },
+	  {
+        "PathName": "garage\\hull\\mammoth",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\mammoth\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\mammoth\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 2
+      },
+	  {
+        "PathName": "garage\\hull\\mammoth",
+		"Skins": [
+          {
+            "SkinPathName": "garage\\skin\\tank\\mammoth\\default",
+            "Equiped": true
+          },
+		  {
+            "SkinPathName": "garage\\skin\\tank\\mammoth\\old",
+            "Equiped": false
+          }
+        ],
+        "Grade": 3
+      }
+    ],
+    "Colormaps": [
+      {
+        "PathName": "garage\\colormap\\green"
+      },
+	  {
+        "PathName": "garage\\colormap\\acid"
+      },
+	  {
+        "PathName": "garage\\colormap\\galaxy"
+      },
+	  {
+        "PathName": "garage\\colormap\\magma"
+      },
+	  {
+        "PathName": "garage\\colormap\\plazmoid"
+      },
+	  {
+        "PathName": "garage\\colormap\\startravelist"
+      },
+	  {
+        "PathName": "garage\\colormap\\microelectronic"
+      },
+	  {
+        "PathName": "garage\\colormap\\colorider"
+      },
+	  {
+        "PathName": "garage\\colormap\\holo"
+      },
+	  {
+        "PathName": "garage\\colormap\\hexagonity"
+      },
+	  {
+        "PathName": "garage\\colormap\\chuncker"
+      },
+	  {
+        "PathName": "garage\\colormap\\cubsat"
+      },
+	  {
+        "PathName": "garage\\colormap\\tvshow"
+      },
+	  {
+        "PathName": "garage\\colormap\\africa"
+      },
+	  {
+        "PathName": "garage\\colormap\\alien"
+      },
+	  {
+        "PathName": "garage\\colormap\\atom"
+      },
+	  {
+        "PathName": "garage\\colormap\\black"
+      },
+	  {
+        "PathName": "garage\\colormap\\blacksmith"
+      },
+	  {
+        "PathName": "garage\\colormap\\blue"
+      },
+	  {
+        "PathName": "garage\\colormap\\carbon"
+      },
+	  {
+        "PathName": "garage\\colormap\\cedar"
+      },
+	  {
+        "PathName": "garage\\colormap\\clay"
+      },
+	  {
+        "PathName": "garage\\colormap\\desert"
+      },
+	  {
+        "PathName": "garage\\colormap\\dirty"
+      },
+	  {
+        "PathName": "garage\\colormap\\electra"
+      },
+	  {
+        "PathName": "garage\\colormap\\eternity"
+      },
+	  {
+        "PathName": "garage\\colormap\\flora"
+      },
+	  {
+        "PathName": "garage\\colormap\\sandstone"
+      },
+	  {
+        "PathName": "garage\\colormap\\savanna"
+      },
+	  {
+        "PathName": "garage\\colormap\\izumurud"
+      },
+	  {
+        "PathName": "garage\\colormap\\forester"
+      },
+	  {
+        "PathName": "garage\\colormap\\fracture"
+      },
+	  {
+        "PathName": "garage\\colormap\\graffiti"
+      },
+	  {
+        "PathName": "garage\\colormap\\hohloma"
+      },
+	  {
+        "PathName": "garage\\colormap\\inferno"
+      },
+	  {
+        "PathName": "garage\\colormap\\irbis"
+      },
+	  {
+        "PathName": "garage\\colormap\\jade"
+      },
+	  {
+        "PathName": "garage\\colormap\\lava"
+      },
+	  {
+        "PathName": "garage\\colormap\\lead"
+      },
+	  {
+        "PathName": "garage\\colormap\\liquid_metal"
+      },
+	  {
+        "PathName": "garage\\colormap\\love"
+      },
+	  {
+        "PathName": "garage\\colormap\\marine"
+      },
+	  {
+        "PathName": "garage\\colormap\\mary"
+      },
+	  {
+        "PathName": "garage\\colormap\\metallic"
+      },
+	  {
+        "PathName": "garage\\colormap\\needle"
+      },
+	  {
+        "PathName": "garage\\colormap\\orange"
+      },
+	  {
+        "PathName": "garage\\colormap\\picasso"
+      },
+	  {
+        "PathName": "garage\\colormap\\prodigy"
+      },
+	  {
+        "PathName": "garage\\colormap\\python"
+      },
+	  {
+        "PathName": "garage\\colormap\\red"
+      },
+	  {
+        "PathName": "garage\\colormap\\rock"
+      },
+	  {
+        "PathName": "garage\\colormap\\roger"
+      },
+	  {
+        "PathName": "garage\\colormap\\ruby"
+      },
+	  {
+        "PathName": "garage\\colormap\\rust"
+      },
+	  {
+        "PathName": "garage\\colormap\\rustle"
+      },
+	  {
+        "PathName": "garage\\colormap\\safari"
+      },
+	  {
+        "PathName": "garage\\colormap\\sapphire"
+      },
+	  {
+        "PathName": "garage\\colormap\\spark"
+      },
+	  {
+        "PathName": "garage\\colormap\\storm"
+      },
+	  {
+        "PathName": "garage\\colormap\\swash"
+      },
+	  {
+        "PathName": "garage\\colormap\\taiga"
+      },
+	  {
+        "PathName": "garage\\colormap\\tundra"
+      },
+	  {
+        "PathName": "garage\\colormap\\urban"
+      },
+	  {
+        "PathName": "garage\\colormap\\white"
+      },
+	  {
+        "PathName": "garage\\colormap\\zeus"
+      },
+	  {
+        "PathName": "garage\\colormap\\digital"
+      },
+	  {
+        "PathName": "garage\\colormap\\blizzard"
+      },
+	  {
+        "PathName": "garage\\colormap\\sharax"
+      },
+	  {
+        "PathName": "garage\\colormap\\furryahegao"
+      },
+	  {
+        "PathName": "garage\\colormap\\nightcity"
+      },
+	  {
+        "PathName": "garage\\colormap\\liquid"
+      }
+    ],
+    "Modules": [
+      {
+        "PathName": "garage\\modules\\turretmodules\\smoky\\fastreload",
+        "Equiped": true
+      }
+    ],
+    "Supplies": [
+      {
+        "PathName": "garage\\supplies\\aid",
+        "Count": 999999
+      },
+	  {
+        "PathName": "garage\\supplies\\doublearmor",
+        "Count": 999999
+      },
+	  {
+        "PathName": "garage\\supplies\\doubledamage",
+        "Count": 999999
+      },
+	  {
+        "PathName": "garage\\supplies\\nitroboost",
+        "Count": 999999
+      },
+	  {
+        "PathName": "garage\\supplies\\mine",
+        "Count": 999999
+      },
+	  {
+        "PathName": "garage\\supplies\\goldbox",
+        "Count": 999999
+      },
+	  {
+        "PathName": "garage\\boosters\\scorepack",
+        "Count": 999999
+      }
+    ],
+    "OtherObjects": [
+      {
+        "PathName": "",
+        "Count": 1,
+        "TimeOfExpiration": 123
+      }
+    ],
+    "ModuleWithTimeExpiration": [
+      {
+        "PathName": "121",
+        "TimeOfExpiration": 1223
+      }
+    ]
+  }
+}

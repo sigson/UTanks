@@ -1,0 +1,7 @@
+{
+  "Network": {
+    "HostAddress": "https://github.com/trecim/spawner/blob/main/busta/addretto",
+    "HostPort": 6667,
+	"BufferSize" : 950
+  }
+}

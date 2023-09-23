@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6314d48cdaffd4c9b1ce26cc60e0a0, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  clearNameAssetsLoad: 1
+  parseInheritFiles: 0
+  ItemData:
+    dictionary:
+    - key: railgun_sound
+      value: {fileID: 8300000, guid: fb03b7ec5cc59934487ba999855b44de, type: 3}
+    - key: turret
+      value: {fileID: 8300000, guid: b997f1d13dfda06478e500ed352ddc04, type: 3}
+    - key: script
+      value: {fileID: 570233737989744293, guid: ca05c6dff79cff647bd992101f51cf8a, type: 3}
+    - key: charge_anim
+      value: {fileID: 3682305111351076532, guid: cb6b906e5638faf4bb9e28dadd184e86, type: 3}
+    - key: railgun_anim
+      value: {fileID: 6649922464626329382, guid: 31c6ea7d18867d643b52f9388c8bf3f3, type: 3}
+    - key: charge_part1
+      value: {fileID: 2800000, guid: cdbbb521063bfc74da1b1c056813f8e0, type: 3}
+    - key: charge_part2
+      value: {fileID: 2800000, guid: ae6da54d4bcb24d498bad5ba0b82582d, type: 3}
+    - key: charge_part3
+      value: {fileID: 2800000, guid: eff145de8718f3b46aab5e6a6bc57b1a, type: 3}
+    - key: railgun
+      value: {fileID: 2800000, guid: 58ec50727823322489f594e40072ec73, type: 3}
+  AppendBufferData:
+    dictionary: []
+  ItemColors:
+    dictionary:
+    - key: Main
+      value: {r: 0.69855815, g: 0.8867924, b: 0.87729084, a: 1}
