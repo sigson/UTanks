@@ -2,7 +2,7 @@ Hello! This is my implementation of the game Tanki Online on Unity 3D. <br />
 In order to assemble the project, you will need Visual Studio 2019 + .NET 5.0 and Unity Editor 2020.3.23f1. <br />
 After assembling the server, move the Data folder to the root of the assembled server without changing its name. The data for obfuscation is in the folder "Some Data", there are also instructions for use and the necessary materials. The project is provided "as is", errors will not be fixed, updates will not be released, however, you can send your questions to the appropriate section, I will try to answer them. <br />
 Briefly about the project - the ECS pattern is used as the basis for the architecture of client-server interaction, which I wrote from scratch to implement the tasks I needed. <br />
-All code for this project, as well as data for the Unity editor, is supplied under the MIT license and can be used in any of your projects without any restrictions. <br />
+All code for this project, as well as data for the Unity editor, is supplied under the MIT license (with the exception of the asset code from the asset store, they do not belong to me) and can be used in any of your projects without any restrictions. <br />
 P.S. <br />
 I hope that this project would become the basis for enthusiasts who want to create a game similar to Tanki Online and perhaps even see the light of day. <br />
 P.P.S. <br />
