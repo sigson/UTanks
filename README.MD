@@ -9,4 +9,4 @@ P.P.S. <br />
 Do not forget that almost all graphic resources in this game belong to Alternative 3D and you may encounter legal problems if you want to use them in your game for the purpose of making money or even just for distribution. <br />
 Good luck (on the battlefields)! <br />
 Demonstration: <br />
-![](https://github.com/sigson/UTanks/raw/master/preview_part1.mp4)
+![](preview_part1.mp4)
